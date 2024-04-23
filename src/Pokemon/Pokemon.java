@@ -1,4 +1,6 @@
-public class Pokemon 
+package Pokemon;
+
+public class Pokemon
 {
   private String m_name;
   private int m_hp;

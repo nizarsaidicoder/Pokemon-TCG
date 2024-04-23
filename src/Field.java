@@ -1,3 +1,6 @@
+import Pokemon.Pokemon;
+import Utils.HelperFunctions;
+
 import java.util.ArrayList;
 
 public class Field {
@@ -64,20 +67,20 @@ public class Field {
         for(Pokemon pokemon : pokemons)
         {
             String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
-            System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
+            System.out.print(HelperFunctions.padRight("| Pokemon.Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
             System.out.print("\t\t");
         }
         System.out.println();
         // DUMMY LOOP THAT SHOWS THE ELEMENTS THAT THE POKEMON IS STRONG AGAINST
-        // for(Pokemon pokemon : pokemons)
+        // for(Pokemon.Pokemon pokemon : pokemons)
         // {
         //     System.out.print("| Strong against :   |");
         //     System.out.print("\t\t");
         // }
         // System.out.println();
-        // for(Pokemon pokemon : pokemons) {
-        //     String foreColor = HelperFunctions.getCorrespondingColor("fire");
-        //     System.out.print(HelperFunctions.padRight("| " + foreColor + "fire", 26) + RESET + "|");
+        // for(Pokemon.Pokemon pokemon : pokemons) {
+        //     String foreColor = Utils.HelperFunctions.getCorrespondingColor("fire");
+        //     System.out.print(Utils.HelperFunctions.padRight("| " + foreColor + "fire", 26) + RESET + "|");
         //     System.out.print("\t\t");
         // }
         // System.out.println();
