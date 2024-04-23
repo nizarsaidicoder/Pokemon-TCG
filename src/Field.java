@@ -43,7 +43,7 @@ public class Field {
         for(Pokemon pokemon : pokemons)
         {
             String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
-            System.out.print("|     " + foreColor + HelperFunctions.padRight(pokemon.getName(),15)+ RESET+ "|");
+            System.out.print(HelperFunctions.padRight("|   " + foreColor + pokemon.getName(),26)+ RESET+ "|");
             System.out.print("\t\t");
         }
         System.out.println();
@@ -57,14 +57,14 @@ public class Field {
 
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print("| Attack: " + HelperFunctions.padRight(Integer.toString(pokemon.getAttack()),11) + "|");
+            System.out.print(HelperFunctions.padRight("| Attack: " + Integer.toString(pokemon.getAttack()),21) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
 
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print("| HP: " + HelperFunctions.padRight(Integer.toString(pokemon.getHP()),15) + "|");
+            System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(pokemon.getHP()),21) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
@@ -72,11 +72,23 @@ public class Field {
         for(Pokemon pokemon : pokemons)
         {
             String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
-            System.out.print("| Affinity : " + foreColor + HelperFunctions.padRight(pokemon.getAffinity(),8) + RESET + "|");
+            System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
             System.out.print("\t\t");
         }
         System.out.println();
-
+        // DUMMY LOOP THAT SHOWS THE ELEMENTS THAT THE POKEMON IS STRONG AGAINST
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("| Strong against :   |");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(Pokemon pokemon : pokemons) {
+            String foreColor = HelperFunctions.getCorrespondingColor("fire");
+            System.out.print(HelperFunctions.padRight("| " + foreColor + "fire", 26) + RESET + "|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
         for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print("|____________________|");
