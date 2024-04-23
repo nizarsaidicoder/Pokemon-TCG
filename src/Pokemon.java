@@ -1,2 +1,24 @@
-public class Pokemon {
+public class Pokemon 
+{
+  private String m_name;
+  private int m_hp;
+  private int m_hpMax;
+  private int m_attack;
+  private String m_affinity;
+
+  public Pokemon(String name, int hp, int hpMax, int attack, String affinity)
+  {
+    m_name = name;
+    m_hp = hp;
+    m_hpMax = hpMax;
+    m_attack = attack;
+    m_affinity = affinity;
+
+  }
+
+  @Override
+  public String toString()
+  {
+    return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity, m_hp, m_attack);
+  }
 }
