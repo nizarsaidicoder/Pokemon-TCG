@@ -45,8 +45,9 @@ public class Game
             //   - nombre de pokémons restants dans la pioche de l'IA
             //   - nombre de pokemons dans la cimetiere de l'IA
             //   - pokemon dans le terrain de l'IA
-            //  Le joueur actuel joue
-
+            //  Le joueur actuel joue contre l'autre joueur
+            // !!! Attention !!!
+            // Il faut passer l'autre joueur en paramètre de la méthode play, pour que le joueur actuel puisse attaquer l'autre joueur
             //  Appellez la méthode nextTurn
 
         // Appelez la méthode end

@@ -1,3 +1,4 @@
+import Others.Field;
 import Pokemon.Pokemon;
 
 public class Pookemon {
