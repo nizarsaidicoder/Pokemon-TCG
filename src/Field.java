@@ -21,4 +21,70 @@ public class Field {
     {
         pokemons.add(pokemon);
     }
+    public void attack(Field opponent)
+    {
+
+    }
+    public void displayField()
+    {
+        for (Pokemon pokemon : pokemons)
+        {
+            System.out.print(" ____________________ ");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("|                    |");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("|     " + HelperFunctions.padRight(pokemon.getName(),15)+ "|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("|____________________|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("| Attaque: " + HelperFunctions.padRight(Integer.toString(pokemon.getAttack()),10) + "|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("| Vie: " + HelperFunctions.padRight(Integer.toString(pokemon.getHP()),14) + "|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("| Affinité : " + HelperFunctions.padRight(pokemon.getAffinity(),8) + "|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("|____________________|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(Pokemon pokemon : pokemons)
+        {
+            System.out.print("\\____________________/");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+    }
 }

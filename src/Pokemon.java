@@ -15,10 +15,31 @@ public class Pokemon
     m_affinity = affinity;
 
   }
+  public String getName()
+  {
+    return m_name;
+  }
+    public int getHP()
+    {
+        return m_hp;
+    }
+    public int getHPMax()
+    {
+        return m_hpMax;
+    }
+    public int getAttack()
+    {
+        return m_attack;
+    }
+    public String getAffinity()
+    {
+        return m_affinity;
+    }
 
   @Override
   public String toString()
   {
     return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity, m_hp, m_attack);
   }
+
 }
