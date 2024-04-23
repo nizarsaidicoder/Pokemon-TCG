@@ -19,22 +19,22 @@ public class Pokemon
   {
     return m_name;
   }
-    public int getHP()
-    {
-        return m_hp;
-    }
-    public int getHPMax()
-    {
-        return m_hpMax;
-    }
-    public int getAttack()
-    {
-        return m_attack;
-    }
-    public String getAffinity()
-    {
-        return m_affinity;
-    }
+  public int getHP()
+  {
+      return m_hp;
+  }
+  public int getHPMax()
+  {
+      return m_hpMax;
+  }
+  public int getAttack()
+  {
+      return m_attack;
+  }
+  public String getAffinity()
+  {
+      return m_affinity;
+  }
 
   @Override
   public String toString()

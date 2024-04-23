@@ -1,14 +1,6 @@
 import java.util.ArrayList;
 
 public class Field {
-//  - pokemons: Pokemon[]
-//  + estVide() : Boolean
-//  + <<Create>> Terrain()
-//  + placerPokemon(pokemon: Pokemon)
-//  + attaquer(adversaire: Terrain)
-//  + afficheDebutJeu()
-//  + getPokemons() : Pokemon[]
-//  + afficherTerrain()
     private ArrayList<Pokemon> pokemons;
     public Field() {
         pokemons = new ArrayList<Pokemon>();
@@ -19,7 +11,7 @@ public class Field {
     }
     public void addPokemon(Pokemon pokemon)
     {
-        pokemons.add(pokemon);
+        if(isEmpty()) pokemons.add(pokemon);
     }
     public void attack(Field opponent)
     {
@@ -77,18 +69,18 @@ public class Field {
         }
         System.out.println();
         // DUMMY LOOP THAT SHOWS THE ELEMENTS THAT THE POKEMON IS STRONG AGAINST
-        for(Pokemon pokemon : pokemons)
-        {
-            System.out.print("| Strong against :   |");
-            System.out.print("\t\t");
-        }
-        System.out.println();
-        for(Pokemon pokemon : pokemons) {
-            String foreColor = HelperFunctions.getCorrespondingColor("fire");
-            System.out.print(HelperFunctions.padRight("| " + foreColor + "fire", 26) + RESET + "|");
-            System.out.print("\t\t");
-        }
-        System.out.println();
+        // for(Pokemon pokemon : pokemons)
+        // {
+        //     System.out.print("| Strong against :   |");
+        //     System.out.print("\t\t");
+        // }
+        // System.out.println();
+        // for(Pokemon pokemon : pokemons) {
+        //     String foreColor = HelperFunctions.getCorrespondingColor("fire");
+        //     System.out.print(HelperFunctions.padRight("| " + foreColor + "fire", 26) + RESET + "|");
+        //     System.out.print("\t\t");
+        // }
+        // System.out.println();
         for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print("|____________________|");
@@ -101,5 +93,9 @@ public class Field {
             System.out.print("\t\t");
         }
         System.out.println();
+    }
+    public ArrayList<Pokemon> getPokemons()
+    {
+        return pokemons;
     }
 }
