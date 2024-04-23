@@ -1,0 +1,123 @@
+@startuml
+!theme reddress-darkgreen
+title | POOKEMON |
+
+class Jeu {
+  - joueur : Joueur = null
+  - joueurIA : JoueurIA = null
+  - tour : Integer
+  - vainceur : Joueur = null
+  + <<Create>> Jeu()
+  + debuterPartie()
+  + determinerPremierJoueur(): Integer
+  + finaliserPartie()
+  + gameOver() : Boolean
+  + prochainTour()
+  + afficherTerrains()
+  + afficherDebutJeu()
+  + afficherFinJeu()
+}
+
+abstract class Joueur {
+  - terrain: Terrain
+  - numJoueur : Integer
+  - pioche: Pioche
+  - defausse: Defausse
+  - main : Pokemon[]
+  + <<Create>> Joueur()
+  + <<abstract>> jouerTour()
+  + placerPokemon(pokemon: Pokemon)
+  + piocher(): Pokemon
+  + afficherMain()
+}
+class JoueurIA
+{
+    + jouerTour()
+}
+class Terrain {
+  - pokemons: Pokemon[]
+  + estVide() : Boolean
+  + <<Create>> Terrain()
+  + placerPokemon(pokemon: Pokemon)
+  + attaquer(adversaire: Terrain)
+  + afficheDebutJeu()
+  + getPokemons() : Pokemon[]
+  + afficherTerrain()
+}
+class Main
+{
+    + nomPokemon : String[>= 21]
+}
+
+class Pioche {
+  - pokemons: Pokemon[]
+  + <<Create>> Pioche(nomPokemons : String[])
+  + piocher(): Pokemon
+}
+
+class Defausse {
+  - pokemons: Pokemon[]
+  + <<Create>> Defausse()
+  + ajouterPokemon(pokemon: Pokemon)
+}
+
+class Pokemon {
+  - nom: String
+  - pointsDeVie: Integer
+  - pointsDeVieMax : Integer
+  - attaque: Integer
+  - affinite: String
+  + <<Create>> Pokemon()
+  + attaquer(pokemon: Pokemon)
+  + isAlive() : Boolean
+}
+enum Affinites <<enumeration>>
+{
+    EAU
+    TERRE
+    FEU
+    AIR
+}
+abstract class Affinite
+{
+    + <<Create>> Affinite(affinite : Affinites)
+    + getAffinite() : Affinite
+}
+interface ImpactElementaire
+{
+    + impactSurEau() : Integer
+    + impactSurFeu() : Integer
+    + impactSurTerre() : Integer
+    + impactSurAir() : Integer
+}
+class Terre
+{
+    +<<Create>> Terre()
+}
+class Feu
+{
+    +<<Create>> Feu()
+}
+class Eau
+{
+    +<<Create>> Eau()
+}
+class Air
+{
+    +<<Create>> Air()
+}
+Joueur *-- Terrain
+Joueur *-- Pioche
+Joueur *-- Defausse
+JoueurIA --|> Joueur
+Terrain *-- Pokemon
+Pioche *-- Pokemon
+Defausse *-- Pokemon
+Affinite *-- ImpactElementaire
+Affinite <|-- Eau
+Affinite <|-- Air
+Affinite <|-- Terre
+Affinite <|-- Feu
+Affinites "affinite\n1,1" <-.  Affinite
+Main *-- Jeu
+@enduml
