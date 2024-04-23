@@ -27,13 +27,14 @@ public class Field {
     }
     public void displayField()
     {
-        for (Pokemon pokemon : pokemons)
+        String RESET = "\033[0m";  // Text Color Reset
+        for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print(" ____________________ ");
             System.out.print("\t\t");
         }
         System.out.println();
-        for(Pokemon pokemon : pokemons)
+        for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print("|                    |");
             System.out.print("\t\t");
@@ -41,12 +42,13 @@ public class Field {
         System.out.println();
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print("|     " + HelperFunctions.padRight(pokemon.getName(),15)+ "|");
+            String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
+            System.out.print("|     " + foreColor + HelperFunctions.padRight(pokemon.getName(),15)+ RESET+ "|");
             System.out.print("\t\t");
         }
         System.out.println();
 
-        for(Pokemon pokemon : pokemons)
+        for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print("|____________________|");
             System.out.print("\t\t");
@@ -55,32 +57,33 @@ public class Field {
 
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print("| Attaque: " + HelperFunctions.padRight(Integer.toString(pokemon.getAttack()),10) + "|");
+            System.out.print("| Attack: " + HelperFunctions.padRight(Integer.toString(pokemon.getAttack()),11) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
 
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print("| Vie: " + HelperFunctions.padRight(Integer.toString(pokemon.getHP()),14) + "|");
+            System.out.print("| HP: " + HelperFunctions.padRight(Integer.toString(pokemon.getHP()),15) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
 
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print("| Affinité : " + HelperFunctions.padRight(pokemon.getAffinity(),8) + "|");
+            String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
+            System.out.print("| Affinity : " + foreColor + HelperFunctions.padRight(pokemon.getAffinity(),8) + RESET + "|");
             System.out.print("\t\t");
         }
         System.out.println();
 
-        for(Pokemon pokemon : pokemons)
+        for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print("|____________________|");
             System.out.print("\t\t");
         }
         System.out.println();
-        for(Pokemon pokemon : pokemons)
+        for(int i = 0; i < pokemons.size(); i++)
         {
             System.out.print("\\____________________/");
             System.out.print("\t\t");
