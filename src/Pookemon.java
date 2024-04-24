@@ -25,6 +25,8 @@ public class Pookemon {
 
     Deck deck = new Deck(pokemons);
     deck.displayDeck();
-    
+
+    Graveyard graveyard = new Graveyard();
+    graveyard.displayGraveyard();
   }
 }
