@@ -6,24 +6,40 @@ import java.util.ArrayList;
 
 public class Hand 
 {
+    /**
+     * Attributs
+     */
     private ArrayList<Pokemon> m_pokemons;
-    //constructeur
+
+    /**
+     * Constructeur
+     */
     public Hand()
     {
         m_pokemons= new ArrayList<>();
     }
 
+    /**
+     * Constructeur avec paramètres
+     * @param pokemons
+     */
     public Hand(ArrayList<Pokemon> pokemons)
     {
         m_pokemons = pokemons;
     }
 
+    /**
+     * Ajoute un pokemon à notre main
+     * @param pokemon
+     */
     public void addPokemon(Pokemon pokemon)
     {
         m_pokemons.add(pokemon);
     }
 
-    //affichage de la main
+    /**
+     * Affichage de la main
+     */
     public void displayHand()
     {
         System.out.println("En main : ");
