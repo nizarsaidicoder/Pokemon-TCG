@@ -19,6 +19,18 @@ public class Pokemon
 
   }
 
+  public void attack(Pokemon pokemon)
+  {
+    if(m_attack > pokemon.m_hp)
+    {
+      pokemon.m_hp = 0;
+    }
+    else
+    {
+      pokemon.m_hp -= m_attack;
+    }
+  }
+
   //accesseurs
   public String getName()
   {

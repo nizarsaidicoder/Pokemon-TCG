@@ -24,7 +24,7 @@ public class Deck
      * @param pokemon
      * @return un pokémon (une carte)
      */
-    public Pokemon drawPokemon(Pokemon pokemon)
+    public Pokemon drawPokemon()
     {
         return m_pokemons.get(0);
     }

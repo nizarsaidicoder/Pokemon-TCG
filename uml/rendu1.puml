@@ -1,50 +1,101 @@
 @startuml POOKEMON
 !theme reddress-darkgreen
 title | POOKEMON |
+top to bottom direction
 
 package Others
 {
     class Deck 
     {
+        + "Create" Deck(pokemons : Pokemon*)
+        + drawPokemon(pokemon : Pokemon) : Pokemon
+        + displayDeck()
+        + toString() : String
     }
 
     class Field 
     {
-
+        + "Create" Field()
+        + isEmpty() : Boolean
+        + addPokemon(pokemon : Pokemon)
+        + displayField()  
+        + getPokemons() : Pokemon*
     }
 
     class Graveyard
     {
-
+        + "Create" Graveyard()
+        + addPokemon(pokemon : Pokemon)
+        + displayGraveyard()
+        + toString() : String
     }
 
     class Hand
     {
-
+        + "Create" Hand()
+        + "Create" Hand(pokemons : Pokemon*)
+        + addPokemon(pokemon : Pokemon)
+        + displayHand()
+        + toString() : String
     }
+
 }
+
+' Agrégations
+Deck o--> "m_pokemons" Pokemon.Pokemon
+Field o--> "m_pokemons" Pokemon.Pokemon
+Graveyard o--> "m_pokemons" Pokemon.Pokemon
+Hand o--> "m_pokemons" Pokemon.Pokemon
 
 package Player
 {
-    class Player{
-
+    class Player
+    {
+        - m_playerNumber : Integer
+        + "Create" Player()
+        + displayPlayer()
     }
 
     class AI 
     {
-
+        + "Create" Player()
+        + displayPlayer()
     }
 }
 
+Player.Player *--> "m_field" Others.Field
+Player.Player *--> "m_graveyard" Others.Graveyard
+Player.Player *--> "m_deck" Others.Deck
+Player.Player *--> "m_hand" Others.Hand
+
+AI --up-|> Player.Player
+
 package Pokemon 
 {
-    class Pokemon{
+    class Pokemon
+    {
+       - m_name : String
+       - m_hp : Integer
+       - m_hpMax : Integer
+       - m_attack : Integer
+       - m_affinity : String
 
+       + attack(pokemon : Pokemon) 
+       + getName() : String
+       + getHP() : Integer
+       + getHPMax : Integer
+       + getAttack : Integer
+       + getAffinity : String
+
+       + toString() : String
     }
 
     enum Element
     {
-
+        WATER
+        EARTH 
+        FIRE
+        AIR
     }
 
     class Affinity
@@ -57,18 +108,31 @@ package Utils
 {
     class HelperFunctions
     {
-
+        +{static}padRight(s : String, n : Integer) : String
+        +{static}padLeft(s : String, n : Integer) : String
+        +{static}getCorrespondingColor(affinity : String) : String
     }
 }
 
 class Game
 {
+    - m_currentPlayer : Integer
+    - m_turn : Integer
 
+    + "Create" Game()
+    + showGameStatus()
 }
+
+Game *--> "m_player" Player.Player
+Game *--> "m_ai" Player.AI
+Game *--> "m_winner" Player.Player
 
 class Pookemon 
 {
-    
+    +{static}main(arg : String*)
 }
+
+Pookemon --> "uses" Game
+Field --> "uses" Utils.HelperFunctions
 
 @enduml
