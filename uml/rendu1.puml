@@ -1,0 +1,74 @@
+@startuml POOKEMON
+!theme reddress-darkgreen
+title | POOKEMON |
+
+package Others
+{
+    class Deck 
+    {
+    }
+
+    class Field 
+    {
+
+    }
+
+    class Graveyard
+    {
+
+    }
+
+    class Hand
+    {
+
+    }
+}
+
+package Player
+{
+    class Player{
+
+    }
+
+    class AI 
+    {
+
+    }
+}
+
+package Pokemon 
+{
+    class Pokemon{
+
+    }
+
+    enum Element
+    {
+
+    }
+
+    class Affinity
+    {
+
+    }
+}
+
+package Utils
+{
+    class HelperFunctions
+    {
+
+    }
+}
+
+class Game
+{
+
+}
+
+class Pookemon 
+{
+    
+}
+
+@enduml
