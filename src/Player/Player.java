@@ -13,10 +13,13 @@ public class Player {
     protected Deck m_deck;
     protected Hand m_hand;
     protected int m_playerNumber;
-    
-    public Player()
+    /*
+     * Constructeur de la classe Player
+     */
+    public Player(int playerNumber)
     {
         // Initialise le deck, la main, le cimetière et le terrain
+        // Juste pour les tests pour l'instant
         m_field = new Field();
         m_field.addPokemon(new Pokemon("Pikachu", 100, 50,50, "earth"));
         m_field.addPokemon(new Pokemon("Bulbizarre", 100, 50, 80,"fire"));
@@ -27,7 +30,11 @@ public class Player {
         m_deck = new Deck(pokemons);
         pokemons.add(new Pokemon("Raikachu", 100, 50,50, "earth"));
         m_hand = new Hand(pokemons);
+        m_playerNumber = playerNumber;
     }
+    /*
+     * Methode pour piocher une carte
+     */
     public void draw()
     {
         // Pioche un pokemon dans le deck
@@ -35,41 +42,29 @@ public class Player {
         // Ajoute le pokemon à la main
 
     }
+    /*
+     * Methode pour attaquer un joueur
+     */
     public void attack(Player enemy)
     {
-        //
     }
+    /*
+     * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
+     */
     public void displayPlayer()
     {
         // Affiche le joueur
         System.out.println("Player : " + m_playerNumber);
-        showField();
-        showDeck();
-        showGraveyard();
-        showHand();
-    }
-
-    public void showDeck()
-    {
-        // Affiche le deck
-        m_deck.displayDeck();
-    }
-    public void showGraveyard()
-    {
-        // Affiche le cimetière
-        m_graveyard.displayGraveyard();
-    }
-    public void showField()
-    {
-        // Affiche le terrain
         m_field.displayField();
-    }
-    public void showHand()
-    {
-        // Affiche la main
+        System.out.println();
+        m_deck.displayDeck();
+        System.out.println();
+        m_graveyard.displayGraveyard();
+        System.out.println();
         m_hand.displayHand();
     }
-
-
-
+    public int getPlayerNumber()
+    {
+        return m_playerNumber;
+    }
 }

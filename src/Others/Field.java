@@ -6,14 +6,25 @@ import Utils.HelperFunctions;
 import java.util.ArrayList;
 
 public class Field {
+
     private ArrayList<Pokemon> pokemons ;
-    public Field() {
+    /*
+     * Constructeur de la classe Field
+     */
+    public Field() 
+    {
         pokemons = new ArrayList<Pokemon>(3);
     }
+    /*
+     * Methode pour savoir si le terrain est vide
+     */
     public boolean isEmpty()
     {
         return pokemons.size() < 4;
     }
+    /*
+     * Methode pour ajouter un pokemon au terrain
+     */
     public void addPokemon(Pokemon pokemon)
     {
         if(isEmpty())
@@ -22,12 +33,9 @@ public class Field {
 
         }
     }
-    public void attack(Field opponent)
-    {
-
-    }
-
-    //affichage du terrain
+    /*
+        * Methode pour afficher les pokemons sur le terrain
+     */
     public void displayField()
     {
         String RESET = "\033[0m";  // Text Color Reset
@@ -72,7 +80,7 @@ public class Field {
 
         for(Pokemon pokemon : pokemons)
         {
-            System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(pokemon.getHP()),21) + "|");
+            System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(pokemon.getHP()) + " / "+ Integer.toString(pokemon.getHPMax()),21) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
