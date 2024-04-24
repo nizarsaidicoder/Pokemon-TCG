@@ -8,6 +8,7 @@ public class Pokemon
   private int m_attack;
   private String m_affinity;
 
+  //constructeur
   public Pokemon(String name, int hp, int hpMax, int attack, String affinity)
   {
     m_name = name;
@@ -17,6 +18,8 @@ public class Pokemon
     m_affinity = affinity;
 
   }
+
+  //accesseurs
   public String getName()
   {
     return m_name;
