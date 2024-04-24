@@ -11,6 +11,7 @@ public class Player {
     private Deck m_deck;
     private Hand m_hand;
     private int m_playerNumber;
+    
     public Player()
     {
         // Initialise le deck, la main, le cimetière et le terrain

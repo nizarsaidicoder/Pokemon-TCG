@@ -26,6 +26,8 @@ public class Field {
     {
 
     }
+
+    //affichage du terrain
     public void displayField()
     {
         String RESET = "\033[0m";  // Text Color Reset
