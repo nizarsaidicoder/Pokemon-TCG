@@ -3,8 +3,8 @@ import Player.AI;
 
 public class Game
 {
-    private Player m_player;
-    private AI m_ai;
+    private Player m_player = new Player();
+    private AI m_ai = new AI();
     private Player m_currentPlayer;
     private Player m_winner = null;
     private int m_turn;
@@ -127,6 +127,13 @@ public class Game
     public void showGameStatus()
     {
         // Affiche le statut du jeu
+        System.out.println("****************************************************************************************");
+        showTurn();
+        showCurrentPlayer();
+        m_ai.displayPlayer();
+        System.out.println("-----------------------------------------------------------------------------------------");
+        m_player.displayPlayer();
+
         // - Affichez :
         //   - nombre de pokémons restants dans la pioche du joueur
         //   - nombre de pokemons dans la cimetiere du joueur
@@ -136,9 +143,5 @@ public class Game
         //   - nombre de pokémons restants dans la pioche de l'IA
         //   - nombre de pokemons dans la cimetiere de l'IA
         //   - pokemon dans le terrain de l'IA
-    }
-    public void showFields()
-    {
-        // Affiche les terrains des deux joueurs avec un delimiteur
     }
 }
