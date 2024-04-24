@@ -130,7 +130,6 @@ public class Game
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("|---------Turn : "+ m_turn + "----------|" + "|----------Current Player : " + m_currentPlayer.getPlayerNumber() + " -------------|");
         System.out.println("-----------------------------------------------------------------------------------------");
-
     }
     public void showGameStatus()
     {
@@ -148,15 +147,5 @@ public class Game
         System.out.println();
 
         m_player.displayPlayer();
-
-        // - Affichez :
-        //   - nombre de pokémons restants dans la pioche du joueur
-        //   - nombre de pokemons dans la cimetiere du joueur
-        //   - pokemon dans le terrain du joueur
-
-        // - Affichez :
-        //   - nombre de pokémons restants dans la pioche de l'IA
-        //   - nombre de pokemons dans la cimetiere de l'IA
-        //   - pokemon dans le terrain de l'IA
     }
 }
