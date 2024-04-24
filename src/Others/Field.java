@@ -6,17 +6,21 @@ import Utils.HelperFunctions;
 import java.util.ArrayList;
 
 public class Field {
-    private ArrayList<Pokemon> pokemons;
+    private ArrayList<Pokemon> pokemons ;
     public Field() {
-        pokemons = new ArrayList<Pokemon>();
+        pokemons = new ArrayList<Pokemon>(3);
     }
     public boolean isEmpty()
     {
-        return pokemons.isEmpty();
+        return pokemons.size() < 4;
     }
     public void addPokemon(Pokemon pokemon)
     {
-        if(isEmpty()) pokemons.add(pokemon);
+        if(isEmpty())
+        {
+            pokemons.add(pokemon);
+
+        }
     }
     public void attack(Field opponent)
     {
@@ -69,7 +73,7 @@ public class Field {
         for(Pokemon pokemon : pokemons)
         {
             String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
-            System.out.print(HelperFunctions.padRight("| Pokemon.Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
+            System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
             System.out.print("\t\t");
         }
         System.out.println();
