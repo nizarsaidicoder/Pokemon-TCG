@@ -3,18 +3,23 @@ import Player.AI;
 
 public class Game
 {
-    private Player m_player = new Player();
-    private AI m_ai = new AI();
+    private Player m_player;
+    private AI m_ai;
     private Player m_currentPlayer;
-    private Player m_winner = null;
+    private String m_winner;
     private int m_turn;
 
     /**
      * Constructeur de la classe Game
      */
-    public void Game()
+    public Game()
     {
         // Initialise les attributs de la classe
+        m_player = new Player(1);
+        m_ai = new AI(2);
+        m_currentPlayer = m_player;
+        m_winner = null;
+        m_turn = 99;
     }
 
     /**
@@ -116,22 +121,32 @@ public class Game
 
         // Affiche un message de bienvenue
     }
-    public void showTurn()
-    {
-        // Affiche le tour actuel
-    }
-    public void showCurrentPlayer()
+    /**
+     * Méthode pour afficher le tour actuel et le joueur actuel
+     */
+    public void showTurnAndCurrentPlayer()
     {
         // Affiche le joueur actuel
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|---------Turn : "+ m_turn + "----------|" + "|----------Current Player : " + m_currentPlayer.getPlayerNumber() + " -------------|");
+        System.out.println("-----------------------------------------------------------------------------------------");
+
     }
     public void showGameStatus()
     {
         // Affiche le statut du jeu
-        System.out.println("****************************************************************************************");
-        showTurn();
-        showCurrentPlayer();
-        m_ai.displayPlayer();
         System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("************************************** GAME STATUS **************************************");
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println();
+
+        showTurnAndCurrentPlayer();
+        m_ai.displayPlayer();
+        System.out.println();
+
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println();
+
         m_player.displayPlayer();
 
         // - Affichez :
