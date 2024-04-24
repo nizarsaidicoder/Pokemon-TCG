@@ -48,4 +48,10 @@ public class Hand
             System.out.println(String.format(" - %s", pokemon.toString()));
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Main : %d pokémons", m_pokemons.size());
+    }
 }
