@@ -55,7 +55,12 @@ public class Field {
             System.out.print("\t\t");
         }
         System.out.println();
-
+        for(int i = 0; i < pokemons.size(); i++)
+        {
+            System.out.print("|                    |");
+            System.out.print("\t\t");
+        }
+        System.out.println();
         for(Pokemon pokemon : pokemons)
         {
             System.out.print(HelperFunctions.padRight("| Attack: " + Integer.toString(pokemon.getAttack()),21) + "|");

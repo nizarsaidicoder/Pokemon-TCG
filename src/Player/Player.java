@@ -22,37 +22,11 @@ public class Player {
         // Ajoute le pokemon à la main
 
     }
-    public void play(Player enemy)
+    public void attack(Player enemy)
     {
-        // Phase de pioche
+        //
+    }
 
-        // Phase d'invocation
-
-        // Phase d'attaque
-    }
-    public void drawPhase()
-    {
-        // Phase de pioche
-            // Tant que le joueur n'a pas 5 cartes en main
-                // Pioche une carte
-    }
-    public void spawnPhase()
-    {
-        // Phase d'invocation
-            // Tant que le joueur a des cartes en main et que le terrain n'est pas plein
-                // Affiche la main
-                // Demande au joueur de choisir une carte
-                // Ajoute la carte au terrain
-    }
-    public void attackPhase()
-    {
-        // Phase d'attaque
-        // Variable pour stocker les pokemons jouables
-            // Tant que le joueur a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
-                // Affiche le terrain
-                // Demande au joueur de choisir une carte
-                // Attaque la carte choisie
-    }
     public void showDeck()
     {
         // Affiche le deck
