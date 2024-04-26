@@ -25,6 +25,10 @@ public class Player
     {
         // Initialise le deck, la main, le cimetière et le terrain
         // Juste pour les tests pour l'instant
+        m_field = new Field(3);
+        m_graveyard = new Graveyard(21);
+        m_deck = new Deck(21,pokemons);
+        m_hand = new Hand(5);
     }
 
     /*

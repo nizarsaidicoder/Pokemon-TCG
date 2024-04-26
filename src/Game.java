@@ -1,7 +1,6 @@
 import Player.Player;
 import Player.AI;
-import Pokemon.Pokemon;
-import Pokemon.Affinity;
+import Pokemon.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,22 +34,37 @@ public class Game
     {
         // appelez la méthode welcome
         welcome();
+        // Générez les pokémons
+        ArrayList<Pokemon> pokemons = generatePokemons();
         // Déterminez aléatoirement le premier joueur
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
         {
-            m_player = new Player(1);
-            m_ai = new AI(2);
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1);
+            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2);
             m_currentPlayer = m_player;
             m_opponent = m_ai;
         }
         else
         {
-            m_player = new Player(2);
-            m_ai = new AI(1);
+            m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2);
+            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1);
             m_currentPlayer = m_ai;
             m_opponent = m_player;
         }
+        //Testez si les pokémons sont générés correctement
+        // for each pokemon in pokemons print pokemon
+        System.out.println("Player's pokemons : ");
+        for(Pokemon pokemon : m_player.getDeck().getPokemons())
+        {
+            pokemon.display();
+        }
+        System.out.println("AI's pokemons : ");
+        for(Pokemon pokemon : m_ai.getDeck().getPokemons())
+        {
+            pokemon.display();
+        }
+
         // Affichez un message pour indiquer le début du jeu
         System.out.println("Let's DUEL !");
 
@@ -128,13 +142,27 @@ public class Game
             String name = m_pokemonNames.get(i);
             int hp = (int) (Math.random() * 11) * 10 + 100;
             int attack = (int) (Math.random() * 4 + 1) * 10;
-            String affinity = "Fire";
-//            pokemons.add(new Pokemon(name, hp, attack, affinity));
+            Affinity affinity = generateRandomAffinity();
+            pokemons.add(new Pokemon(name, hp,attack, affinity));
+        }
+        // shuffle the pokemons
+        Random rnd = new Random();
+        for(int i = 0; i < pokemons.size(); i++)
+        {
+            int randomIndexToSwap = rnd.nextInt(pokemons.size());
+            Pokemon temp = pokemons.get(randomIndexToSwap);
+            pokemons.set(randomIndexToSwap, pokemons.get(i));
+            pokemons.set(i, temp);
         }
         return pokemons;
     }
     public Affinity generateRandomAffinity()
     {
+        //Génération d'une affinité aléatoire
+        //Les affinités sont générées aléatoirement parmi les 3 affinités suivantes : EARTH, FIRE, WATER, AIR.
+        Affinity[] affinities = {new Earth(), new Fire(), new Water(), new Air()};
+        Random rnd = new Random();
+        return affinities[rnd.nextInt(4)];
     }
     /**
      * Méthode pour déterminer le premier joueur

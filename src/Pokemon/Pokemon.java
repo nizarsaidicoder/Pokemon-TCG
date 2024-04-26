@@ -1,4 +1,5 @@
 package Pokemon;
+import Utils.HelperFunctions;
 
 public class Pokemon
 {
@@ -13,11 +14,11 @@ public class Pokemon
   private boolean m_isPlayable;
 
   //constructeur
-  public Pokemon(String name, int hp, int hpMax, int attack, Affinity affinity)
+  public Pokemon(String name, int hp, int attack, Affinity affinity)
   {
     m_name = name;
     m_hp = hp;
-    m_hpMax = hpMax;
+    m_hpMax = hp;
     m_attack = attack;
     m_affinity = affinity;
   }
@@ -93,6 +94,11 @@ public class Pokemon
   {
       m_isPlayable = isPlayable;
   }
+  public void display()
+  {
+    String RESET = "\u001B[0m";
+    System.out.println(HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight(m_name,16) +RESET +  " | " + HelperFunctions.padRight(m_hp + " HP",10) + " | " + HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight( m_affinity.getAffinity().toString(), 10 )+RESET + " | " + m_attack + " Attack"  );
+  }
   @Override
   /**
    * Affichage pokémon
@@ -100,7 +106,7 @@ public class Pokemon
    */
   public String toString()
   {
-    return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity, m_hp, m_attack);
+    return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity.getAffinity(), m_hp, m_attack);
   }
 
 }

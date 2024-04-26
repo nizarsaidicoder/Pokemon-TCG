@@ -1,6 +1,8 @@
 package Pokemon;
 
-public abstract class Affinity 
+import java.util.ArrayList;
+
+public abstract class Affinity
 {
     /**
      * Attributs
@@ -11,7 +13,8 @@ public abstract class Affinity
     {
         m_element = element;
     }
-    
+
+
     public abstract Element getWeakness();
     public abstract Element getStrenght();
 
