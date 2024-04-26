@@ -38,6 +38,14 @@ public class Player {
     {
     }
     /*
+     * Methode pour savoir si le joueur est vaincu
+     * @return true si le joueur est vaincu, false sinon
+     */
+    public boolean isDefeated()
+    {
+        return m_field.isEmpty() && m_hand.isEmpty() && m_deck.isEmpty();
+    }
+    /*
      * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
      */
     public void display()

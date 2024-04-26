@@ -34,12 +34,12 @@ public class Field extends CardCollection {
             System.out.print("\t\t");
         }
         System.out.println();
-        for(Pokemon pokemon : m_pokemons)
-        {
-            String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
-            System.out.print(HelperFunctions.padRight("|   " + foreColor + pokemon.getName(),26)+ RESET+ "|");
-            System.out.print("\t\t");
-        }
+//        for(Pokemon pokemon : m_pokemons)
+//        {
+//            String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
+//            System.out.print(HelperFunctions.padRight("|   " + foreColor + pokemon.getName(),26)+ RESET+ "|");
+//            System.out.print("\t\t");
+//        }
         System.out.println();
 
         for(int i = 0; i < m_pokemons.size(); i++)
@@ -68,12 +68,12 @@ public class Field extends CardCollection {
         }
         System.out.println();
 
-        for(Pokemon pokemon : m_pokemons)
-        {
-            String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
-            System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
-            System.out.print("\t\t");
-        }
+//        for(Pokemon pokemon : m_pokemons)
+//        {
+//            String foreColor = HelperFunctions.getCorrespondingColor(pokemon.getAffinity());
+//            System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + pokemon.getAffinity(),26) + RESET + "|");
+//            System.out.print("\t\t");
+//        }
         System.out.println();
         // DUMMY LOOP THAT SHOWS THE ELEMENTS THAT THE POKEMON IS STRONG AGAINST
         // for(Pokemon.Pokemon pokemon : pokemons)

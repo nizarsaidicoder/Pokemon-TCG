@@ -1,11 +1,14 @@
 import Player.Player;
 import Player.AI;
 
+import java.util.Random;
+
 public class Game
 {
     private final Player m_player;
     private final AI m_ai;
     private Player m_currentPlayer;
+    private Player m_opponent;
     private String m_winner;
     private int m_turn;
 
@@ -15,11 +18,24 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
-        m_player = new Player(1);
-        m_ai = new AI(2);
-        m_currentPlayer = m_player;
+        welcome();
+        boolean firstPlayer = isFirstPlayer();
+        if (firstPlayer)
+        {
+            m_player = new Player(1);
+            m_ai = new AI(2);
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
+        }
+        else
+        {
+            m_player = new Player(2);
+            m_ai = new AI(1);
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
+        }
         m_winner = null;
-        m_turn = 99;
+        m_turn = 0;
     }
 
     /**
@@ -79,14 +95,65 @@ public class Game
      * Méthode pour déterminer le premier joueur
      * @return 1 si le joueur commence, 2 si l'IA commence
      */
-    public int determineFirstPlayer()
+
+    public boolean isFirstPlayer()
     {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         // Choisissez aléatoirement le premier joueur
-
         // Affichez un message pour indiquer qui commence
+        System.out.println("Deciding who starts ...");
+        // Prompt the user to press Enter to continue
+        System.out.println("Press Enter to continue ...");
+        // Wait for the user to press Enter
+        try
+        {
+            System.in.read();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        // Prompt the user to choose Heads or Tails
+        System.out.println("Heads or Tails ?");
+        // Wait for the user to enter Heads or Tails
+        String choice = "";
+        try
+        {
+            int character;
+            while((character = System.in.read()) != '\n')
+            {
+                choice += (char) character;
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(choice.equals("Heads") || choice.equals("Tails"))
+        {
+            Random rnd = new Random();
+            int firstPlayer = rnd.nextInt(2) + 1;
+            if((firstPlayer == 1 && choice.equals("Heads")) || (firstPlayer == 2 && choice.equals("Tails")))
+            {
+                System.out.println("You start !");
+                return true;
+            }
+            else
+            {
+                System.out.println("Computer starts !");
+                return false;
+            }
+            // Affichez le résultat du lancer de pièce
 
-        // Retourne "1" si le joueur commence ou "2" si l'IA commence
-        return 1;
+        }
+        else
+        {
+            // Affichez un message d'erreur
+            System.out.println("Invalid choice. Please enter Heads or Tails.");
+            // Rappeler la méthode isFirstPlayer
+            return isFirstPlayer();
+        }
     }
     /**
      * Méthode pour basculer entre les joueurs
@@ -94,6 +161,7 @@ public class Game
     public void switchPlayer()
     {
         // Changez le joueur actuel
+        m_currentPlayer = m_currentPlayer == m_player ? m_ai : m_player;
     }
     /**
      * Méthode pour passer au tour suivant
@@ -101,6 +169,7 @@ public class Game
     public void nextTurn()
     {
         // Incrémentez le tour actuel
+        m_turn++;
     }
     /**
      * Méthode pour vérifier si le jeu est terminé
@@ -109,6 +178,16 @@ public class Game
     public boolean isGameOver()
     {
         // Le jeu est terminé si et seulement si player.isDefeated() ou ai.isDefeated() est vrai
+        if(m_player.isDefeated())
+        {
+            m_winner = "Computer";
+            return true;
+        }
+        if(m_ai.isDefeated())
+        {
+            m_winner = "You";
+            return true;
+        }
         // Si le jeu est terminé, mettez à jour le gagnant
         return false;
     }
@@ -118,8 +197,40 @@ public class Game
     public void welcome()
     {
         // Affiche le logo du jeu
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        final String RESET = "\033[0m";  // Text Reset
+        final String YELLOW = "\033[0;33m";    // YELLOW
+        String pikachuArt = "⠐⣶⣾⣭⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡄⠀⠄⠀⠀⠀⠀⠀\n" +
+                "⠀⠹⣿⣿⣧⠈⠙⠳⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠴⢻⣿⣿⣿⢇⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠘⢿⣿⡄⠀⠀⠀⠙⢿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠛⠉⠀⠀⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠈⠻⣧⠀⠀⠀⠀⠀⠙⢿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠉⠀⠀⠀⠀⢰⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠘⢷⣀⠀⠀⠀⠀⠀⠹⣦⡀⠀⢀⣀⣀⣀⣰⣶⣦⣀⣀⡀⠀⠀⣠⡶⠋⠁⠀⠀⠀⠀⠀⢀⣾⡻⠋⠀⠀⡀⣀⣄⣤⡤⣦\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠙⢦⣄⠀⠀⠀⠀⠈⣷⠶⠛⠉⠉⠁⠀⠀⠈⠉⠉⠛⠿⡿⠟⠁⠀⠀⠀⠀⢀⣠⣶⡿⠋⣀⣤⠼⠗⠛⠉⠁⠀⠀⡟\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠷⢦⣀⣰⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣄⣤⣶⣟⣣⡽⡿⠟⠋⠀⠀⠀⠀⠀⠀⢀⣾⡟\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠒⠿⡷⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⠏⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢫⣯⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⣴⣿⠻⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⣴⡻⣿⣷⡀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠇⠀⣿⡿⢿⣿⠃⠀⠀⠀⣀⣀⠀⠀⠀⣿⣿⣿⣿⠇⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⣾⠟⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⡤⣤⡈⠉⠉⠁⠀⠀⠀⠀⠉⠉⠀⠀⠀⠀⠉⠛⠃⢀⣠⣈⣧⠀⠀⣤⣴⡶⠿⠿⠛⠉⠉⠁⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠙⣦⠀⠀⠀⠳⠤⠴⠞⠛⠦⣤⠾⠃⠀⠀⣼⠋⠀⠈⣿⠀⠀⠈⣷⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⡄⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠄⠀⣰⡟⠀⠀⠀⠀⠻⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣶⣛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢒⣶⣿⢻⣷⣤⠀⠀⠀⠈⢻⣦⡀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⡇⠙⠳⣦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠶⠋⢸⡷⠞⠋⠀⣀⣠⣶⠞⠿⠙⠃⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠁⠀⠀⠀⠉⠓⠭⣷⣦⣤⣤⡴⠦⣺⠛⠉⠀⠀⠀⠈⣷⠀⢶⣿⣟⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡞⠁⠀⠀⠀⠀⠀⠀⠀⣦⠀⠀⠀⠀⣰⠏⠀⠀⠀⠀⠀⠀⠘⣷⣀⣨⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⡋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⣠⣄⣀⣠⡟⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠈⣇⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⢀⡇⠀⠘⣷⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⢰⣿⣿⣛⣿⣁⠀⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⢸⣱⣿⣷⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠈⢿⣿⠻⣤⣉⠷⠀⠸⣇⠀⠀⠀⠀⠀⠀⠀⣿⠰⠠⡏⠀⠀⠀⠀⠀⠀⣰⠇⠀⢀⡴⢛⣱⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠈⠛⢷⡀⠈⠳⣄⠀⠹⣦⠀⠀⠀⠀⠀⠀⡟⠀⠀⣷⠀⠀⠀⠀⠀⣰⠏⠀⢀⣴⠚⠉⣸⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⢹⣦⡀⠈⠃⣦⠘⢷⡀⠀⠀⠀⢀⣧⣤⣤⣿⠀⠀⠀⢀⣼⠃⣀⠒⠛⢀⣤⣾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣛⣦⠴⢿⢶⣿⣿⡤⢴⣶⢿⡛⠁⠙⣿⣶⣤⣤⣾⣗⢶⣯⣤⣴⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
 
+        System.out.println( YELLOW+ pikachuArt +  RESET);
         // Affiche un message de bienvenue
+        System.out.println("|------------ Welcome to Pokemon Battle -----------|");
+        System.out.println("Game is starting ...");
     }
     /**
      * Méthode pour afficher le tour actuel et le joueur actuel
