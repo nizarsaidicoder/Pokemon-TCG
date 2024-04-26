@@ -38,6 +38,13 @@ public class Pokemon
     // Le pokemon est vivant si et seulement si m_hp > 0
     return false;
   }
+  /*
+    * Méthode pour vérifier si le pokemon est jouable
+   */
+  public boolean isPlayable()
+  {
+    return m_isPlayable;
+  }
 
   //accesseurs
   public String getName()
@@ -64,11 +71,6 @@ public class Pokemon
   {
       m_isPlayable = isPlayable;
   }
-    public boolean isPlayable()
-    {
-        return m_isPlayable;
-    }
-
   @Override
   public String toString()
   {
