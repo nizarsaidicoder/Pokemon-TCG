@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Game
 {
-    private final Player m_player;
-    private final AI m_ai;
+    private Player m_player;
+    private AI m_ai;
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
@@ -18,7 +18,18 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
+        m_winner = null;
+        m_turn = 0;
+    }
+
+    /**
+     * Méthode pour démarrer le jeu
+     */
+    public void start()
+    {
+        // appelez la méthode welcome
         welcome();
+        // Déterminez aléatoirement le premier joueur
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
         {
@@ -34,53 +45,58 @@ public class Game
             m_currentPlayer = m_ai;
             m_opponent = m_player;
         }
-        m_winner = null;
-        m_turn = 0;
-    }
-
-    /**
-     * Méthode pour démarrer le jeu
-     */
-    public void start()
-    {
-        // appelez la méthode welcome
-
-        // Déterminez aléatoirement le premier joueur
-
         // Affichez un message pour indiquer le début du jeu
+        System.out.println("Let's DUEL !");
 
-        // Tant que le jeu n'est pas terminé
-//             drawPhase();
-//             spawnPhase();
-//             attackPhase();
-//             endPhase();
-        // Appelez la méthode end
+    }
+    public void play()
+    {
+        while (!isGameOver())
+        {
+            showGameStatus();
+            drawPhase();
+            spawnPhase();
+            attackPhase();
+            endPhase();
+        }
+        end();
     }
     /**
      * Méthode pour terminer le jeu
      */
     public void end()
     {
-        // Affichez un message pour indiquer la fin du jeu
-        // Affichez le gagnant
+        System.out.println("Game Over !");
+        showWinner();
+        showCredits();
     }
     public void drawPhase()
     {
-        // tant que le joueur actuel n'a pas 5 cartes en main
-        // affiche le statut du jeu ( en-tete, joueur1, joueur2)
-        //  currentPlayer.draw();
+        // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
+        while(m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getDeck().isEmpty())
+        {
+            showGameStatus();
+            m_currentPlayer.draw();
+        }
     }
     public void spawnPhase()
     {
         // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
-        // affiche le statut du jeu ( en-tete, joueur1, joueur2)
-        //  currentPlayer.spawn();
+        while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
+        {
+            showGameStatus();
+            m_currentPlayer.spawn();
+        }
+        m_currentPlayer.setPlayablePokemons();
     }
     public void attackPhase()
     {
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
-        // affiche le statut du jeu ( en-tete, joueur1, joueur2)
-        //  currentPlayer.attack(opponent);
+        while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
+        {
+            showGameStatus();
+            m_currentPlayer.attack(m_opponent);
+        }
         // !!! Attention !!!
         // Il faut passer l'autre joueur en paramètre de la méthode play, pour que le joueur actuel puisse attaquer l'autre joueur
     }
@@ -88,8 +104,8 @@ public class Game
     public void endPhase()
     {
         // Phase de fin
-        // basculer entre les joueurs
-        // incrémenter le tour
+        switchPlayer();
+        nextTurn();
     }
     /**
      * Méthode pour déterminer le premier joueur
@@ -160,7 +176,6 @@ public class Game
      */
     public void switchPlayer()
     {
-        // Changez le joueur actuel
         m_currentPlayer = m_currentPlayer == m_player ? m_ai : m_player;
     }
     /**
@@ -168,7 +183,6 @@ public class Game
      */
     public void nextTurn()
     {
-        // Incrémentez le tour actuel
         m_turn++;
     }
     /**
@@ -258,5 +272,27 @@ public class Game
         System.out.println();
 
         m_player.display();
+    }
+    public void showWinner()
+    {
+        // Affiche le gagnant
+        if(m_winner == "Computer")
+        {
+            System.out.println("Computer wins !");
+        }
+        else if(m_winner == "You")
+        {
+            System.out.println("You win !");
+        }
+    }
+    public void showCredits()
+    {
+        // Affiche les crédits
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("************************************** CREDITS **************************************");
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("Developed by : ");
+        System.out.println("HAGGUI NESRINE AND SAIDI NIZAR");
+        System.out.println("-----------------------------------------------------------------------------------------");
     }
 }

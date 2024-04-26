@@ -88,6 +88,10 @@ public abstract class CardCollection {
         // cette methode ne retourne pas une copie
         return null;
     }
+    public ArrayList<Pokemon> getPokemons()
+    {
+        return m_pokemons;
+    }
     /*
         * Methode pour afficher les pokemons de la collection
      */

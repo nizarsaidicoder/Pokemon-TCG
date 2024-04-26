@@ -7,6 +7,7 @@ public class Pokemon
   private int m_hpMax;
   private int m_attack;
   private Affinity m_affinity;
+  private boolean m_isPlayable;
 
   //constructeur
   public Pokemon(String name, int hp, int hpMax, int attack, Affinity affinity)
@@ -59,6 +60,14 @@ public class Pokemon
   {
       return m_affinity;
   }
+  public void setPlayable(boolean isPlayable)
+  {
+      m_isPlayable = isPlayable;
+  }
+    public boolean isPlayable()
+    {
+        return m_isPlayable;
+    }
 
   @Override
   public String toString()

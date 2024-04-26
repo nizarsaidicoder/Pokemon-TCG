@@ -31,11 +31,47 @@ public class Player {
         // Ajoute le pokemon à la main
 
     }
+    public void spawn()
+    {
+        // Ajoute un pokemon du terrain
+    }
     /*
      * Methode pour attaquer un joueur
      */
     public void attack(Player enemy)
     {
+    }
+    public void setPlayablePokemons()
+    {
+        // Parcourt la main et met à jour les pokemons jouables
+//        for(Pokemon pokemon : m_field.getPokemons())
+//        {
+//            pokemon.setPlayable(true);
+//        }
+    }
+    public boolean hasPlayablePokemons()
+    {
+        ArrayList<Pokemon> playablePokemons = new ArrayList<>();
+        for(Pokemon pokemon : m_field.getPokemons())
+        {
+            if(pokemon.isPlayable())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public ArrayList<Pokemon> getPlayablePokemons()
+    {
+        ArrayList<Pokemon> playablePokemons = new ArrayList<>();
+        for(Pokemon pokemon : m_field.getPokemons())
+        {
+            if(pokemon.isPlayable())
+            {
+                playablePokemons.add(pokemon);
+            }
+        }
+        return playablePokemons;
     }
     /*
      * Methode pour savoir si le joueur est vaincu
@@ -64,4 +100,21 @@ public class Player {
     {
         return m_playerNumber;
     }
+    public Field getField()
+    {
+        return m_field;
+    }
+    public Deck getDeck()
+    {
+        return m_deck;
+    }
+    public Hand getHand()
+    {
+        return m_hand;
+    }
+    public Graveyard getGraveyard()
+    {
+        return m_graveyard;
+    }
+
 }
