@@ -12,6 +12,7 @@ public class Player
     /**
      * Attributs
      */
+    private String m_name;
     protected Field m_field;
     protected Graveyard m_graveyard;
     protected Deck m_deck;
@@ -21,10 +22,15 @@ public class Player
     /*
      * Constructeur de la classe Player
      */
-    public Player(ArrayList<Pokemon> pokemons,int playerNumber)
+    public Player(ArrayList<Pokemon> pokemons,int playerNumber,String name)
     {
         // Initialise le deck, la main, le cimetière et le terrain
-        // Juste pour les tests pour l'instant
+        m_field = new Field(3);
+        m_graveyard = new Graveyard(21);
+        m_deck = new Deck(21,pokemons);
+        m_hand = new Hand(5);
+        m_playerNumber = playerNumber;
+        m_name = name;
     }
 
     /*
@@ -33,9 +39,10 @@ public class Player
     public void draw()
     {
         // Pioche un pokemon dans le deck
-
+        Pokemon pokemon = m_deck.pickPokemon(0);
         // Ajoute le pokemon à la main
-
+        showDraw(pokemon);
+        m_hand.addPokemon(pokemon);
     }
     public void spawn()
     {
@@ -54,6 +61,10 @@ public class Player
 //        {
 //            pokemon.setPlayable(true);
 //        }
+    }
+    public void showDraw(Pokemon pokemon)
+    {
+        System.out.println( m_name+ " Drew " + pokemon.toString());
     }
     public boolean hasPlayablePokemons()
     {

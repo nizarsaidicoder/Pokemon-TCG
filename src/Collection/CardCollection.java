@@ -65,6 +65,15 @@ public abstract class CardCollection {
         // Sinon
         return null;
     }
+    public Pokemon pickPokemon(int index)
+    {
+        // Verifie si le pokemon ecist
+        // Retire le pokemon de la main
+        // decremente m_size par 1
+        // Retourne le pokemon
+        // Sinon
+        return null;
+    }
     /*
      * Methode pour verifier si un pokemon existe dans la collection
      * @return l'indice du pokemon dans la collection, -1 sinon
