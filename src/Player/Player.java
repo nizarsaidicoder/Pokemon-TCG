@@ -7,12 +7,17 @@ import Pokemon.Pokemon;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player 
+{
+    /**
+     * Attributs
+     */
     protected Field m_field;
     protected Graveyard m_graveyard;
     protected Deck m_deck;
     protected Hand m_hand;
     protected int m_playerNumber;
+
     /*
      * Constructeur de la classe Player
      */
@@ -21,9 +26,10 @@ public class Player {
         // Initialise le deck, la main, le cimetière et le terrain
         // Juste pour les tests pour l'instant
     }
+
     /*
-     * Methode pour piocher une carte
-     */
+    * Methode pour piocher une carte
+    */
     public void draw()
     {
         // Pioche un pokemon dans le deck
@@ -96,6 +102,11 @@ public class Player {
         System.out.println();
         m_hand.display();
     }
+
+    /**
+     * Retourn le numéro du joueur
+     * @return numéro joueur
+     */
     public int getPlayerNumber()
     {
         return m_playerNumber;

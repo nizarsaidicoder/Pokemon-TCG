@@ -16,7 +16,7 @@ public class Field extends CardCollection {
     }
 
     /*
-        * Methode pour afficher les pokemons sur le terrain
+     * Methode pour afficher les pokemons sur le terrain
      */
     @Override
     public void display()
@@ -67,6 +67,7 @@ public class Field extends CardCollection {
             System.out.print("\t\t");
         }
         System.out.println();
+        // FIXXXXXXXXXXXXXXXXXX ME
 
 //        for(Pokemon pokemon : m_pokemons)
 //        {

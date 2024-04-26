@@ -1,6 +1,7 @@
 package Player;
 
-public class AI extends Player {
+public class AI extends Player 
+{
     /**
      * Constructeur de la classe AI
      */
@@ -10,6 +11,7 @@ public class AI extends Player {
         // Juste pour les tests pour l'instant
         super(playerNumber);
     }
+
     @Override
     public void display()
     {

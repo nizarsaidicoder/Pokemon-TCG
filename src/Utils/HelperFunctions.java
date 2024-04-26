@@ -1,13 +1,34 @@
 package Utils;
 
-public class HelperFunctions {
-    public static String padRight(String s, int n) {
+public class HelperFunctions 
+{
+    /**
+     * Remplit n espaces nécessaire pour compléter une chaîne de caractères par la droite
+     * @param s chaîne de caractères à compléter
+     * @param n nombre espaces nécessaire
+     * @return la chaîne de caractère modifiée
+     */
+    public static String padRight(String s, int n)
+    {
         return String.format("%-" + n + "s", s);
-      }
-    public static String padLeft(String s, int n) {
-        return String.format("%" + n + "s", s);
-      }
+    }
 
+    /**
+     * Remplit n espaces nécessaire pour compléter une chaîne de caractères par la gauche
+     * @param s chaîne de caractères à compléter
+     * @param n nombre espaces nécessaire
+     * @return la chaîne de caractère modifiée
+     */
+    public static String padLeft(String s, int n) 
+    {
+        return String.format("%" + n + "s", s);
+    }
+
+    /**
+     * Retourne la couleur en fonction de l'affinité envoyée en argument
+     * @param affinity nom affinité
+     * @return couleur
+     */
     public static String getCorrespondingColor(String affinity) {
         String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
