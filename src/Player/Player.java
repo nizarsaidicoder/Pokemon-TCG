@@ -40,7 +40,7 @@ public class Player {
     /*
      * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
      */
-    public void displayPlayer()
+    public void display()
     {
         // Affiche le joueur
         System.out.println("Player : " + m_playerNumber);

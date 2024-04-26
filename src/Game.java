@@ -3,8 +3,8 @@ import Player.AI;
 
 public class Game
 {
-    private Player m_player;
-    private AI m_ai;
+    private final Player m_player;
+    private final AI m_ai;
     private Player m_currentPlayer;
     private String m_winner;
     private int m_turn;
@@ -140,12 +140,12 @@ public class Game
         System.out.println();
 
         showTurnAndCurrentPlayer();
-        m_ai.displayPlayer();
+        m_ai.display();
         System.out.println();
 
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println();
 
-        m_player.displayPlayer();
+        m_player.display();
     }
 }

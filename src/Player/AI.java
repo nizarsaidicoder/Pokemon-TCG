@@ -11,7 +11,7 @@ public class AI extends Player {
         super(playerNumber);
     }
     @Override
-    public void displayPlayer()
+    public void display()
     {
         // Affiche le joueur
         System.out.println("Player : " + m_playerNumber);

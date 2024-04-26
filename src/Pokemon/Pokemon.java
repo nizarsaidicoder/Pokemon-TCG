@@ -6,17 +6,16 @@ public class Pokemon
   private int m_hp;
   private int m_hpMax;
   private int m_attack;
-  private String m_affinity;
+  private Affinity m_affinity;
 
   //constructeur
-  public Pokemon(String name, int hp, int hpMax, int attack, String affinity)
+  public Pokemon(String name, int hp, int hpMax, int attack, Affinity affinity)
   {
     m_name = name;
     m_hp = hp;
     m_hpMax = hpMax;
     m_attack = attack;
     m_affinity = affinity;
-
   }
 
   public void attack(Pokemon pokemon)
@@ -29,6 +28,14 @@ public class Pokemon
     {
       pokemon.m_hp -= m_attack;
     }
+  }
+  /*
+    * Méthode pour vérifier si le pokemon est vivant
+   */
+  public boolean isAlive()
+  {
+    // Le pokemon est vivant si et seulement si m_hp > 0
+    return false;
   }
 
   //accesseurs
@@ -48,7 +55,7 @@ public class Pokemon
   {
       return m_attack;
   }
-  public String getAffinity()
+  public Affinity getAffinity()
   {
       return m_affinity;
   }
