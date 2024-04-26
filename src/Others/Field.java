@@ -5,9 +5,13 @@ import Utils.HelperFunctions;
 
 import java.util.ArrayList;
 
-public class Field {
+public class Field 
+{
+    /**
+     * Attributs
+     */
+    private ArrayList<Pokemon> pokemons;
 
-    private ArrayList<Pokemon> pokemons ;
     /*
      * Constructeur de la classe Field
      */
@@ -15,15 +19,19 @@ public class Field {
     {
         pokemons = new ArrayList<Pokemon>(3);
     }
-    /*
-     * Methode pour savoir si le terrain est vide
+
+    /**
+     * Vérifie si le terrain est vide
+     * @return true si vide / false sinon
      */
     public boolean isEmpty()
     {
         return pokemons.size() < 4;
     }
-    /*
-     * Methode pour ajouter un pokemon au terrain
+
+    /**
+     * Ajoute un pokemon au terrain
+     * @param pokemon
      */
     public void addPokemon(Pokemon pokemon)
     {
@@ -33,9 +41,10 @@ public class Field {
 
         }
     }
+
     /*
-        * Methode pour afficher les pokemons sur le terrain
-     */
+    * Methode pour afficher les pokemons sur le terrain
+    */
     public void displayField()
     {
         String RESET = "\033[0m";  // Text Color Reset
@@ -118,6 +127,11 @@ public class Field {
         }
         System.out.println();
     }
+
+    /**
+     * Acesseurs
+     * @return Liste de pokémons sur le terrain
+     */
     public ArrayList<Pokemon> getPokemons()
     {
         return pokemons;

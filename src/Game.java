@@ -3,6 +3,9 @@ import Player.AI;
 
 public class Game
 {
+    /**
+     * Attributs
+     */
     private Player m_player;
     private AI m_ai;
     private Player m_currentPlayer;
@@ -40,6 +43,7 @@ public class Game
 //             endPhase();
         // Appelez la méthode end
     }
+
     /**
      * Méthode pour terminer le jeu
      */
@@ -48,18 +52,21 @@ public class Game
         // Affichez un message pour indiquer la fin du jeu
         // Affichez le gagnant
     }
+
     public void drawPhase()
     {
         // tant que le joueur actuel n'a pas 5 cartes en main
         // affiche le statut du jeu ( en-tete, joueur1, joueur2)
         //  currentPlayer.draw();
     }
+
     public void spawnPhase()
     {
         // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
         // affiche le statut du jeu ( en-tete, joueur1, joueur2)
         //  currentPlayer.spawn();
     }
+
     public void attackPhase()
     {
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
@@ -75,6 +82,7 @@ public class Game
         // basculer entre les joueurs
         // incrémenter le tour
     }
+
     /**
      * Méthode pour déterminer le premier joueur
      * @return 1 si le joueur commence, 2 si l'IA commence
@@ -88,6 +96,7 @@ public class Game
         // Retourne "1" si le joueur commence ou "2" si l'IA commence
         return 1;
     }
+
     /**
      * Méthode pour basculer entre les joueurs
      */
@@ -95,6 +104,7 @@ public class Game
     {
         // Changez le joueur actuel
     }
+
     /**
      * Méthode pour passer au tour suivant
      */
@@ -102,6 +112,7 @@ public class Game
     {
         // Incrémentez le tour actuel
     }
+
     /**
      * Méthode pour vérifier si le jeu est terminé
      * @return true si le jeu est terminé, false sinon
@@ -112,6 +123,7 @@ public class Game
         // Si le jeu est terminé, mettez à jour le gagnant
         return false;
     }
+
     /**
      * Méthode pour afficher un message de bienvenue
      */
@@ -121,6 +133,7 @@ public class Game
 
         // Affiche un message de bienvenue
     }
+
     /**
      * Méthode pour afficher le tour actuel et le joueur actuel
      */
@@ -131,6 +144,10 @@ public class Game
         System.out.println("|---------Turn : "+ m_turn + "----------|" + "|----------Current Player : " + m_currentPlayer.getPlayerNumber() + " -------------|");
         System.out.println("-----------------------------------------------------------------------------------------");
     }
+
+    /**
+     * Affiche une entête de jeu
+     */
     public void showGameStatus()
     {
         // Affiche le statut du jeu
