@@ -11,7 +11,6 @@ public class Pokemon
   private int m_attack;
   private Affinity m_affinity;
   private boolean m_isPlayable;
-  private boolean m_isPlayable;
 
   //constructeur
   public Pokemon(String name, int hp, int hpMax, int attack, Affinity affinity)

@@ -1,7 +1,11 @@
 import Player.Player;
 import Player.AI;
+import Pokemon.Pokemon;
+import Pokemon.Affinity;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Game
 {
@@ -10,6 +14,7 @@ public class Game
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
+    private ArrayList<String> m_pokemonNames;
     private int m_turn;
 
     /**
@@ -18,6 +23,7 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
+        m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
         m_winner = null;
         m_turn = 0;
     }
@@ -107,11 +113,33 @@ public class Game
         switchPlayer();
         nextTurn();
     }
+    public ArrayList<Pokemon> generatePokemons()
+    {
+        //Génération des Pokémons
+        //À chaque partie, les Pokémons de chaque pioche sont générées selon l'algorithme suivant :
+        //
+        //leur nom est tiré aléatoirement parmi une liste de noms fixe, mais deux Pokémons ne peuvent pas avoir le même nom,
+        //leur nombre de points de vie est un multiple de 10, compris entre 100 et 200 et déterminé aléatoirement,
+        //leur valeur d'attaque est un multiple de 10 compris entre 10 et 40 et déterminé aléatoirement,
+        //leur affinité est choisie aléatoirement.
+        ArrayList<Pokemon> pokemons = new ArrayList<>(41);
+        for(int i = 0; i < 41; i++)
+        {
+            String name = m_pokemonNames.get(i);
+            int hp = (int) (Math.random() * 11) * 10 + 100;
+            int attack = (int) (Math.random() * 4 + 1) * 10;
+            String affinity = "Fire";
+//            pokemons.add(new Pokemon(name, hp, attack, affinity));
+        }
+        return pokemons;
+    }
+    public Affinity generateRandomAffinity()
+    {
+    }
     /**
      * Méthode pour déterminer le premier joueur
      * @return 1 si le joueur commence, 2 si l'IA commence
      */
-
     public boolean isFirstPlayer()
     {
         System.out.print("\033[H\033[2J");

@@ -21,7 +21,7 @@ public class Player
     /*
      * Constructeur de la classe Player
      */
-    public Player(int playerNumber)
+    public Player(ArrayList<Pokemon> pokemons,int playerNumber)
     {
         // Initialise le deck, la main, le cimetière et le terrain
         // Juste pour les tests pour l'instant
