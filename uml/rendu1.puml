@@ -42,10 +42,10 @@ package Others
 }
 
 ' Agrégations
-Deck o--> "m_pokemons" Pokemon.Pokemon
-Field o--> "m_pokemons" Pokemon.Pokemon
-Graveyard o--> "m_pokemons" Pokemon.Pokemon
-Hand o--> "m_pokemons" Pokemon.Pokemon
+Deck o--> "m_pokemons\n0, 21" Pokemon.Pokemon
+Field o--> "m_pokemons\n0, 3" Pokemon.Pokemon
+Graveyard o--> "m_pokemons\n0, *" Pokemon.Pokemon
+Hand o--> "m_pokemons\n0, 5" Pokemon.Pokemon
 
 package Player
 {
@@ -63,10 +63,10 @@ package Player
     }
 }
 
-Player.Player *--> "m_field" Others.Field
-Player.Player *--> "m_graveyard" Others.Graveyard
-Player.Player *--> "m_deck" Others.Deck
-Player.Player *--> "m_hand" Others.Hand
+Player.Player *--> "m_field\n1, 1" Others.Field
+Player.Player *--> "m_graveyard\n 1,1" Others.Graveyard
+Player.Player *--> "m_deck\n 1,1" Others.Deck
+Player.Player *--> "m_hand\n 1,1" Others.Hand
 
 AI --up-|> Player.Player
 
@@ -123,9 +123,9 @@ class Game
     + showGameStatus()
 }
 
-Game *--> "m_player" Player.Player
-Game *--> "m_ai" Player.AI
-Game *--> "m_winner" Player.Player
+Game *--> "m_player\n 1,1" Player.Player
+Game *--> "m_ai\n 1,1" Player.AI
+Game *--> "m_winner\n 1,1" Player.Player
 
 class Pookemon 
 {
