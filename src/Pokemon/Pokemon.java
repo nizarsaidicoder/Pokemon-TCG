@@ -9,24 +9,17 @@ public class Pokemon
   private int m_hp;
   private int m_hpMax;
   private int m_attack;
-  private String m_affinity;
+  private Affinity m_affinity;
+  private boolean m_isPlayable;
 
-  /**
-   * Constructeur
-   * @param name
-   * @param hp
-   * @param hpMax
-   * @param attack
-   * @param affinity
-   */
-  public Pokemon(String name, int hp, int hpMax, int attack, String affinity)
+  //constructeur
+  public Pokemon(String name, int hp, int hpMax, int attack, Affinity affinity)
   {
     m_name = name;
     m_hp = hp;
     m_hpMax = hpMax;
     m_attack = attack;
     m_affinity = affinity;
-
   }
 
   /**
@@ -44,11 +37,23 @@ public class Pokemon
       pokemon.m_hp -= m_attack;
     }
   }
-
-  /**
-   * Retourne le nom du pokémon
-   * @return nom pokémon
+  /*
+   * Méthode pour vérifier si le pokemon est vivant
    */
+  public boolean isAlive()
+  {
+    // Le pokemon est vivant si et seulement si m_hp > 0
+    return false;
+  }
+  /*
+   * Méthode pour vérifier si le pokemon est jouable
+   */
+  public boolean isPlayable()
+  {
+    return m_isPlayable;
+  }
+
+  //accesseurs
   public String getName()
   {
     return m_name;
@@ -60,7 +65,7 @@ public class Pokemon
    */
   public int getHP()
   {
-      return m_hp;
+    return m_hp;
   }
 
   /**
@@ -69,7 +74,7 @@ public class Pokemon
    */
   public int getHPMax()
   {
-      return m_hpMax;
+    return m_hpMax;
   }
 
   /**
@@ -78,18 +83,16 @@ public class Pokemon
    */
   public int getAttack()
   {
-      return m_attack;
+    return m_attack;
   }
-
-  /**
-   * Retourne l'affinité du pokémon (son élément)
-   * @return affinité pokémon
-   */
-  public String getAffinity()
+  public Affinity getAffinity()
   {
-      return m_affinity;
+    return m_affinity;
   }
-
+  public void setPlayable(boolean isPlayable)
+  {
+    m_isPlayable = isPlayable;
+  }
   @Override
   /**
    * Affichage pokémon

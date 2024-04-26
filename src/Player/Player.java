@@ -1,8 +1,8 @@
 package Player;
-import Others.Deck;
-import Others.Field;
-import Others.Graveyard;
-import Others.Hand;
+import Collection.Deck;
+import Collection.Field;
+import Collection.Graveyard;
+import Collection.Hand;
 import Pokemon.Pokemon;
 
 import java.util.ArrayList;
@@ -25,17 +25,6 @@ public class Player
     {
         // Initialise le deck, la main, le cimetière et le terrain
         // Juste pour les tests pour l'instant
-        m_field = new Field();
-        m_field.addPokemon(new Pokemon("Pikachu", 100, 50,50, "earth"));
-        m_field.addPokemon(new Pokemon("Bulbizarre", 100, 50, 80,"fire"));
-        m_field.addPokemon(new Pokemon("Salamèche", 100, 50, 100,"water"));
-        m_graveyard = new Graveyard();
-        ArrayList<Pokemon> pokemons = new ArrayList<>();
-        pokemons.add(new Pokemon("Pikachu", 100, 50,50, "earth"));
-        m_deck = new Deck(pokemons);
-        pokemons.add(new Pokemon("Raikachu", 100, 50,50, "earth"));
-        m_hand = new Hand(pokemons);
-        m_playerNumber = playerNumber;
     }
 
     /*
@@ -59,17 +48,17 @@ public class Player
     /*
      * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
      */
-    public void displayPlayer()
+    public void display()
     {
         // Affiche le joueur
         System.out.println("Player : " + m_playerNumber);
-        m_field.displayField();
+        m_field.display();
         System.out.println();
-        m_deck.displayDeck();
+        m_deck.display();
         System.out.println();
-        m_graveyard.displayGraveyard();
+        m_graveyard.display();
         System.out.println();
-        m_hand.displayHand();
+        m_hand.display();
     }
 
     /**
