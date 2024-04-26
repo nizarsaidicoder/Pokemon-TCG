@@ -1,13 +1,5 @@
 package Player;
 
-import Others.Deck;
-import Others.Field;
-import Others.Graveyard;
-import Others.Hand;
-import Pokemon.Pokemon;
-
-import java.util.ArrayList;
-
 public class AI extends Player {
     /**
      * Constructeur de la classe AI
@@ -23,10 +15,10 @@ public class AI extends Player {
     {
         // Affiche le joueur
         System.out.println("Player : " + m_playerNumber);
-        m_field.displayField();
+        m_field.display();
         System.out.println();
-        m_deck.displayDeck();
+        m_deck.display();
         System.out.println();
-        m_graveyard.displayGraveyard();
+        m_graveyard.display();
     }
 }
