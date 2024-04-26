@@ -1,4 +1,9 @@
 package Pokemon;
 
-public enum Element {
+public enum Element 
+{
+    FIRE,
+    EARTH,
+    AIR,
+    WATER;
 }
