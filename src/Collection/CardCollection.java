@@ -9,8 +9,8 @@ public abstract class CardCollection {
 
     public CardCollection(int maxSize) {
         m_maxSize= maxSize;
-        m_size = 0;
         m_pokemons = new ArrayList<>(maxSize);
+        m_size = 0;
     }
     /*
      * Methode pour verifier si la collection est vide
@@ -19,7 +19,7 @@ public abstract class CardCollection {
     public boolean isEmpty()
     {
         // retourne vrai si le nombre des pokemon de la collection est egal à 0
-        return false;
+        return m_size == 0;
     }
     /*
      * Methode pour verifier si la collection est pleine
@@ -28,7 +28,7 @@ public abstract class CardCollection {
     public boolean isFull()
     {
         // retourne vrai si le nombre des pokemon de la collection est egal à a la taille maximale de la collection
-        return false;
+        return m_size == m_maxSize;
     }
     /*
      * Methode pour ajouter un pokemon à la collection
@@ -37,6 +37,13 @@ public abstract class CardCollection {
     public void addPokemon(Pokemon pokemon)
     {
         // Verifie si la collection n'est pas plein
+        if(!isFull())
+        {
+            // Ajoute le pokemon à la collection
+            m_pokemons.add(pokemon);
+            // incremente m_size par 1
+            m_size++;
+        }
         // Ajoute le pokemon à la collection
         // incremente m_size par 1
     }
@@ -46,10 +53,15 @@ public abstract class CardCollection {
      */
     public void removePokemon(String name)
     {
-        // Verifie si la collection n'est pas plein
         // Verifie si le pokemon existe
         // Retire le pokemon de la main
         // decremente m_size par 1
+        int index = containsPokemon(name);
+        if(index != -1)
+        {
+            m_pokemons.remove(index);
+            m_size--;
+        }
     }
     /*
      * Supprime le pokemon de la collection et le retourne
@@ -63,6 +75,27 @@ public abstract class CardCollection {
         // decremente m_size par 1
         // Retourne le pokemon
         // Sinon
+        int index = containsPokemon(name);
+        if(index != -1)
+        {
+            return pickPokemon(index);
+        }
+        return null;
+    }
+    public Pokemon pickPokemon(int index)
+    {
+        // Verifie si le pokemon ecist
+        // Retire le pokemon de la main
+        if(index != -1 && index < m_size)
+        {
+            Pokemon pokemon = m_pokemons.get(index);
+            m_pokemons.remove(index);
+            // decremente m_size par 1
+            // Retourne le pokemon
+            m_size--;
+            return pokemon;
+        }
+        // Sinon
         return null;
     }
     /*
@@ -72,6 +105,11 @@ public abstract class CardCollection {
     public int containsPokemon(String name)
     {
         // Verifie si le pokemon exist
+        for (int i = 0; i < m_size; i++)
+        {
+            // si le pokemon existe
+            if(m_pokemons.get(i).getName().equals(name)) return i;
+        }
         // retourne l'indice du pokemon, si non -1
         return -1;
     }
@@ -84,8 +122,13 @@ public abstract class CardCollection {
     public Pokemon getPokemon(String name)
     {
         // verifie si le pokemon existe
-        // retourne le pokemon avec le nom passé par parametre
-        // cette methode ne retourne pas une copie
+        int index = containsPokemon(name);
+        if(index != -1)
+        {
+            // retourne le pokemon avec le nom passé par parametre
+            // cette methode ne retourne pas une copie
+            return m_pokemons.get(index);
+        }
         return null;
     }
     public ArrayList<Pokemon> getPokemons()

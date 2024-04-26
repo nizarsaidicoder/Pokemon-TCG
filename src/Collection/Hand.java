@@ -21,7 +21,7 @@ public class Hand extends CardCollection {
         System.out.println("En main : ");
         for(Pokemon pokemon : m_pokemons)
         {
-            System.out.println(String.format(" - %s", pokemon.toString()));
+            pokemon.display();
         }
     }
     @Override

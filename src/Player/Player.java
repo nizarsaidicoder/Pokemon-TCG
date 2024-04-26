@@ -6,58 +6,91 @@ import Collection.Hand;
 import Pokemon.Pokemon;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Player 
+public class Player
 {
     /**
      * Attributs
      */
+    protected String m_name;
     protected Field m_field;
     protected Graveyard m_graveyard;
     protected Deck m_deck;
     protected Hand m_hand;
     protected int m_playerNumber;
+    private Scanner m_scanner = new Scanner(System.in);
 
     /*
      * Constructeur de la classe Player
      */
-    public Player(ArrayList<Pokemon> pokemons,int playerNumber)
+    public Player(ArrayList<Pokemon> pokemons,int playerNumber,String name)
     {
         // Initialise le deck, la main, le cimetière et le terrain
-        // Juste pour les tests pour l'instant
         m_field = new Field(3);
-        m_graveyard = new Graveyard(21);
-        m_deck = new Deck(21,pokemons);
+        m_graveyard = new Graveyard(6);
+        m_deck = new Deck(6,pokemons);
         m_hand = new Hand(5);
+        m_playerNumber = playerNumber;
+        m_name = name;
     }
 
     /*
-    * Methode pour piocher une carte
-    */
+     * Methode pour piocher une carte
+     */
     public void draw()
     {
         // Pioche un pokemon dans le deck
-
+//        for(Pokemon pokemon : m_deck.getPokemons())
+//        {
+//            pokemon.display();
+//        }
+        Pokemon pokemon = m_deck.pickPokemon(0);
         // Ajoute le pokemon à la main
-
+        showDraw(pokemon);
+        m_hand.addPokemon(pokemon);
     }
     public void spawn()
     {
+        // Prompt the player to choose a pokemon to spawn from the hand
+        System.out.print("Choose a pokemon to spawn : ( ");
+        for(Pokemon pokemon : m_hand.getPokemons())
+        {
+            System.out.print(pokemon.getName() + "/");
+        }
+        System.out.println(")");
+        // Recupere le pokemon à jouer
+        String pokemonName = m_scanner.nextLine();
+        // check if the player entered a valid pokemon name
+        while(m_hand.containsPokemon(pokemonName) == -1)
+        {
+            System.out.println("Invalid pokemon name, please enter a valid pokemon name");
+            pokemonName = m_scanner.nextLine();
+        }
         // Ajoute un pokemon du terrain
+        m_field.addPokemon(m_hand.pickPokemon(pokemonName));
     }
     /*
      * Methode pour attaquer un joueur
      */
-    public void attack(Player enemy)
+    public void attack(Pokemon playerPokemon, Pokemon enemyPokemon)
     {
+        // Attaque le pokemon adverse
+        playerPokemon.attack(enemyPokemon);
+        playerPokemon.setPlayable(false);
     }
     public void setPlayablePokemons()
     {
         // Parcourt la main et met à jour les pokemons jouables
-//        for(Pokemon pokemon : m_field.getPokemons())
-//        {
-//            pokemon.setPlayable(true);
-//        }
+        for(Pokemon pokemon : m_field.getPokemons())
+        {
+            pokemon.setPlayable(true);
+        }
+    }
+    public void showDraw(Pokemon pokemon)
+    {
+        System.out.println(String.format("%s Drew : ",m_name));
+        pokemon.display();
     }
     public boolean hasPlayablePokemons()
     {
@@ -97,13 +130,10 @@ public class Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println("Player : " + m_playerNumber);
+        System.out.println("Player : " + m_name);
         m_field.display();
-        System.out.println();
         m_deck.display();
-        System.out.println();
         m_graveyard.display();
-        System.out.println();
         m_hand.display();
     }
 
@@ -115,6 +145,7 @@ public class Player
     {
         return m_playerNumber;
     }
+    public String getName(){return m_name;}
     public Field getField()
     {
         return m_field;

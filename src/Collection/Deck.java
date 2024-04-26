@@ -13,6 +13,7 @@ public class Deck extends CardCollection
     {
         super(maxSize);
         m_pokemons = pokemons;
+        m_size = pokemons.size();
     }
     /**
      * Affichage du deck

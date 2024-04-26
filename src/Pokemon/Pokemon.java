@@ -21,6 +21,7 @@ public class Pokemon
     m_hpMax = hp;
     m_attack = attack;
     m_affinity = affinity;
+    m_isPlayable = false;
   }
 
   /**
@@ -44,7 +45,7 @@ public class Pokemon
   public boolean isAlive()
   {
     // Le pokemon est vivant si et seulement si m_hp > 0
-    return false;
+      return m_hp > 0;
   }
   /*
     * Méthode pour vérifier si le pokemon est jouable
