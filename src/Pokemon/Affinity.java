@@ -1,7 +1,5 @@
 package Pokemon;
 
-import java.util.ArrayList;
-
 public abstract class Affinity
 {
     /**
@@ -18,7 +16,7 @@ public abstract class Affinity
     public abstract Element getWeakness();
     public abstract Element getStrenght();
 
-    public Element getAffinity()
+    public Element getElement()
     {
         return m_element;
     }

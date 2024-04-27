@@ -132,6 +132,8 @@ public class Player
         m_graveyard.display();
         System.out.println();
         m_hand.display();
+        System.out.println();
+
     }
 
     /**

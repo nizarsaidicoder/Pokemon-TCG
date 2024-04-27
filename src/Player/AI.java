@@ -16,7 +16,12 @@ public class AI extends Player
         // Juste pour les tests pour l'instant
         super(pokemons,playerNumber,name);
     }
-
+    // try {
+    //            Thread.sleep(1000);
+    //        } catch (InterruptedException e) {
+    //            Thread.currentThread().interrupt();
+    //        }
+    // TO IMPLEMENT WHEN CODING THE AI
     @Override
     public void display()
     {

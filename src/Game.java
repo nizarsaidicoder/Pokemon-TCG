@@ -39,26 +39,20 @@ public class Game
     {
         // appelez la méthode welcome
         Display.intro();
-        // Générez les pokémons
-        ArrayList<Pokemon> pokemons = generatePokemons();
-        // Déterminez aléatoirement le premier joueur
-        boolean firstPlayer = isFirstPlayer();
-        if (firstPlayer)
-        {
-            m_player = new Player(new ArrayList<>(pokemons.subList(0, 5)),1,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(5,8)),2,"Computer");
-            m_currentPlayer = m_player;
-            m_opponent = m_ai;
-        }
-        else
-        {
-            m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1,"Computer");
-            m_currentPlayer = m_ai;
-            m_opponent = m_player;
+        // Appelez la méthode initializePlayers
+        intializePlayers();
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         // Affichez un message pour indiquer le début du jeu
-        System.out.println("Let's DUEL !");
+        System.out.println(HelperFunctions.colorizeAndCenter("LET'S DUEL !", "purple", 100));
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Appelez la méthode play
         play();
 
@@ -88,7 +82,6 @@ public class Game
     }
     public void spawnPhase()
     {
-        
         // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
         while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
         {
@@ -153,6 +146,27 @@ public class Game
         switchPlayer();
         nextTurn();
     }
+    public void intializePlayers()
+    {
+                // Générez les pokémons
+        // Déterminez aléatoirement le premier joueur
+        ArrayList<Pokemon> pokemons = generatePokemons();
+        boolean firstPlayer = isFirstPlayer();
+        if (firstPlayer)
+        {
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 5)),1,"Marie");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(5,8)),2,"Computer");
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
+        }
+        else
+        {
+            m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,"Marie");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1,"Computer");
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
+        }
+    }
     public ArrayList<Pokemon> generatePokemons()
     {
         //Génération des Pokémons
@@ -200,55 +214,24 @@ public class Game
         // Affichez un message pour indiquer qui commence
         System.out.println("Deciding who starts ...");
         // Prompt the user to press Enter to continue
-        System.out.println("Press Enter to continue ...");
-        // Wait for the user to press Enter
-        try
-        {
-            System.in.read();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        // Prompt the user to choose Heads or Tails
         System.out.println("Heads or Tails ?");
-        // Wait for the user to enter Heads or Tails
-        String choice = "";
-        try
+        String choice = m_scanner.nextLine().toLowerCase();
+        while(!choice.equals("heads") && !choice.equals("tails"))
         {
-            int character;
-            while((character = System.in.read()) != '\n')
-            {
-                choice += (char) character;
-            }
+            System.out.println("Invalid choice, please enter Heads or Tails");
+            choice = m_scanner.nextLine().toLowerCase();
         }
-        catch(Exception e)
+        Random rnd = new Random();
+        int coin = rnd.nextInt(2);
+        if((coin == 0 && choice.equals("Heads")) || (coin == 1 && choice.equals("Tails")))
         {
-            e.printStackTrace();
-        }
-        if(choice.equals("Heads") || choice.equals("Tails"))
-        {
-            Random rnd = new Random();
-            int firstPlayer = rnd.nextInt(2) + 1;
-            if((firstPlayer == 1 && choice.equals("Heads")) || (firstPlayer == 2 && choice.equals("Tails")))
-            {
-                System.out.println("You start !");
-                return true;
-            }
-            else
-            {
-                System.out.println("Computer starts !");
-                return false;
-            }
-            // Affichez le résultat du lancer de pièce
-
+            System.out.println(HelperFunctions.colorizeAndCenter("You start !", "green", 100));
+            return true;
         }
         else
         {
-            // Affichez un message d'erreur
-            System.out.println("Invalid choice. Please enter Heads or Tails.");
-            // Rappeler la méthode isFirstPlayer
-            return isFirstPlayer();
+            System.out.println(HelperFunctions.colorizeAndCenter("Computer starts !", "red", 100));
+            return false;
         }
     }
     /**
@@ -287,26 +270,4 @@ public class Game
         // Si le jeu est terminé, mettez à jour le gagnant
         return false;
     }
-
-//    public void showGameStatus()
-//    {
-//        // Affiche le statut du jeu
-//
-//        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + HelperFunctions.center("TURN "+ m_turn,50)  + HelperFunctions.getColorCode("RESET"));
-//        System.out.println();
-//
-//        m_ai.display();
-//        System.out.println();
-//        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + "-----------------------------------------------------------------------------------------" + HelperFunctions.getColorCode("RESET"));
-//        System.out.println();
-//        m_player.display();
-//        if(m_currentPlayer == m_player)
-//        {
-//            System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
-//        }
-//        else
-//        {
-//            System.out.println(HelperFunctions.getColorCode("AI_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
-//        }
-//    }
 }

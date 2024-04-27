@@ -1,9 +1,6 @@
 package Collection;
 
-import Pokemon.Pokemon;
 import Utils.HelperFunctions;
-
-import java.util.ArrayList;
 
 public class Field extends CardCollection {
 
@@ -44,7 +41,7 @@ public class Field extends CardCollection {
             }
             else
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity());
+                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getElement());
                 System.out.print(HelperFunctions.padRight("| ("+(i+1)+") " + foreColor + m_pokemons.get(i).getName(),26)+ RESET+ "|");
                 System.out.print("\t\t");
             }
@@ -98,8 +95,8 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity());
-                System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + m_pokemons.get(i).getAffinity().getAffinity(),26) + RESET + "|");
+                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getElement());
+                System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + m_pokemons.get(i).getAffinity().getElement(),26) + RESET + "|");
                 System.out.print("\t\t");
             }
             else
@@ -109,19 +106,37 @@ public class Field extends CardCollection {
             }
         }
         System.out.println();
-        // DUMMY LOOP THAT SHOWS THE ELEMENTS THAT THE POKEMON IS STRONG AGAINST
-        // for(Pokemon.Pokemon pokemon : pokemons)
-        // {
-        //     System.out.print("| Strong against :   |");
-        //     System.out.print("\t\t");
-        // }
-        // System.out.println();
-        // for(Pokemon.Pokemon pokemon : pokemons) {
-        //     String foreColor = Utils.HelperFunctions.getCorrespondingColor("fire");
-        //     System.out.print(Utils.HelperFunctions.padRight("| " + foreColor + "fire", 26) + RESET + "|");
-        //     System.out.print("\t\t");
-        // }
-        // System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            if(m_pokemons.size() > i)
+            {
+                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getStrenght());
+                System.out.print(HelperFunctions.padRight("| Strength : " + foreColor + m_pokemons.get(i).getAffinity().getStrenght(), 26) + RESET + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            if(m_pokemons.size() > i)
+            {
+                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getWeakness());
+                System.out.print(HelperFunctions.padRight("| Weakness : " + foreColor + m_pokemons.get(i).getAffinity().getWeakness(), 26) + RESET + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+
         for(int i = 0; i < 3; i++)
         {
             System.out.print("|____________________|");

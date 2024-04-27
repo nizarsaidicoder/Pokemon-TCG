@@ -1,7 +1,8 @@
 package Utils;
 
+
 import Player.AI;
-import Pokemon.Affinity;
+import Pokemon.Element;
 
 public class HelperFunctions
 {
@@ -66,13 +67,13 @@ public class HelperFunctions
      * @param affinity nom affinité
      * @return couleur
      */
-    public static String getCorrespondingColor(Affinity affinity) {
+    public static String getCorrespondingColor(Element affinity) {
         String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
         String GREEN_TEXT = "\u001B[32m";
         String YELLOW_TEXT = "\u001B[33m";
         String BLUE_TEXT = "\u001B[34m";
-        return switch (affinity.getAffinity()) {
+        return switch (affinity) {
             case EARTH -> YELLOW_TEXT;
             case FIRE -> RED_TEXT;
             case WATER -> BLUE_TEXT;
