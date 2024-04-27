@@ -125,7 +125,7 @@ public class Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.getColorCode("WHITE_TEXT") + HelperFunctions.padRight("        Player : " + m_name,30) + HelperFunctions.getColorCode("RESET"));
+        System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.getColorCode("WHITE_TEXT") + HelperFunctions.padRight("Player : " + m_name,30) + HelperFunctions.getColorCode("RESET"));
         m_field.display();
         m_deck.display();
         m_graveyard.display();
