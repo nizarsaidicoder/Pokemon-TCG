@@ -29,7 +29,7 @@ public class Game
         // Initialise les attributs de la classe
         m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
         m_winner = null;
-        m_turn = 0;
+        m_turn = 1;
     }
 
     /**
@@ -38,14 +38,14 @@ public class Game
     public void start()
     {
         // appelez la méthode welcome
-        Display.displayStartGame();
+        Display.intro();
         // Générez les pokémons
         ArrayList<Pokemon> pokemons = generatePokemons();
         // Déterminez aléatoirement le premier joueur
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
         {
-            m_player = new Player(new ArrayList<>(pokemons.subList(0, 2)),1,"Marie");
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 5)),1,"Marie");
             m_ai = new AI(new ArrayList<>(pokemons.subList(5,8)),2,"Computer");
             m_currentPlayer = m_player;
             m_opponent = m_ai;
@@ -72,19 +72,9 @@ public class Game
             attackPhase();
             endPhase();
         }
-        end();
+        Display.outro(m_winner);
     }
-    /**
-     * Méthode pour terminer le jeu
-     */
-    public void end()
-    {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        System.out.println("Game Over !");
-        showWinner();
-        showCredits();
-    }
+
     public void drawPhase()
     {
         System.out.print("\033[H\033[2J");
@@ -105,7 +95,7 @@ public class Game
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("Spawn Phase ...");
-            showGameStatus();
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
             m_currentPlayer.spawn();
         }
         m_currentPlayer.setPlayablePokemons();
@@ -119,14 +109,9 @@ public class Game
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("Attack Phase ...");
-            showGameStatus();
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
             // Prompt the player to choose a pokemon to attack with
-            System.out.print("Choose a pokemon to attack with : (");
-            for(Pokemon pokemon : m_currentPlayer.getField().getPokemons())
-            {
-                if(pokemon.isPlayable()) System.out.print(pokemon.getName() + "/ ");
-            }
-            System.out.println(")");
+            System.out.println("Choose a pokemon to attack with");
             // Recupere le pokemon à jouer
             String pokemonName = m_scanner.nextLine();
             while(m_currentPlayer.getField().containsPokemon(pokemonName) == -1)
@@ -136,12 +121,7 @@ public class Game
             }
             Pokemon pokemon = m_currentPlayer.getField().getPokemon(pokemonName);
             // Prompt the player to choose a pokemon to attack
-            System.out.print("Choose a pokemon to attack : (");
-            for(Pokemon enemyPokemon : m_opponent.getField().getPokemons())
-            {
-                System.out.print(enemyPokemon.getName() + "/ ");
-            }
-            System.out.println(")");
+            System.out.println("Choose a pokemon to attack");
             // Recupere le pokemon à attaquer
             String enemyPokemonName = m_scanner.nextLine();
             while(m_opponent.getField().containsPokemon(enemyPokemonName) == -1)
@@ -151,9 +131,6 @@ public class Game
             }
             Pokemon enemyPokemon = m_opponent.getField().getPokemon(enemyPokemonName);
             System.out.println(pokemon.getName());
-
-            System.out.println(" Before Attack : \nPokemon " + enemyPokemon.getName() + " has " + enemyPokemon.getHP() + "/" + enemyPokemon.getHPMax() );
-
             // Attaque le pokemon
             m_currentPlayer.attack(pokemon, enemyPokemon);
             if(!enemyPokemon.isAlive()) {
@@ -311,44 +288,25 @@ public class Game
         return false;
     }
 
-    public void showGameStatus()
-    {
-        // Affiche le statut du jeu
-        
-        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + HelperFunctions.center("TURN "+ m_turn,50)  + HelperFunctions.getColorCode("RESET"));
-        System.out.println();
-
-        m_ai.display();
-        System.out.println();
-        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + "-----------------------------------------------------------------------------------------" + HelperFunctions.getColorCode("RESET"));
-        System.out.println();
-        m_player.display();
-        if(m_currentPlayer == m_player)
-        {
-            System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
-        }
-        else
-        {
-            System.out.println(HelperFunctions.getColorCode("AI_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
-        }
-    }
-    public void showWinner()
-    {
-        // Affiche le gagnant
-        if(m_winner.equals( "Computer"))
-        {
-            System.out.println("Computer wins !");
-        }
-        else if(m_winner.equals( "You"))
-        {
-            System.out.println("You win !");
-        }
-    }
-    public void showCredits()
-    {
-        // Affiche les crédits
-        System.out.println("************************************** CREDITS **************************************");
-        System.out.println("Developed by : ");
-        System.out.println("HAGGUI NESRINE AND SAIDI NIZAR");
-    }
+//    public void showGameStatus()
+//    {
+//        // Affiche le statut du jeu
+//
+//        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + HelperFunctions.center("TURN "+ m_turn,50)  + HelperFunctions.getColorCode("RESET"));
+//        System.out.println();
+//
+//        m_ai.display();
+//        System.out.println();
+//        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + "-----------------------------------------------------------------------------------------" + HelperFunctions.getColorCode("RESET"));
+//        System.out.println();
+//        m_player.display();
+//        if(m_currentPlayer == m_player)
+//        {
+//            System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
+//        }
+//        else
+//        {
+//            System.out.println(HelperFunctions.getColorCode("AI_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
+//        }
+//    }
 }

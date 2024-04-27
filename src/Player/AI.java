@@ -21,9 +21,9 @@ public class AI extends Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println(HelperFunctions.getColorCode("AI_BACKGROUND")+"Player : " + m_name + HelperFunctions.getColorCode("RESET"));
-        m_field.display();
-        m_deck.display();
+        System.out.println(HelperFunctions.colorizeAndCenter("AI", "red", 100));
         m_graveyard.display();
+        m_deck.display();
+        m_field.display();
     }
 }

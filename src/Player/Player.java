@@ -1,4 +1,5 @@
 package Player;
+
 import Collection.Deck;
 import Collection.Field;
 import Collection.Graveyard;
@@ -125,12 +126,12 @@ public class Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.getColorCode("WHITE_TEXT") + HelperFunctions.padRight("Player : " + m_name,30) + HelperFunctions.getColorCode("RESET"));
+        System.out.println(HelperFunctions.colorizeAndCenter(m_name, "blue", 100));
         m_field.display();
         m_deck.display();
         m_graveyard.display();
+        System.out.println();
         m_hand.display();
-
     }
 
     /**

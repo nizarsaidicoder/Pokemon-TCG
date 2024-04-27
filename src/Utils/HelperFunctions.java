@@ -47,9 +47,11 @@ public class HelperFunctions
      */
     public static String padLeft(String s, int n,char c) 
     {
+        // If the string is already longer than n, return the string
+        if (s.length() >= n) return s;
         StringBuilder output = new StringBuilder();
-        output.append(String.valueOf(c).repeat(Math.max(0, n)));
-        return output + s;
+        output.append(String.valueOf(c).repeat(Math.max(0, n - s.length()))).append(s);
+        return output.toString();
     }
     public static String center(String s, int n)
     {

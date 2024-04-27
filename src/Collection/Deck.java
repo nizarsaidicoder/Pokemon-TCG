@@ -1,6 +1,8 @@
 package Collection;
 
 import Pokemon.*;
+import Utils.HelperFunctions;
+
 import java.util.ArrayList;
 
 public class Deck extends CardCollection
@@ -20,7 +22,16 @@ public class Deck extends CardCollection
      */
     public void display()
     {
-        System.out.println(this.toString());
+        // _________________________
+        //|                         |
+        //|        DECK: 21         |
+        //|_________________________|
+        String out = " _________________________ " + "\n" +
+                    "|                         |" + "\n" +
+                    "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_size),2,'0') + "         |" + "\n" +
+                    "|_________________________|";
+        out = HelperFunctions.colorize(out, "blue");
+        System.out.println(out);
     }
     
     @Override 

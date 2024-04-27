@@ -97,8 +97,11 @@ public class Pokemon
   }
   public void display()
   {
-    String RESET = "\u001B[0m";
-    System.out.println(HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight(m_name,16) +RESET +  " | " + HelperFunctions.padRight(m_hp + " HP",10) + " | " + HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight( m_affinity.getAffinity().toString(), 10 )+RESET + " | " + m_attack + " Attack"  );
+    // OLD VERSION
+    //System.out.println(HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight(m_name,16) +RESET +  " | " + HelperFunctions.padRight(m_hp + " HP",10) + " | " + HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight( m_affinity.getAffinity().toString(), 10 )+RESET + " | " + m_attack + " Attack"  );
+    // NEW VERSION : EACH POKEMON ATTRIBUTES HAVE A FIXED SIZE OF 20 CHARACTERS
+    String out = HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight(m_name,20) + HelperFunctions.getColorCode("reset") +  " | " + HelperFunctions.padRight(Integer.toString(m_hp) ,20) + " | " + HelperFunctions.getCorrespondingColor(m_affinity) + HelperFunctions.padRight( m_affinity.getAffinity().toString(), 20 )+HelperFunctions.getColorCode("reset") + " | " + m_attack ;
+    System.out.println(out);
   }
   @Override
   /**
