@@ -1,6 +1,7 @@
 import Player.Player;
 import Player.AI;
 import Pokemon.*;
+import Utils.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -56,19 +57,6 @@ public class Game
             m_currentPlayer = m_ai;
             m_opponent = m_player;
         }
-        //Testez si les pokémons sont générés correctement
-        // for each pokemon in pokemons print pokemon
-//        System.out.println("Player's pokemons : ");
-//        for(Pokemon pokemon : m_player.getDeck().getPokemons())
-//        {
-//            pokemon.display();
-//        }
-//        System.out.println("AI's pokemons : ");
-//        for(Pokemon pokemon : m_ai.getDeck().getPokemons())
-//        {
-//            pokemon.display();
-//        }
-
         // Affichez un message pour indiquer le début du jeu
         System.out.println("Let's DUEL !");
         // Appelez la méthode play
@@ -91,12 +79,16 @@ public class Game
      */
     public void end()
     {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("Game Over !");
         showWinner();
         showCredits();
     }
     public void drawPhase()
     {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("Draw Phase ...");
         // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
         while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty())
@@ -106,10 +98,13 @@ public class Game
     }
     public void spawnPhase()
     {
-        System.out.println("Spawn Phase ...");
+        
         // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
         while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
         {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("Spawn Phase ...");
             showGameStatus();
             m_currentPlayer.spawn();
         }
@@ -117,10 +112,13 @@ public class Game
     }
     public void attackPhase()
     {
-        System.out.println("Attack Phase ...");
+        
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
         while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
         {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("Attack Phase ...");
             showGameStatus();
             // Prompt the player to choose a pokemon to attack with
             System.out.print("Choose a pokemon to attack with : (");
@@ -131,6 +129,11 @@ public class Game
             System.out.println(")");
             // Recupere le pokemon à jouer
             String pokemonName = m_scanner.nextLine();
+            while(m_currentPlayer.getField().containsPokemon(pokemonName) == -1)
+            {
+                System.out.println("Invalid pokemon name, please enter a valid pokemon name");
+                pokemonName = m_scanner.nextLine();
+            }
             Pokemon pokemon = m_currentPlayer.getField().getPokemon(pokemonName);
             // Prompt the player to choose a pokemon to attack
             System.out.print("Choose a pokemon to attack : (");
@@ -166,6 +169,8 @@ public class Game
 
     public void endPhase()
     {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("End Phase ...");
         // Phase de fin
         switchPlayer();
@@ -214,8 +219,6 @@ public class Game
      */
     public boolean isFirstPlayer()
     {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         // Choisissez aléatoirement le premier joueur
         // Affichez un message pour indiquer qui commence
         System.out.println("Deciding who starts ...");
@@ -345,30 +348,29 @@ public class Game
 
         System.out.println( YELLOW+ pikachuArt +  RESET);
         // Affiche un message de bienvenue
-        System.out.println("|------------ Welcome to Pokemon Battle -----------|");
+        System.out.println(HelperFunctions.center("Welcome to Pokemon Battle", 50));
         System.out.println("Game is starting ...");
-    }
-    /**
-     * Méthode pour afficher le tour actuel et le joueur actuel
-     */
-    public void showTurnAndCurrentPlayer()
-    {
-        // Affiche le joueur actuel
-        System.out.println("|---Turn : "+ m_turn + "--|" + "|---Current Player : " + m_currentPlayer.getName() + " --|");
     }
     public void showGameStatus()
     {
         // Affiche le statut du jeu
-        System.out.println("************************************** GAME STATUS **************************************");
+        
+        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + HelperFunctions.center("TURN "+ m_turn,50)  + HelperFunctions.getColorCode("RESET"));
         System.out.println();
 
-        showTurnAndCurrentPlayer();
         m_ai.display();
         System.out.println();
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(HelperFunctions.getColorCode("PURPLE_BACKGROUND") + "-----------------------------------------------------------------------------------------" + HelperFunctions.getColorCode("RESET"));
         System.out.println();
-
         m_player.display();
+        if(m_currentPlayer == m_player)
+        {
+            System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
+        }
+        else
+        {
+            System.out.println(HelperFunctions.getColorCode("AI_BACKGROUND") + HelperFunctions.center(m_currentPlayer.getName() + "'s turn", 30)  + HelperFunctions.getColorCode("RESET"));
+        }
     }
     public void showWinner()
     {

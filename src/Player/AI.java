@@ -1,6 +1,7 @@
 package Player;
 
 import Pokemon.Pokemon;
+import Utils.HelperFunctions;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class AI extends Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println("Player : " + m_name);
+        System.out.println(HelperFunctions.getColorCode("AI_BACKGROUND")+"Player : " + m_name + HelperFunctions.getColorCode("RESET"));
         m_field.display();
         m_deck.display();
         m_graveyard.display();

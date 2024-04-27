@@ -4,6 +4,7 @@ import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
 import Pokemon.Pokemon;
+import Utils.HelperFunctions;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -47,7 +48,6 @@ public class Player
 //        }
         Pokemon pokemon = m_deck.pickPokemon(0);
         // Ajoute le pokemon à la main
-        showDraw(pokemon);
         m_hand.addPokemon(pokemon);
     }
     public void spawn()
@@ -87,11 +87,6 @@ public class Player
             pokemon.setPlayable(true);
         }
     }
-    public void showDraw(Pokemon pokemon)
-    {
-        System.out.println(String.format("%s Drew : ",m_name));
-        pokemon.display();
-    }
     public boolean hasPlayablePokemons()
     {
         ArrayList<Pokemon> playablePokemons = new ArrayList<>();
@@ -130,11 +125,12 @@ public class Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println("Player : " + m_name);
+        System.out.println(HelperFunctions.getColorCode("PLAYER_BACKGROUND") + HelperFunctions.getColorCode("WHITE_TEXT") + HelperFunctions.padRight("        Player : " + m_name,30) + HelperFunctions.getColorCode("RESET"));
         m_field.display();
         m_deck.display();
         m_graveyard.display();
         m_hand.display();
+
     }
 
     /**
