@@ -30,7 +30,7 @@ public abstract class CardCollection {
         // retourne vrai si le nombre des pokemon de la collection est egal à a la taille maximale de la collection
         return false;
     }
-    /*
+    /**
      * Methode pour ajouter un pokemon à la collection
      * @param pokemon le pokemon à ajouter
      */
@@ -40,7 +40,7 @@ public abstract class CardCollection {
         // Ajoute le pokemon à la collection
         // incremente m_size par 1
     }
-    /*
+    /**
      * Methode pour retirer un pokemon de la collection
      * @param name le nom du pokemon à retirer
      */
@@ -51,21 +51,46 @@ public abstract class CardCollection {
         // Retire le pokemon de la main
         // decremente m_size par 1
     }
-    /*
+    /**
+     * Methode pour retirer un pokemon de la collection
+     * @param pokemon le pokemon à retirer
+     */
+    public void removePokemon(Pokemon pokemon)
+    {
+        // Verifie si la collection n'est pas plein
+        // Verifie si le pokemon existe
+        // Retire le pokemon de la main
+        // decremente m_size par 1
+    }
+    /**
      * Supprime le pokemon de la collection et le retourne
      * @param name le nom du pokemon à recuperer
      * @return le pokemon à recuperer
      */
     public Pokemon pickPokemon(String name)
     {
-        // Verifie si le pokemon ecist
+        // Verifie si le pokemon exist
         // Retire le pokemon de la main
         // decremente m_size par 1
         // Retourne le pokemon
         // Sinon
         return null;
     }
-    /*
+    /**
+     * Supprime le pokemon de la collection et le retourne
+     * @param l'indice du pokemon à recuperer
+     * @return le pokemon à recuperer
+     */
+    public Pokemon pickPokemon(int index)
+    {
+        // Verifie si le pokemon exist
+        // Retire le pokemon de la main
+        // decremente m_size par 1
+        // Retourne le pokemon
+        // Sinon
+        return null;
+    }
+    /**
      * Methode pour verifier si un pokemon existe dans la collection
      * @return l'indice du pokemon dans la collection, -1 sinon
      */
@@ -75,7 +100,7 @@ public abstract class CardCollection {
         // retourne l'indice du pokemon, si non -1
         return -1;
     }
-    /*
+    /**
      * Methode pour recuperer un pokemon de la collection
      * Cette methode Supprime pas le pokemon de la collection
      * @param name le nom du pokemon à recuperer
@@ -88,11 +113,28 @@ public abstract class CardCollection {
         // cette methode ne retourne pas une copie
         return null;
     }
+    /**
+     * Methode pour recuperer un pokemon de la collection
+     * Cette methode Supprime pas le pokemon de la collection
+     * @param name le nom du pokemon à recuperer
+     * @return le pokemon à recuperer
+     */
+    public Pokemon getPokemon(int index)
+    {
+        // verifie si le pokemon existe
+        // retourne le pokemon
+        // cette methode ne retourne pas une copie
+        return null;
+    }
+    /**
+     * Methode pour recuperer la liste des pokemons de la collection
+     * @return la liste des pokemons
+     */
     public ArrayList<Pokemon> getPokemons()
     {
         return m_pokemons;
     }
-    /*
+    /**
      * Methode pour afficher les pokemons de la collection
      */
     public abstract void display();
