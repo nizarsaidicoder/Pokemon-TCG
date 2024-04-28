@@ -54,18 +54,14 @@ public class Player
     public void spawn()
     {
         // Prompt the player to choose a pokemon to spawn from the hand
-        System.out.print("Choose a pokemon to spawn : ( ");
-        for(Pokemon pokemon : m_hand.getPokemons())
-        {
-            System.out.print(pokemon.getName() + "/");
-        }
-        System.out.println(")");
+        System.out.println(HelperFunctions.colorizeAndCenter("Choose a pokemon to spawn", "blue", 100));
         // Recupere le pokemon à jouer
         String pokemonName = m_scanner.nextLine();
         // check if the player entered a valid pokemon name
         while(m_hand.containsPokemon(pokemonName) == -1)
         {
-            System.out.println("Invalid pokemon name, please enter a valid pokemon name");
+            System.out.println(HelperFunctions.colorizeAndCenter("Invalid pokemon name", "red", 100));
+            System.out.println(HelperFunctions.colorizeAndCenter("Choose a pokemon to spawn", "blue", 100));
             pokemonName = m_scanner.nextLine();
         }
         // Ajoute un pokemon du terrain
@@ -74,11 +70,20 @@ public class Player
     /*
      * Methode pour attaquer un joueur
      */
-    public void attack(Pokemon playerPokemon, Pokemon enemyPokemon)
+    public void attack(Player opponent)
     {
-        // Attaque le pokemon adverse
-        playerPokemon.attack(enemyPokemon);
-        playerPokemon.setPlayable(false);
+
+        Pokemon pokemon = promptPokemon();
+        // Prompt the player to choose a pokemon to attack
+        Pokemon enemyPokemon = promptEnemyPokemon(opponent);
+        // Attaque le pokemon
+        pokemon.attack(enemyPokemon);
+        pokemon.setPlayable(false);
+        if(!enemyPokemon.isAlive()) {
+            // Ajoute le pokemon adverse au cimetière
+            opponent.getGraveyard().addPokemon(enemyPokemon);
+            opponent.getField().removePokemon(enemyPokemon.getName());
+        }
     }
     public void setPlayablePokemons()
     {
@@ -120,6 +125,61 @@ public class Player
     {
         return m_field.isEmpty() && m_hand.isEmpty() && m_deck.isEmpty();
     }
+    public Pokemon promptPokemon()
+    {
+        // Prompt the player to choose a pokemon to attack with
+        System.out.print("Choose a pokemon to attack with : ( ");
+        for(int i= 0; i < m_field.getPokemons().size(); i++)
+        {
+            if(m_field.getPokemon(i).isPlayable()) System.out.print(m_field.getPokemon(i).getName() + "(" + (i+1) + ") ");
+        }
+        System.out.println(" )");
+        // Recupere le pokemon à jouer
+        // check if the player has entered the index of the pokemon
+        // check if the player has entered a valid index
+        int index = -1;
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= m_field.getPokemons().size() || !m_field.getPokemon(index).isPlayable())
+                {
+                    System.out.println("Invalid index, please enter a valid index");
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Invalid index, please enter a valid index");
+            }
+        }
+        return m_field.getPokemons().get(index); 
+    }
+    public Pokemon promptEnemyPokemon(Player opponent)
+    {
+        // Prompt the player to choose a pokemon to attack
+        System.out.println("Choose a pokemon to attack");
+        // Recupere le pokemon à attaquer
+        int index = -1;
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= opponent.getField().getPokemons().size())
+                {
+                    System.out.println("Invalid index, please enter a valid index");
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Invalid index, please enter a valid index");
+            }
+        }
+        return opponent.getField().getPokemon(index); 
+    }
     /*
      * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
      */
@@ -133,7 +193,6 @@ public class Player
         System.out.println();
         m_hand.display();
         System.out.println();
-
     }
 
     /**

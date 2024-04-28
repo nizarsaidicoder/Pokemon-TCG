@@ -41,18 +41,7 @@ public class Game
         Display.intro();
         // Appelez la méthode initializePlayers
         intializePlayers();
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Affichez un message pour indiquer le début du jeu
-        System.out.println(HelperFunctions.colorizeAndCenter("LET'S DUEL !", "purple", 100));
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Display.coinFlip(m_player);
         // Appelez la méthode play
         play();
 
@@ -63,7 +52,7 @@ public class Game
         {
             drawPhase();
             spawnPhase();
-            attackPhase();
+            battlePhase();
             endPhase();
         }
         Display.outro(m_winner);
@@ -71,9 +60,7 @@ public class Game
 
     public void drawPhase()
     {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        System.out.println("Draw Phase ...");
+        Display.drawPhase();
         // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
         while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty())
         {
@@ -85,53 +72,21 @@ public class Game
         // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
         while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
         {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            System.out.println("Spawn Phase ...");
             Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
+            Display.spawnPhase();
             m_currentPlayer.spawn();
         }
         m_currentPlayer.setPlayablePokemons();
     }
-    public void attackPhase()
+    public void battlePhase()
     {
         
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
         while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
         {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            System.out.println("Attack Phase ...");
             Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
-            // Prompt the player to choose a pokemon to attack with
-            System.out.println("Choose a pokemon to attack with");
-            // Recupere le pokemon à jouer
-            String pokemonName = m_scanner.nextLine();
-            while(m_currentPlayer.getField().containsPokemon(pokemonName) == -1)
-            {
-                System.out.println("Invalid pokemon name, please enter a valid pokemon name");
-                pokemonName = m_scanner.nextLine();
-            }
-            Pokemon pokemon = m_currentPlayer.getField().getPokemon(pokemonName);
-            // Prompt the player to choose a pokemon to attack
-            System.out.println("Choose a pokemon to attack");
-            // Recupere le pokemon à attaquer
-            String enemyPokemonName = m_scanner.nextLine();
-            while(m_opponent.getField().containsPokemon(enemyPokemonName) == -1)
-            {
-                System.out.println("Invalid pokemon name, please enter a valid pokemon name");
-                enemyPokemonName = m_scanner.nextLine();
-            }
-            Pokemon enemyPokemon = m_opponent.getField().getPokemon(enemyPokemonName);
-            System.out.println(pokemon.getName());
-            // Attaque le pokemon
-            m_currentPlayer.attack(pokemon, enemyPokemon);
-            if(!enemyPokemon.isAlive()) {
-                // Ajoute le pokemon adverse au cimetière
-                m_opponent.getGraveyard().addPokemon(enemyPokemon);
-                m_opponent.getField().removePokemon(enemyPokemonName);
-            }
-
+            Display.battlePhase();
+            m_currentPlayer.attack(m_opponent);
         }
         // !!! Attention !!!
         // Il faut passer l'autre joueur en paramètre de la méthode play, pour que le joueur actuel puisse attaquer l'autre joueur
@@ -139,9 +94,6 @@ public class Game
 
     public void endPhase()
     {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        System.out.println("End Phase ...");
         // Phase de fin
         switchPlayer();
         nextTurn();
@@ -210,36 +162,20 @@ public class Game
      */
     public boolean isFirstPlayer()
     {
-        // Choisissez aléatoirement le premier joueur
-        // Affichez un message pour indiquer qui commence
-        System.out.println("Deciding who starts ...");
+        System.out.println(HelperFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
         // Prompt the user to press Enter to continue
-        System.out.println("Heads or Tails ?");
+        System.out.print(HelperFunctions.colorize("Heads or Tails ? :  ","yellow"));
         String choice = m_scanner.nextLine().toLowerCase();
+        System.out.println();
         while(!choice.equals("heads") && !choice.equals("tails"))
         {
-            System.out.println("Invalid choice, please enter Heads or Tails");
+            System.out.println(HelperFunctions.colorize("Invalid choice, please enter Heads or Tails ? : ", "red"));
             choice = m_scanner.nextLine().toLowerCase();
+            System.out.println();
         }
         Random rnd = new Random();
-        int coin = rnd.nextInt(2);
-        System.out.println(HelperFunctions.colorizeAndCenter("Flipping the coin ...","purple" , 100));
-
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if((coin == 0 && choice.equals("Heads")) || (coin == 1 && choice.equals("Tails")))
-        {
-            System.out.println(HelperFunctions.colorizeAndCenter("You start !", "green", 100));
-            return true;
-        }
-        else
-        {
-            System.out.println(HelperFunctions.colorizeAndCenter("Computer starts !", "red", 100));
-            return false;
-        }
+        int coin = rnd.nextInt(2) + 1;
+        return (coin == 1 && choice.equals("heads")) || (coin == 2 && choice.equals("tails"));
     }
     /**
      * Méthode pour basculer entre les joueurs

@@ -56,7 +56,19 @@ public abstract class CardCollection {
         // Verifie si le pokemon existe
         // Retire le pokemon de la main
         // decremente m_size par 1
-        int index = containsPokemon(name);
+        int index = containsPokemon(name.toLowerCase());
+        if(index != -1)
+        {
+            m_pokemons.remove(index);
+            m_size--;
+        }
+    }
+    public void removePokemon(Pokemon pokemon)
+    {
+        // Verifie si le pokemon existe
+        // Retire le pokemon de la main
+        // decremente m_size par 1
+        int index = containsPokemon(pokemon.getName());
         if(index != -1)
         {
             m_pokemons.remove(index);
@@ -75,7 +87,7 @@ public abstract class CardCollection {
         // decremente m_size par 1
         // Retourne le pokemon
         // Sinon
-        int index = containsPokemon(name);
+        int index = containsPokemon(name.toLowerCase());
         if(index != -1)
         {
             return pickPokemon(index);
@@ -108,7 +120,7 @@ public abstract class CardCollection {
         for (int i = 0; i < m_size; i++)
         {
             // si le pokemon existe
-            if(m_pokemons.get(i).getName().equals(name)) return i;
+            if(m_pokemons.get(i).getName().toLowerCase().equals(name.toLowerCase())) return i;
         }
         // retourne l'indice du pokemon, si non -1
         return -1;
@@ -122,10 +134,21 @@ public abstract class CardCollection {
     public Pokemon getPokemon(String name)
     {
         // verifie si le pokemon existe
-        int index = containsPokemon(name);
+        int index = containsPokemon(name.toLowerCase());
         if(index != -1)
         {
             // retourne le pokemon avec le nom passé par parametre
+            // cette methode ne retourne pas une copie
+            return m_pokemons.get(index);
+        }
+        return null;
+    }
+    public Pokemon getPokemon(int index)
+    {
+        // verifie si le pokemon existe
+        if(index != -1 && index < m_size)
+        {
+            // retourne le pokemon avec l'indice passé par parametre
             // cette methode ne retourne pas une copie
             return m_pokemons.get(index);
         }

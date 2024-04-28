@@ -2,6 +2,8 @@ import Utils.HelperFunctions;
 import Player.Player;
 import Pokemon.Pokemon;
 
+import java.util.function.Function;
+
 
 public class Display {
     // THIS CLASS IS RESPONSIBLE FOR DISPLAYING THE GAME, THE POKEMON, THE PLAYER, ETC.
@@ -58,7 +60,10 @@ public class Display {
         System.out.println();
         credits();
         System.out.println();
-        System.out.println(HelperFunctions.colorizeAndCenter("Game is starting ...", "blue", screenSize));
+        System.out.println(HelperFunctions.colorizeAndCenter("Preparing the game", "blue", screenSize));
+        try {Thread.sleep(1500);}
+        catch (InterruptedException e) {e.printStackTrace();}
+
     }
     public static void outro(String winner)
     {
@@ -98,7 +103,31 @@ public class Display {
         System.out.println();
         System.out.println();
         player.display();
-
+    }
+    public static void coinFlip(Player player)
+    {
+        System.out.println(HelperFunctions.colorizeAndCenter("Flipping the coin ...","purple" , 100));
+        try {Thread.sleep(1500);}
+        catch (InterruptedException e) {e.printStackTrace();}
+        if(player.getPlayerNumber() == 1) System.out.println(HelperFunctions.colorizeAndCenter("You start !", "green", 100));
+        else System.out.println(HelperFunctions.colorizeAndCenter("Computer starts !", "red", 100));
+        try {Thread.sleep(1500);}
+        catch (InterruptedException e) {e.printStackTrace();}
+        System.out.println(HelperFunctions.colorizeAndCenter("LET'S DUEL !", "purple", 100));
+        try {Thread.sleep(1500);}
+        catch (InterruptedException e) {e.printStackTrace();}
+    }
+    public static void drawPhase()
+    {
+        System.out.println(HelperFunctions.colorizeAndCenter("Draw phase🃏", "blue", screenSize));
+    }
+    public static void spawnPhase()
+    {
+        System.out.println(HelperFunctions.colorizeAndCenter("Spawn phase 🐣", "blue", screenSize));
+    }
+    public static void battlePhase()
+    {
+        System.out.println(HelperFunctions.colorizeAndCenter("Battle phase ⚔️", "blue", screenSize));
     }
 }
 
