@@ -1,11 +1,13 @@
 import Player.Player;
 import Player.AI;
-import Pokemon.Pokemon;
-import Pokemon.Affinity;
+import Pokemon.*;
+import Utils.*;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Arrays;
+import java.util.Scanner;
+
 
 public class Game
 {
@@ -14,8 +16,10 @@ public class Game
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
-    private ArrayList<String> m_pokemonNames;
+    private final ArrayList<String> m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
     private int m_turn;
+    private Scanner m_scanner = new Scanner(System.in);
+
 
     /**
      * Constructeur de la classe Game
@@ -23,9 +27,8 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
-        m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
         m_winner = null;
-        m_turn = 0;
+        m_turn = 1;
     }
 
     /**
@@ -34,54 +37,31 @@ public class Game
     public void start()
     {
         // appelez la méthode welcome
-        welcome();
-        // Déterminez aléatoirement le premier joueur
-        boolean firstPlayer = isFirstPlayer();
-        if (firstPlayer)
-        {
-            m_player = new Player(1);
-            m_ai = new AI(2);
-            m_currentPlayer = m_player;
-            m_opponent = m_ai;
-        }
-        else
-        {
-            m_player = new Player(2);
-            m_ai = new AI(1);
-            m_currentPlayer = m_ai;
-            m_opponent = m_player;
-        }
-        // Affichez un message pour indiquer le début du jeu
-        System.out.println("Let's DUEL !");
+        Display.intro();
+        // Appelez la méthode initializePlayers
+        intializePlayers();
+        Display.coinFlip(m_player);
+        // Appelez la méthode play
+        play();
 
     }
     public void play()
     {
         while (!isGameOver())
         {
-            showGameStatus();
             drawPhase();
             spawnPhase();
-            attackPhase();
+            battlePhase();
             endPhase();
         }
-        end();
+        Display.outro(m_winner);
     }
-    /**
-     * Méthode pour terminer le jeu
-     */
-    public void end()
-    {
-        System.out.println("Game Over !");
-        showWinner();
-        showCredits();
-    }
+
     public void drawPhase()
     {
         // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
-        while(m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getDeck().isEmpty())
+        while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty())
         {
-            showGameStatus();
             m_currentPlayer.draw();
         }
     }
@@ -90,128 +70,100 @@ public class Game
         // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
         while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
         {
-            showGameStatus();
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
+            Display.spawnPhase();
             m_currentPlayer.spawn();
         }
+        // Mettez à jour les pokémons jouables du joueur actuel
         m_currentPlayer.setPlayablePokemons();
     }
-    public void attackPhase()
+    /**
+     * La phase de bataille est une phase où le joueur actuel attaque l'adversaire
+     */
+    public void battlePhase()
     {
+        
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
         while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
         {
-            showGameStatus();
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
+            Display.battlePhase();
             m_currentPlayer.attack(m_opponent);
-        }
-        // !!! Attention !!!
-        // Il faut passer l'autre joueur en paramètre de la méthode play, pour que le joueur actuel puisse attaquer l'autre joueur
+        } 
     }
-
+    /**
+     * Méthode pour passer à la phase suivante
+     */
     public void endPhase()
     {
         // Phase de fin
-        switchPlayer();
-        nextTurn();
+        // Passez au joueur suivant et incrémentez le tour
+        m_currentPlayer = m_currentPlayer == m_player ? m_ai : m_player;
+        m_opponent = m_opponent == m_player ? m_ai : m_player;
+        m_turn++;
     }
-    public ArrayList<Pokemon> generatePokemons()
+    public void intializePlayers()
     {
-        //Génération des Pokémons
-        //À chaque partie, les Pokémons de chaque pioche sont générées selon l'algorithme suivant :
-        //
-        //leur nom est tiré aléatoirement parmi une liste de noms fixe, mais deux Pokémons ne peuvent pas avoir le même nom,
-        //leur nombre de points de vie est un multiple de 10, compris entre 100 et 200 et déterminé aléatoirement,
-        //leur valeur d'attaque est un multiple de 10 compris entre 10 et 40 et déterminé aléatoirement,
-        //leur affinité est choisie aléatoirement.
-        ArrayList<Pokemon> pokemons = new ArrayList<>(41);
-        for(int i = 0; i < 41; i++)
+        // Générez les pokémons
+        // Déterminez aléatoirement le premier joueur
+        ArrayList<Pokemon> pokemons = generatePokemons();
+        boolean firstPlayer = isFirstPlayer();
+        if (firstPlayer)
         {
-            String name = m_pokemonNames.get(i);
-            int hp = (int) (Math.random() * 11) * 10 + 100;
-            int attack = (int) (Math.random() * 4 + 1) * 10;
-            String affinity = "Fire";
-//            pokemons.add(new Pokemon(name, hp, attack, affinity));
-        }
-        return pokemons;
-    }
-    public Affinity generateRandomAffinity()
-    {
-    }
-    /**
-     * Méthode pour déterminer le premier joueur
-     * @return 1 si le joueur commence, 2 si l'IA commence
-     */
-    public boolean isFirstPlayer()
-    {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        // Choisissez aléatoirement le premier joueur
-        // Affichez un message pour indiquer qui commence
-        System.out.println("Deciding who starts ...");
-        // Prompt the user to press Enter to continue
-        System.out.println("Press Enter to continue ...");
-        // Wait for the user to press Enter
-        try
-        {
-            System.in.read();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        // Prompt the user to choose Heads or Tails
-        System.out.println("Heads or Tails ?");
-        // Wait for the user to enter Heads or Tails
-        String choice = "";
-        try
-        {
-            int character;
-            while((character = System.in.read()) != '\n')
-            {
-                choice += (char) character;
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        if(choice.equals("Heads") || choice.equals("Tails"))
-        {
-            Random rnd = new Random();
-            int firstPlayer = rnd.nextInt(2) + 1;
-            if((firstPlayer == 1 && choice.equals("Heads")) || (firstPlayer == 2 && choice.equals("Tails")))
-            {
-                System.out.println("You start !");
-                return true;
-            }
-            else
-            {
-                System.out.println("Computer starts !");
-                return false;
-            }
-            // Affichez le résultat du lancer de pièce
-
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1,"Marie");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2,"Computer");
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
         }
         else
         {
-            // Affichez un message d'erreur
-            System.out.println("Invalid choice. Please enter Heads or Tails.");
-            // Rappeler la méthode isFirstPlayer
-            return isFirstPlayer();
+            m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,"Marie");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1,"Computer");
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
         }
     }
-    /**
-     * Méthode pour basculer entre les joueurs
-     */
-    public void switchPlayer()
+    public ArrayList<Pokemon> generatePokemons()
     {
-        m_currentPlayer = m_currentPlayer == m_player ? m_ai : m_player;
+        //Génération des Pokémons     
+        // Pour chaque nom de Pokémon, générez un Pokémon avec un nom, des points de vie, une valeur d'attaque et une affinité aléatoires
+        //leur nombre de points de vie est un multiple de 10, compris entre 100 et 200 et déterminé aléatoirement,
+        //leur valeur d'attaque est un multiple de 10 compris entre 10 et 40 et déterminé aléatoirement,
+        //leur affinité est choisie aléatoirement. ! Appel de la méthode generateRandomAffinity()
+        // SCHUFFLE AND RETURN THE LIST
     }
     /**
-     * Méthode pour passer au tour suivant
+     * Méthode pour générer une affinité aléatoire
+     * @return une affinité aléatoire
      */
-    public void nextTurn()
+    public Affinity generateRandomAffinity()
     {
-        m_turn++;
+        //Génération d'une affinité aléatoire
+        //Les affinités sont générées aléatoirement parmi les 4 affinités suivantes : EARTH, FIRE, WATER, AIR.
+        Affinity[] affinities = {new Earth(), new Fire(), new Water(), new Air()};
+        Random rnd = new Random();
+        return affinities[rnd.nextInt(4)];
+    }
+    /**
+     * Méthode pour déterminer le premier joueur
+     * @return true si le joueur commence, false sinon
+     */
+    public boolean isFirstPlayer()
+    {
+        System.out.println(HelperFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
+        // Prompt the user to press Enter to continue
+        System.out.print(HelperFunctions.colorize("Heads or Tails ? :  ","yellow"));
+        String choice = m_scanner.nextLine().toLowerCase();
+        System.out.println();
+        while(!choice.equals("heads") && !choice.equals("tails"))
+        {
+            System.out.println(HelperFunctions.colorize("Invalid choice, please enter Heads or Tails ? : ", "red"));
+            choice = m_scanner.nextLine().toLowerCase();
+            System.out.println();
+        }
+        Random rnd = new Random();
+        int coin = rnd.nextInt(2) + 1;
+        return (coin == 1 && choice.equals("heads")) || (coin == 2 && choice.equals("tails"));
     }
     /**
      * Méthode pour vérifier si le jeu est terminé
@@ -232,95 +184,5 @@ public class Game
         }
         // Si le jeu est terminé, mettez à jour le gagnant
         return false;
-    }
-    /**
-     * Méthode pour afficher un message de bienvenue
-     */
-    public void welcome()
-    {
-        // Affiche le logo du jeu
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        final String RESET = "\033[0m";  // Text Reset
-        final String YELLOW = "\033[0;33m";    // YELLOW
-        String pikachuArt = "⠐⣶⣾⣭⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡄⠀⠄⠀⠀⠀⠀⠀\n" +
-                "⠀⠹⣿⣿⣧⠈⠙⠳⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠴⢻⣿⣿⣿⢇⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠘⢿⣿⡄⠀⠀⠀⠙⢿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠛⠉⠀⠀⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠈⠻⣧⠀⠀⠀⠀⠀⠙⢿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠉⠀⠀⠀⠀⢰⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠘⢷⣀⠀⠀⠀⠀⠀⠹⣦⡀⠀⢀⣀⣀⣀⣰⣶⣦⣀⣀⡀⠀⠀⣠⡶⠋⠁⠀⠀⠀⠀⠀⢀⣾⡻⠋⠀⠀⡀⣀⣄⣤⡤⣦\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠙⢦⣄⠀⠀⠀⠀⠈⣷⠶⠛⠉⠉⠁⠀⠀⠈⠉⠉⠛⠿⡿⠟⠁⠀⠀⠀⠀⢀⣠⣶⡿⠋⣀⣤⠼⠗⠛⠉⠁⠀⠀⡟\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠷⢦⣀⣰⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣄⣤⣶⣟⣣⡽⡿⠟⠋⠀⠀⠀⠀⠀⠀⢀⣾⡟\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠒⠿⡷⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⠏⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢫⣯⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⣴⣿⠻⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⣴⡻⣿⣷⡀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠇⠀⣿⡿⢿⣿⠃⠀⠀⠀⣀⣀⠀⠀⠀⣿⣿⣿⣿⠇⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⣾⠟⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⡤⣤⡈⠉⠉⠁⠀⠀⠀⠀⠉⠉⠀⠀⠀⠀⠉⠛⠃⢀⣠⣈⣧⠀⠀⣤⣴⡶⠿⠿⠛⠉⠉⠁⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠙⣦⠀⠀⠀⠳⠤⠴⠞⠛⠦⣤⠾⠃⠀⠀⣼⠋⠀⠈⣿⠀⠀⠈⣷⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⡄⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠄⠀⣰⡟⠀⠀⠀⠀⠻⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣶⣛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢒⣶⣿⢻⣷⣤⠀⠀⠀⠈⢻⣦⡀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⡇⠙⠳⣦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠶⠋⢸⡷⠞⠋⠀⣀⣠⣶⠞⠿⠙⠃⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠁⠀⠀⠀⠉⠓⠭⣷⣦⣤⣤⡴⠦⣺⠛⠉⠀⠀⠀⠈⣷⠀⢶⣿⣟⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡞⠁⠀⠀⠀⠀⠀⠀⠀⣦⠀⠀⠀⠀⣰⠏⠀⠀⠀⠀⠀⠀⠘⣷⣀⣨⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⡋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⣠⣄⣀⣠⡟⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠈⣇⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⢀⡇⠀⠘⣷⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⢰⣿⣿⣛⣿⣁⠀⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⢸⣱⣿⣷⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠈⢿⣿⠻⣤⣉⠷⠀⠸⣇⠀⠀⠀⠀⠀⠀⠀⣿⠰⠠⡏⠀⠀⠀⠀⠀⠀⣰⠇⠀⢀⡴⢛⣱⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠈⠛⢷⡀⠈⠳⣄⠀⠹⣦⠀⠀⠀⠀⠀⠀⡟⠀⠀⣷⠀⠀⠀⠀⠀⣰⠏⠀⢀⣴⠚⠉⣸⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⢹⣦⡀⠈⠃⣦⠘⢷⡀⠀⠀⠀⢀⣧⣤⣤⣿⠀⠀⠀⢀⣼⠃⣀⠒⠛⢀⣤⣾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣛⣦⠴⢿⢶⣿⣿⡤⢴⣶⢿⡛⠁⠙⣿⣶⣤⣤⣾⣗⢶⣯⣤⣴⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
-
-        System.out.println( YELLOW+ pikachuArt +  RESET);
-        // Affiche un message de bienvenue
-        System.out.println("|------------ Welcome to Pokemon Battle -----------|");
-        System.out.println("Game is starting ...");
-    }
-    /**
-     * Méthode pour afficher le tour actuel et le joueur actuel
-     */
-    public void showTurnAndCurrentPlayer()
-    {
-        // Affiche le joueur actuel
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println("|---------Turn : "+ m_turn + "----------|" + "|----------Current Player : " + m_currentPlayer.getPlayerNumber() + " -------------|");
-        System.out.println("-----------------------------------------------------------------------------------------");
-    }
-    public void showGameStatus()
-    {
-        // Affiche le statut du jeu
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println("************************************** GAME STATUS **************************************");
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println();
-
-        showTurnAndCurrentPlayer();
-        m_ai.display();
-        System.out.println();
-
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println();
-
-        m_player.display();
-    }
-    public void showWinner()
-    {
-        // Affiche le gagnant
-        if(m_winner == "Computer")
-        {
-            System.out.println("Computer wins !");
-        }
-        else if(m_winner == "You")
-        {
-            System.out.println("You win !");
-        }
-    }
-    public void showCredits()
-    {
-        // Affiche les crédits
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println("************************************** CREDITS **************************************");
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println("Developed by : ");
-        System.out.println("HAGGUI NESRINE AND SAIDI NIZAR");
-        System.out.println("-----------------------------------------------------------------------------------------");
     }
 }

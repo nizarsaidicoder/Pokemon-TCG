@@ -160,9 +160,6 @@ public class Display {
         catch (InterruptedException e) {e.printStackTrace();}
     }
     /*
-     * Affiche 
-     */
-    /*
      * Affiche la phase d'invoquation
      */
     public static void spawnPhase()
