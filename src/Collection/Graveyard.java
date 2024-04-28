@@ -21,12 +21,10 @@ public class Graveyard  extends CardCollection
     public void display()
     {
         // _________________________
-        //|                         |
         //|      GRAVEYARD: 21      |
-        //|_________________________|
+        //_________________________
 
         String out = " _________________________ " + "\n" +
-                    "|                         |" + "\n" +
                     "|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_size),2,'0') + "      |" + "\n" +
                     "|_________________________|";
         out = HelperFunctions.colorize(out, "red");

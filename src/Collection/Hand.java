@@ -25,9 +25,12 @@ public class Hand extends CardCollection {
         //|_________________________|
         // |   NAME    | HP  |  TYPE  |  WEAKNESS  |  RESISTANCE  |  ATTACKS  |
         System.out.println(HelperFunctions.colorizeAndCenter("HAND", "purple", 100));
-        System.out.println("POKEMON NAME         | HP                   | TYPE                 | ATTACK");
-        System.out.println(HelperFunctions.colorize(HelperFunctions.padRight("", 100, '-'), "purple"));
-        for(Pokemon pokemon : m_pokemons) pokemon.display();
+        System.out.println("POKEMON                | HP                   | AFFINITY             | ATTACK");
+        for(int i=0; i< m_pokemons.size(); i++)
+        {
+            System.out.print((i+1) + " ");
+            m_pokemons.get(i).display();
+        }
     }
     @Override
     public String toString()
