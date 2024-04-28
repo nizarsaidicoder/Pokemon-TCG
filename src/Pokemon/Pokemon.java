@@ -46,7 +46,7 @@ public class Pokemon
     return false;
   }
   /*
-   * Méthode pour vérifier si le pokemon est jouable
+    * Méthode pour vérifier si le pokemon est jouable
    */
   public boolean isPlayable()
   {
@@ -91,7 +91,7 @@ public class Pokemon
   }
   public void setPlayable(boolean isPlayable)
   {
-    m_isPlayable = isPlayable;
+      m_isPlayable = isPlayable;
   }
   @Override
   /**
