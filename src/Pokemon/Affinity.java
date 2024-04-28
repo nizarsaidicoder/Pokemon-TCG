@@ -15,7 +15,7 @@ public abstract class Affinity
     public abstract Element getWeakness();
     public abstract Element getStrenght();
 
-    public Element getAffinity()
+    public Element getElement()
     {
         return m_element;
     }
