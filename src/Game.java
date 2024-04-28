@@ -148,7 +148,7 @@ public class Game
     }
     public void intializePlayers()
     {
-                // Générez les pokémons
+        // Générez les pokémons
         // Déterminez aléatoirement le premier joueur
         ArrayList<Pokemon> pokemons = generatePokemons();
         boolean firstPlayer = isFirstPlayer();
@@ -223,6 +223,13 @@ public class Game
         }
         Random rnd = new Random();
         int coin = rnd.nextInt(2);
+        System.out.println(HelperFunctions.colorizeAndCenter("Flipping the coin ...","purple" , 100));
+
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if((coin == 0 && choice.equals("Heads")) || (coin == 1 && choice.equals("Tails")))
         {
             System.out.println(HelperFunctions.colorizeAndCenter("You start !", "green", 100));
