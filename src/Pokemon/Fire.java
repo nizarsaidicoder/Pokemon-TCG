@@ -12,7 +12,7 @@ public class Fire extends Affinity
         return Element.WATER;
     }
 
-    public Element getStrenght()
+    public Element getStrength()
     {
         return Element.AIR;
     }

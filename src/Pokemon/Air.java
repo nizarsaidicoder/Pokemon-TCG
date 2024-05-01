@@ -12,7 +12,7 @@ public class Air extends Affinity
         return Element.FIRE;
     }
 
-    public Element getStrenght()
+    public Element getStrength()
     {
         return Element.EARTH;
     }

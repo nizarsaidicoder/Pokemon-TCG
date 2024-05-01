@@ -12,7 +12,7 @@ public class Earth extends Affinity
         return Element.FIRE;
     }
 
-    public Element getStrenght()
+    public Element getStrength()
     {
         return Element.WATER;
     }

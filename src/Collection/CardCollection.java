@@ -158,6 +158,10 @@ public abstract class CardCollection {
     {
         return m_pokemons;
     }
+    public int getSize()
+    {
+        return m_size;
+    }
     /*
      * Methode pour afficher les pokemons de la collection
      */

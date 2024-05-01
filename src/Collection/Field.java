@@ -110,8 +110,8 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getStrenght());
-                System.out.print(HelperFunctions.padRight("| Strength : " + foreColor + m_pokemons.get(i).getAffinity().getStrenght(), 26) + RESET + "|");
+                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getStrength());
+                System.out.print(HelperFunctions.padRight("| Strength : " + foreColor + m_pokemons.get(i).getAffinity().getStrength(), 26) + RESET + "|");
                 System.out.print("\t\t");
             }
             else

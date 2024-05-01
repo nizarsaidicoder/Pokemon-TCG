@@ -30,7 +30,7 @@ public class Player
     {
         // Initialise le deck, la main, le cimetière et le terrain
         m_field = new Field(3);
-        m_graveyard = new Graveyard(6);
+        m_graveyard = new Graveyard(21);
         m_deck = new Deck(6,pokemons);
         m_hand = new Hand(5);
         m_playerNumber = playerNumber;
@@ -203,8 +203,14 @@ public class Player
         // Affiche le joueur
         System.out.println(HelperFunctions.colorizeAndCenter(m_name, "blue", 100));
         m_field.display();
-        m_deck.display();
-        m_graveyard.display();
+//        m_deck.display();
+//        m_graveyard.display();
+        String out = " _________________________ \t\t _________________________ \n" +
+                "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
+
+                "|_________________________|     |_________________________|";
+        out = HelperFunctions.colorize(out, "blue");
+        System.out.println(out);
         m_hand.display();
         System.out.println();
     }

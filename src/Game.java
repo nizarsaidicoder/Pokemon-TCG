@@ -106,8 +106,8 @@ public class Game
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
         {
-            m_player = new Player(new ArrayList<>(pokemons.subList(0, 5)),1,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(5,8)),2,"Computer");
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1,"Marie");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2,"Computer");
             m_currentPlayer = m_player;
             m_opponent = m_ai;
         }
@@ -164,27 +164,34 @@ public class Game
     {
         System.out.println(HelperFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
         // Prompt the user to press Enter to continue
-        System.out.print(HelperFunctions.colorize("Heads or Tails ? :  ","yellow"));
+        System.out.print(HelperFunctions.colorize("(H)eads or (T)ails ? :  ","yellow"));
         String choice = m_scanner.nextLine().toLowerCase();
         System.out.println();
-        while(!choice.equals("heads") && !choice.equals("tails"))
+        while(!choice.equals("heads") && !choice.equals("tails") && !choice.equals("h") && !choice.equals("t"))
         {
-            System.out.println(HelperFunctions.colorize("Invalid choice, please enter Heads or Tails ? : ", "red"));
+            System.out.println(HelperFunctions.colorize("Invalid choice, please enter (H)eads or (T)ails ? : ", "red"));
             choice = m_scanner.nextLine().toLowerCase();
             System.out.println();
         }
         Random rnd = new Random();
         int coin = rnd.nextInt(2) + 1;
-        return (coin == 1 && choice.equals("heads")) || (coin == 2 && choice.equals("tails"));
+        return ((coin == 1 && (choice.equals("heads") ||choice.equals("h"))) || ((coin == 2 && (choice.equals("tails") || choice.equals("t")))));
     }
     /**
      * Méthode pour basculer entre les joueurs
      */
     public void switchPlayer()
     {
-
-        m_currentPlayer = m_currentPlayer == m_player ? m_ai : m_player;
-        m_opponent = m_opponent == m_player ? m_ai : m_player;
+        if(m_currentPlayer == m_player)
+        {
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
+        }
+        else
+        {
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
+        }
     }
     /**
      * Méthode pour passer au tour suivant

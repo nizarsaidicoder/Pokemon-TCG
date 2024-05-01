@@ -30,14 +30,10 @@ public class Pokemon
    */
   public void attack(Pokemon pokemon)
   {
-    if(m_attack > pokemon.m_hp)
-    {
-      pokemon.m_hp = 0;
-    }
-    else
-    {
-      pokemon.m_hp -= m_attack;
-    }
+      if(pokemon.getAffinity().getWeakness() == m_affinity.getElement()) pokemon.m_hp -= m_attack + 10;
+      else if(pokemon.getAffinity().getStrength() == m_affinity.getElement()) pokemon.m_hp -= m_attack - 10;
+      else pokemon.m_hp -= m_attack;
+      if(pokemon.m_hp < 0) pokemon.m_hp = 0;
   }
   /*
    * Méthode pour vérifier si le pokemon est vivant
