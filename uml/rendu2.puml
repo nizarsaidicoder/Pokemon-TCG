@@ -1,0 +1,179 @@
+@startuml POOKEMON
+!theme reddress-darkgreen
+title | POOKEMON |
+top to bottom direction
+
+package Collection
+{
+    abstract class CardCollection
+    {
+        # m_maxSize : Integer
+        # m_size : Integer
+        + <<Create>> CardCollection(maxSize : Integer)
+        + isEmpty() : Boolean
+        + isFull() : Boolean
+        + addPokemon(pokemon : Pokemon)
+        + removePokemon(pokemon : Pokemon)
+        + removePokemon(name : String)
+        + pickPokemon(index : Integer) : Pokemon
+        + pickPokemon(name : name) : Pokemon
+        + containsPokemon(name : String) : Integer
+        + getPokemons() : Pokemon[]
+        + getPokemon(index : Integer) : Pokemon
+        + getPokemon(name : String) : Pokemon
+        + {abstract}display()
+        + toString() : String
+    }
+    class Deck
+    {
+        + <<Create>> Deck(21/20)
+        + display()
+        + toString() : String
+    }
+
+    class Field
+    {
+        + <<Create>> Field(3)
+        + display()
+        + toString() : String
+    }
+
+    class Graveyard
+    {
+        + <<Create>> Graveyard(21)
+        + display()
+        + toString() : String
+    }
+
+    class Hand
+    {
+        + <<Create>> Hand(5)
+        + display()
+        + toString() : String
+    }
+}
+' Heritage
+Deck <|-- CardCollection
+Field <|-- CardCollection
+Graveyard <|-- CardCollection
+Hand <|-- CardCollection
+
+' Agrégations
+CardCollection o--> " # m_pokemons\n0, m_maxSize" Pokemon.Pokemon
+
+package Player
+{
+    class Player
+    {
+        - m_playerNumber : Integer
+        + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer)
+        + display()
+        + draw()
+        + attack()
+        + toString() : String
+    }
+
+    class AI
+    {
+        + <<Create>> AI(Pokemons : Pokemon[], playerNumber : Integer)
+    }
+}
+
+Player.Player *--> "-m_field\n1, 1" Collection.Field
+Player.Player *--> "-m_graveyard\n 1,1" Collection.Graveyard
+Player.Player *--> "-m_deck\n 1,1" Collection.Deck
+Player.Player *--> "-m_hand\n 1,1" Collection.Hand
+
+AI --up-|> Player.Player
+
+package Pokemon
+{
+    class Pokemon
+    {
+       - m_name : String
+       - m_hp : Integer
+       - m_hpMax : Integer
+       - m_attack : Integer
+       - m_isPlayable : Boolean
+       + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
+       + isAlive() : Boolean
+       + isPlayable() : Boolean
+       + setPlayable(isPlayable : Boolean)
+       + attack(pokemon : Pokemon)
+       + getName() : String
+       + getHP() : Integer
+       + getHPMax() : Integer
+       + getAttack() : Integer
+       + getAffinity() : Affinity
+       + toString() : String
+    }
+
+    enum Element
+    {
+        WATER
+        EARTH
+        FIRE
+        AIR
+    }
+
+    abstract class Affinity
+    {
+        + <<Create>> Affinity(element : Element)
+        +{abstract} getWeakness() : Element
+        +{abstract} getStrength() : Element
+        +{abstract} getElement() : Element
+    }
+    class Water
+    {
+        + <<Create>> Water()
+    }
+    class Earth
+    {
+        + <<Create>> Earth()
+    }
+    class Fire
+    {
+        + <<Create>> Fire()
+    }
+    class Air
+    {
+        + <<Create>> Air()
+    }
+}
+Pokemon.Element "- m_element\n 1,1"  <--* Pokemon.Affinity
+Pokemon.Affinity "- m_affinity\n 1,1" <--* Pokemon.Pokemon
+Pokemon.Affinity <|-- Pokemon.Water
+Pokemon.Affinity <|-- Pokemon.Earth
+Pokemon.Affinity <|-- Pokemon.Fire
+Pokemon.Affinity <|-- Pokemon.Air
+package Utils
+{
+    class HelperFunctions
+    {
+        +{static}padRight(s : String, n : Integer) : String
+        +{static}padLeft(s : String, n : Integer) : String
+        +{static}getCorrespondingColor(affinity : String) : String
+    }
+}
+
+class Game
+{
+    - m_turn : Integer
+    + "Create" Game()
+    + showGameStatus()
+}
+
+Game *--> "-m_player\n 1,1" Player.Player
+Game *--> "-m_ai\n 1,1" Player.AI
+Game *--> "-m_currentPlayer\n 1,1" Player.Player
+Game *--> "-m_winner\n 1,1" Player.Player
+
+class Pookemon
+{
+    +{static}main(arg : String*)
+}
+
+Pookemon --> "uses" Game
+Field --> "uses" Utils.HelperFunctions
+
+@enduml

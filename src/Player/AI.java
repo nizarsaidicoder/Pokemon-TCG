@@ -1,15 +1,19 @@
 package Player;
 
-public class AI extends Player 
+import Pokemon.Pokemon;
+
+import java.util.ArrayList;
+
+public class AI extends Player
 {
     /**
      * Constructeur de la classe AI
      */
-    public AI (int playerNumber)
+    public AI (ArrayList<Pokemon> pokemons, int playerNumber)
     {
         // Initialise le deck, la main, le cimetière et le terrain
         // Juste pour les tests pour l'instant
-        super(playerNumber);
+        super(pokemons,playerNumber);
     }
 
     @Override

@@ -15,8 +15,8 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
-        m_player = new Player(1);
-        m_ai = new AI(2);
+        m_player = null;
+        m_ai = null;
         m_currentPlayer = m_player;
         m_winner = null;
         m_turn = 99;
