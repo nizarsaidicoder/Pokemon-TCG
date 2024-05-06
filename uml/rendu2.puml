@@ -53,10 +53,10 @@ package Collection
     }
 }
 ' Heritage
-Deck <|-- CardCollection
-Field <|-- CardCollection
-Graveyard <|-- CardCollection
-Hand <|-- CardCollection
+Deck --|> CardCollection
+Field --|> CardCollection
+Graveyard --|> CardCollection
+Hand --|> CardCollection
 
 ' Agrégations
 CardCollection o--> " # m_pokemons\n0, m_maxSize" Pokemon.Pokemon
