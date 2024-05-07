@@ -13,11 +13,11 @@ public class Pokemon
   private boolean m_isPlayable;
 
   //constructeur
-  public Pokemon(String name, int hp, int hpMax, int attack, Affinity affinity)
+  public Pokemon(String name, int hp, int attack, Affinity affinity)
   {
     m_name = name;
     m_hp = hp;
-    m_hpMax = hpMax;
+    m_hpMax = hp;
     m_attack = attack;
     m_affinity = affinity;
   }
@@ -46,7 +46,7 @@ public class Pokemon
     {
       pokemon.m_hp -= damages;
     }
-    
+
   }
   /*
    * Méthode pour vérifier si le pokemon est vivant
@@ -111,7 +111,7 @@ public class Pokemon
    */
   public String toString()
   {
-    return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity, m_hp, m_attack);
+    return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity.getElement(), m_hp, m_attack);
   }
 
 }

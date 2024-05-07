@@ -161,6 +161,7 @@ class Game
     - m_turn : Integer
     + "Create" Game()
     + showGameStatus()
+    + createPokemons()
 }
 
 Game *--> "-m_player\n 1,1" Player.Player

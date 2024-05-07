@@ -1,10 +1,14 @@
+import Pokemon.*;
 import Player.Player;
 import Player.AI;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game
 {
     private final Player m_player;
     private final AI m_ai;
+    private ArrayList<Pokemon> m_pokemons;
     private Player m_currentPlayer;
     private String m_winner;
     private int m_turn;
@@ -20,6 +24,65 @@ public class Game
         m_currentPlayer = m_player;
         m_winner = null;
         m_turn = 99;
+        m_pokemons = createPokemons();
+    }
+
+    public static int getRandom(int min, int max) {
+
+        int range = (max - min) + 1;
+         int random = (int) ((range * Math.random()) + min);
+        return random;
+    }
+
+    public ArrayList<Pokemon> createPokemons()
+    {
+        ArrayList<String> namesPokemons = new ArrayList<>(Arrays.asList("Pikachu", "Salamèche", "Carapuce", "Herbizarre"));
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+
+        for(String pokemon : namesPokemons)
+        {
+            int hp = getRandom(100, 200);
+            while(hp % 10 != 0)
+            {
+                hp = getRandom(100, 200);
+            }
+
+            int attack = getRandom(10, 40);
+            while(attack % 10 != 0)
+            {
+                attack = getRandom(10, 40);
+            }
+
+            Element[] allElements = Element.values();
+            int i = getRandom(0, allElements.length - 1);
+
+            Affinity affinity;
+            
+            switch(allElements[i])
+            {
+                case FIRE:
+                    affinity = new Fire();
+                    break;
+                case WATER:
+                    affinity = new Water();
+                    break;
+                case EARTH:
+                    affinity = new Earth();
+                    break;
+                case AIR:
+                    affinity = new Air();
+                    break;
+                default:
+                    affinity = new Fire();
+                    break;
+            }
+
+            Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
+
+            pokemons.add(p);
+        }
+        
+        return pokemons;
     }
 
     /**
@@ -40,6 +103,9 @@ public class Game
 //             endPhase();
         // Appelez la méthode end
     }
+
+
+
     /**
      * Méthode pour terminer le jeu
      */
