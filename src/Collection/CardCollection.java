@@ -125,7 +125,7 @@ public abstract class CardCollection
 
     /**
      * Supprime le pokemon de la collection et le retourne
-     * @param l'indice du pokemon à recuperer
+     * @param index l'indice du pokemon à recuperer
      * @return le pokemon à recuperer
      */
     public Pokemon pickPokemon(int index)
@@ -163,7 +163,7 @@ public abstract class CardCollection
     /**
      * Methode pour recuperer un pokemon de la collection
      * Cette methode Supprime pas le pokemon de la collection
-     * @param name le nom du pokemon à recuperer
+     * @param index l'index du pokemon à recuperer
      * @return le pokemon à recuperer
      */
     public Pokemon getPokemon(int index)

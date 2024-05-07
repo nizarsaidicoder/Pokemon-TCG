@@ -32,7 +32,7 @@ public class Pokemon
     int damages = m_attack;
 
     //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
-    if(m_affinity.getStrenght() == pokemon.m_affinity.getElement())
+    if(m_affinity.getStrength() == pokemon.m_affinity.getElement())
     {
       damages += 10;
     }
@@ -60,7 +60,7 @@ public class Pokemon
   public boolean isAlive()
   {
     // Le pokemon est vivant si et seulement si m_hp > 0
-    return false;
+    return m_hp > 0;
   }
   /*
    * Méthode pour vérifier si le pokemon est jouable
