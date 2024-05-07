@@ -27,6 +27,12 @@ public class Game
         m_pokemons = createPokemons();
     }
 
+    /**
+     * Retourne un nombre aléatoire compris entre min et max
+     * @param min borne inférieure
+     * @param max borne supérieure
+     * @return nombre alétoire
+     */
     public static int getRandom(int min, int max) {
 
         int range = (max - min) + 1;
@@ -34,30 +40,41 @@ public class Game
         return random;
     }
 
+    /**
+     * Créer des pokémons avec des attributs aléatoires à partir d'une liste de noms fixes
+     * @return une liste de pokémons
+     */
     public ArrayList<Pokemon> createPokemons()
     {
-        ArrayList<String> namesPokemons = new ArrayList<>(Arrays.asList("Pikachu", "Salamèche", "Carapuce", "Herbizarre"));
+        ArrayList<String> namesPokemons = new ArrayList<>(
+            Arrays.asList(
+                "Pikachu", "Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
+                ));
         ArrayList<Pokemon> pokemons = new ArrayList<>();
 
         for(String pokemon : namesPokemons)
         {
+            //nombre aléatoire pour les pt de vie
             int hp = getRandom(100, 200);
             while(hp % 10 != 0)
             {
                 hp = getRandom(100, 200);
             }
 
+            //nombre aléatoire pour l'attaque
             int attack = getRandom(10, 40);
             while(attack % 10 != 0)
             {
                 attack = getRandom(10, 40);
             }
 
+            //récupération de tous les éléments dans un tableau
             Element[] allElements = Element.values();
+            //nombre aléatoire pour l'élément
             int i = getRandom(0, allElements.length - 1);
 
+            //création de l'affinité du pokémon en fct de l'élément aléatoire
             Affinity affinity;
-            
             switch(allElements[i])
             {
                 case FIRE:
@@ -77,8 +94,9 @@ public class Game
                     break;
             }
 
+            //création du pokémons à partir des attributs aléatoires
             Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
-
+            //on ajoute le pokémon à la liste
             pokemons.add(p);
         }
         
