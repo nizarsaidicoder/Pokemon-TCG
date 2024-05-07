@@ -1,12 +1,7 @@
 package Collection;
-
-// import Pokemon.*;
-// import java.util.ArrayList;
-
+import java.util.ArrayList;
 import Pokemon.Pokemon;
 import Utils.HelperFunctions;
-
-import java.util.ArrayList;
 
 public class Deck extends CardCollection
 {
@@ -19,9 +14,7 @@ public class Deck extends CardCollection
         super(maxSize);
         m_pokemons = pokemons;
         m_size = pokemons.size();
-
     }
-
 
     /**
      * Affichage du deck

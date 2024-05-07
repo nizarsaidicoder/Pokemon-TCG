@@ -56,12 +56,12 @@ public class Pokemon
     }
 
   }
-  /*
+  /**
    * Méthode pour vérifier si le pokemon est vivant
+   * @return true si le pokemon est vivant, false sinon
    */
   public boolean isAlive()
   {
-    // Le pokemon est vivant si et seulement si m_hp > 0
     return m_hp > 0;
   }
   /*
