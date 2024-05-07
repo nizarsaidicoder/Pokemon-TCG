@@ -9,10 +9,12 @@ public class Deck extends CardCollection
     /**
      * Constructeur avec paramètres
      */
-    public Deck(int maxSize)
+    public Deck(int maxSize, ArrayList<Pokemon> pokemons)
     {
         super(maxSize);
+        m_size = pokemons.size();
     }
+
 
     /**
      * Affichage du deck

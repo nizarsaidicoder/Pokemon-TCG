@@ -6,13 +6,15 @@ public class Pookemon {
   {
     Game game = new Game();
     game.start();
+    //    game.showGameStatus();
+    //tests Pokemon
+    // Pokemon pikachu = new Pokemon("Pikachu", 100, 100,50, "earth");
+    // Pokemon bulbizarre = new Pokemon("Bulbizarre", 70, 100, 80,"fire");
 
-    ArrayList<Pokemon> pokemons = game.createPokemons();
-
-    for(Pokemon p : pokemons)
-    {
-      System.out.println(p.toString());
-    }
-
+    // System.out.println(bulbizarre.toString());
+    // pikachu.attack(bulbizarre);
+    // System.out.println(bulbizarre.toString());
+    // pikachu.attack(bulbizarre);
+    // System.out.println(bulbizarre.toString());
   }
 }
