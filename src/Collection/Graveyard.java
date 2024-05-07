@@ -1,7 +1,7 @@
 package Collection;
 
-import Pokemon.*;
-import java.util.ArrayList;
+// import Pokemon.*;
+// import java.util.ArrayList;
 
 public class Graveyard  extends CardCollection
 {

@@ -3,7 +3,7 @@ package Collection;
 import Pokemon.Pokemon;
 import Utils.HelperFunctions;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class Field extends CardCollection {
 
@@ -21,7 +21,7 @@ public class Field extends CardCollection {
     @Override
     public void display()
     {
-        String RESET = "\033[0m";  // Text Color Reset
+        // String RESET = "\033[0m";  // Text Color Reset
         for(int i = 0; i < m_pokemons.size(); i++)
         {
             System.out.print(" ____________________ ");

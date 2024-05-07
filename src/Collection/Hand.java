@@ -2,7 +2,7 @@ package Collection;
 
 import Pokemon.*;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class Hand extends CardCollection {
 

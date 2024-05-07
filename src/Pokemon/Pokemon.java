@@ -23,19 +23,30 @@ public class Pokemon
   }
 
   /**
-   * Attaque un autre pokémon
+   * Attaque un autre pokémon avec gestion de l'affinité
    * @param pokemon pokémon qui reçoit les dégâts
    */
   public void attack(Pokemon pokemon)
   {
-    if(m_attack > pokemon.m_hp)
+
+    int damages = m_attack;
+
+    //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
+    if(m_affinity.getStrenght() == pokemon.m_affinity.getElement())
+    {
+      damages += 10;
+    }
+
+
+    if(damages > pokemon.m_hp)
     {
       pokemon.m_hp = 0;
     }
     else
     {
-      pokemon.m_hp -= m_attack;
+      pokemon.m_hp -= damages;
     }
+    
   }
   /*
    * Méthode pour vérifier si le pokemon est vivant
