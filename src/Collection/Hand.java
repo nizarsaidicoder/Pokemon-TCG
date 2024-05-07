@@ -1,6 +1,7 @@
 package Collection;
 
 import Pokemon.*;
+import Utils.HelperFunctions;
 
 // import java.util.ArrayList;
 
@@ -18,12 +19,20 @@ public class Hand extends CardCollection {
 
     public void display()
     {
-        System.out.println("En main : ");
-        for(Pokemon pokemon : m_pokemons)
+        // _________________________
+        //|                         |
+        //|        HAND: 21         |
+        //|_________________________|
+        // |   NAME    | HP  |  TYPE  |  WEAKNESS  |  RESISTANCE  |  ATTACKS  |
+        System.out.println(HelperFunctions.colorizeAndCenter("HAND", "purple", 100));
+        System.out.println("POKEMON                | HP                   | AFFINITY             | ATTACK");
+        for(int i=0; i< m_pokemons.size(); i++)
         {
-            System.out.println(String.format(" - %s", pokemon.toString()));
+            System.out.print((i+1) + " ");
+            m_pokemons.get(i).display();
         }
     }
+
     @Override
     public String toString()
     {

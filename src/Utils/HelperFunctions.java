@@ -1,4 +1,7 @@
 package Utils;
+
+
+import Player.AI;
 import Pokemon.Element;
 
 public class HelperFunctions
@@ -32,7 +35,7 @@ public class HelperFunctions
      * @param n nombre espaces nécessaire
      * @return la chaîne de caractère modifiée
      */
-    public static String padLeft(String s, int n) 
+    public static String padLeft(String s, int n)
     {
         return String.format("%" + n + "s", s);
     }
@@ -43,7 +46,7 @@ public class HelperFunctions
      * @param c caractère à ajouter
      * @return la chaîne de caractère modifiée
      */
-    public static String padLeft(String s, int n,char c) 
+    public static String padLeft(String s, int n,char c)
     {
         // If the string is already longer than n, return the string
         if (s.length() >= n) return s;
@@ -78,10 +81,6 @@ public class HelperFunctions
             default -> RESET;
         };
     }
-    /**
-     * Retourne le code couleur en fonction de la couleur envoyée en argument
-     * @param color nom couleur suivi de _text ou _background
-     */
     public static String getColorCode(String color) {
         return switch (color.toUpperCase()) {
             case "YELLOW_TEXT" -> "\u001B[33m";
@@ -101,15 +100,9 @@ public class HelperFunctions
             default -> "\u001B[0m";
         };
     }
-    /**
-     * Colorise le texte en fonction de la couleur envoyée en argument
-     * @param text texte à coloriser
-     * @param foreColor couleur avant
-     * @param backColor couleur arrière
-     * @return texte colorisé
-     */
-    public static String colorize(String text, String foreColor, String backColor) {
-        return getColorCode(foreColor + "_text") + getColorCode(backColor + "_background") + text + getColorCode("RESET");
+    public static void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -121,21 +114,17 @@ public class HelperFunctions
     public static String colorize(String text, String color) {
         return getColorCode(color + "_text") + text + getColorCode("RESET");
     }
-    /**
-     * Colorise et centre le texte en fonction de la couleur envoyée en argument
-     * @param text texte à coloriser
-     * @param color couleur
-     * @param n nombre d'espaces
-     */
     public static String colorizeAndCenter(String text, String color, int n) {
         return colorize(center(text,n),"",color);
     }
-
-    /**
-     * Efface le terminal
+    /*
+     * Colorise le texte en fonction de la couleur envoyée en argument
+     * @param text texte à coloriser
+     * @param foreColor couleur avant
+     * @param backColor couleur arrière
+     * @return texte colorisé
      */
-    public static void clearTerminal() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    public static String colorize(String text, String foreColor, String backColor) {
+        return getColorCode(foreColor + "_text") + getColorCode(backColor + "_background") + text + getColorCode("RESET");
     }
 }

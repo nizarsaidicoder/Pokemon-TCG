@@ -158,8 +158,16 @@ public class Game
     {
         // Phase de fin
         // Passez au joueur suivant et incrémentez le tour
-        m_currentPlayer = m_currentPlayer == m_player ? m_ai : m_player;
-        m_opponent = m_opponent == m_player ? m_ai : m_player;
+        if(m_currentPlayer == m_player)
+        {
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
+        }
+        else
+        {
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
+        }
         m_turn++;
     }
     public void intializePlayers()
@@ -189,22 +197,23 @@ public class Game
      */
     public boolean isFirstPlayer()
     {
-        Scanner m_scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println(HelperFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
         // Prompt the user to press Enter to continue
-        System.out.print(HelperFunctions.colorize("Heads or Tails ? :  ","yellow"));
-        String choice = m_scanner.nextLine().toLowerCase();
+        System.out.print(HelperFunctions.colorize("(H)eads or (T)ails ? :  ","yellow"));
+        String choice = scanner.nextLine().toLowerCase();
         System.out.println();
-        while(!choice.equals("heads") && !choice.equals("tails"))
+        while(!choice.equals("heads") && !choice.equals("tails") && !choice.equals("h") && !choice.equals("t"))
         {
-            System.out.println(HelperFunctions.colorize("Invalid choice, please enter Heads or Tails ? : ", "red"));
-            choice = m_scanner.nextLine().toLowerCase();
+            System.out.println(HelperFunctions.colorize("Invalid choice, please enter (H)eads or (T)ails ? : ", "red"));
+            choice = scanner.nextLine().toLowerCase();
             System.out.println();
         }
         Random rnd = new Random();
         int coin = rnd.nextInt(2) + 1;
-        return (coin == 1 && choice.equals("heads")) || (coin == 2 && choice.equals("tails"));
+        return ((coin == 1 && (choice.equals("heads") ||choice.equals("h"))) || ((coin == 2 && (choice.equals("tails") || choice.equals("t")))));
     }
+
     /**
      * Méthode pour vérifier si le jeu est terminé
      * @return true si le jeu est terminé, false sinon

@@ -1,5 +1,7 @@
 package Pokemon;
 
+import Utils.HelperFunctions;
+
 public class Pokemon
 {
   /**
@@ -110,6 +112,12 @@ public class Pokemon
   {
       m_isPlayable = isPlayable;
   }
+  public void display()
+  {
+    String out = HelperFunctions.getCorrespondingColor(m_affinity.getElement()) + HelperFunctions.padRight(m_name,20) + HelperFunctions.getColorCode("reset") +  " | " + HelperFunctions.padRight(Integer.toString(m_hp) ,20) + " | " + HelperFunctions.getCorrespondingColor(m_affinity.getElement()) + HelperFunctions.padRight( m_affinity.getElement().toString(), 20 )+HelperFunctions.getColorCode("reset") + " | " + m_attack ;
+    System.out.println(out);
+  }
+
   @Override
   /**
    * Affichage pokémon
