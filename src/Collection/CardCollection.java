@@ -101,48 +101,6 @@ public abstract class CardCollection
 
     /**
      * Supprime le pokemon de la collection et le retourne
-     * @param name le nom du pokemon à recuperer
-     * @return le pokemon à recuperer
-     */
-    public Pokemon pickPokemon(String name)
-    {
-        // Verifie si la collection n'est pas vide
-        if(!isEmpty())
-        {
-            int i = containsPokemon(name);
-            // Verifie si le pokemon existe
-            if(i != -1)
-            {
-                // decremente m_size par 1
-                m_size--;
-                // Retire le pokemon de la main et le retourne
-                return m_pokemons.remove(i);
-            }
-        }
-        // Sinon
-        return null;
-    }
-    public Pokemon pickPokemon(int index)
-    {
-        // Verifie si la collection n'est pas vide
-        if(!isEmpty())
-        {
-            int i = containsPokemon(name);
-            // Verifie si le pokemon existe
-            if(i != -1)
-            {
-                // decremente m_size par 1
-                m_size--;
-                // Retire le pokemon de la main et le retourne
-                return m_pokemons.remove(i);
-            }
-        }
-        // Sinon
-        return null;
-    }
-
-    /**
-     * Supprime le pokemon de la collection et le retourne
      * @param index l'indice du pokemon à recuperer
      * @return le pokemon à recuperer
      */
@@ -197,6 +155,10 @@ public abstract class CardCollection
     public ArrayList<Pokemon> getPokemons()
     {
         return m_pokemons;
+    }
+    public int getSize()
+    {
+        return m_size;
     }
 
     /**

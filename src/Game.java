@@ -9,15 +9,13 @@ import Utils.HelperFunctions;
 
 public class Game
 {
-    private final Player m_player;
-    private final AI m_ai;
+    private Player m_player;
+    private AI m_ai;
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
     private final ArrayList<String> m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
-    private ArrayList<Pokemon> m_pokemons;
     private int m_turn;
-    private Scanner m_scanner = new Scanner(System.in);
 
 
     /**
@@ -26,12 +24,8 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
-        m_player = null;
-        m_ai = null;
-        m_currentPlayer = m_player;
         m_winner = null;
-        m_turn = 99;
-        m_pokemons = createPokemons();
+        m_turn = 1;
     }
 
     public static int getRandom(int min, int max) {
@@ -42,11 +36,9 @@ public class Game
     }
 
     public ArrayList<Pokemon> createPokemons()
-    {
-        ArrayList<String> namesPokemons = new ArrayList<>(Arrays.asList("Pikachu", "Salamèche", "Carapuce", "Herbizarre"));
+    {      
         ArrayList<Pokemon> pokemons = new ArrayList<>();
-
-        for(String pokemon : namesPokemons)
+        for(String pokemon : m_pokemonNames)
         {
             int hp = getRandom(100, 200);
             while(hp % 10 != 0)
@@ -88,7 +80,14 @@ public class Game
 
             pokemons.add(p);
         }
-        
+        Random rnd = new Random();
+        for(int i = 0; i < pokemons.size(); i++)
+        {
+            int randomIndexToSwap = rnd.nextInt(pokemons.size());
+            Pokemon temp = pokemons.get(randomIndexToSwap);
+            pokemons.set(randomIndexToSwap, pokemons.get(i));
+            pokemons.set(i, temp);
+        }
         return pokemons;
     }
 
@@ -167,43 +166,22 @@ public class Game
     {
         // Générez les pokémons
         // Déterminez aléatoirement le premier joueur
-        ArrayList<Pokemon> pokemons = generatePokemons();
+        ArrayList<Pokemon> pokemons = createPokemons();
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
         {
             m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2,"Computer");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2);
             m_currentPlayer = m_player;
             m_opponent = m_ai;
         }
         else
         {
             m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1,"Computer");
+            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1);
             m_currentPlayer = m_ai;
             m_opponent = m_player;
         }
-    }
-    public ArrayList<Pokemon> generatePokemons()
-    {
-        //Génération des Pokémons     
-        // Pour chaque nom de Pokémon, générez un Pokémon avec un nom, des points de vie, une valeur d'attaque et une affinité aléatoires
-        //leur nombre de points de vie est un multiple de 10, compris entre 100 et 200 et déterminé aléatoirement,
-        //leur valeur d'attaque est un multiple de 10 compris entre 10 et 40 et déterminé aléatoirement,
-        //leur affinité est choisie aléatoirement. ! Appel de la méthode generateRandomAffinity()
-        // SCHUFFLE AND RETURN THE LIST
-    }
-    /**
-     * Méthode pour générer une affinité aléatoire
-     * @return une affinité aléatoire
-     */
-    public Affinity generateRandomAffinity()
-    {
-        //Génération d'une affinité aléatoire
-        //Les affinités sont générées aléatoirement parmi les 4 affinités suivantes : EARTH, FIRE, WATER, AIR.
-        Affinity[] affinities = {new Earth(), new Fire(), new Water(), new Air()};
-        Random rnd = new Random();
-        return affinities[rnd.nextInt(4)];
     }
     /**
      * Méthode pour déterminer le premier joueur
@@ -211,6 +189,7 @@ public class Game
      */
     public boolean isFirstPlayer()
     {
+        Scanner m_scanner = new Scanner(System.in);
         System.out.println(HelperFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
         // Prompt the user to press Enter to continue
         System.out.print(HelperFunctions.colorize("Heads or Tails ? :  ","yellow"));

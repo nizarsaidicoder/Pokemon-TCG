@@ -3,6 +3,10 @@ package Collection;
 // import Pokemon.*;
 // import java.util.ArrayList;
 
+import Pokemon.Pokemon;
+
+import java.util.ArrayList;
+
 public class Deck extends CardCollection
 {
 
@@ -12,7 +16,9 @@ public class Deck extends CardCollection
     public Deck(int maxSize, ArrayList<Pokemon> pokemons)
     {
         super(maxSize);
+        m_pokemons = pokemons;
         m_size = pokemons.size();
+
     }
 
 

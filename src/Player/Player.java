@@ -1,23 +1,27 @@
 package Player;
+
 import Collection.Deck;
 import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
 import Pokemon.Pokemon;
+import Utils.HelperFunctions;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Player 
+public class Player
 {
     /**
      * Attributs
      */
-    private String m_name;
+    protected String m_name;
     protected Field m_field;
     protected Graveyard m_graveyard;
     protected Deck m_deck;
     protected Hand m_hand;
     protected int m_playerNumber;
+    private Scanner m_scanner = new Scanner(System.in);
 
     /*
      * Constructeur de la classe Player
@@ -34,37 +38,70 @@ public class Player
     }
 
     /*
-    * Methode pour piocher une carte
-    */
+     * Methode pour piocher une carte
+     */
     public void draw()
     {
         // Pioche un pokemon dans le deck
+//        for(Pokemon pokemon : m_deck.getPokemons())
+//        {
+//            pokemon.display();
+//        }
         Pokemon pokemon = m_deck.pickPokemon(0);
         // Ajoute le pokemon à la main
-        showDraw(pokemon);
         m_hand.addPokemon(pokemon);
     }
     public void spawn()
     {
+        // Prompt the player to choose a pokemon to spawn from the hand
+        System.out.print(HelperFunctions.colorize("Choose a pokemon to spawn : ", "blue"));
+        // Recupere le pokemon à jouer
+        int index = -1;
+        // check if the player entered a valid pokemon index
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= m_hand.getPokemons().size())
+                {
+                    System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index", "red"));
+            }
+        }
         // Ajoute un pokemon du terrain
+        m_field.addPokemon(m_hand.pickPokemon(index));
     }
     /*
      * Methode pour attaquer un joueur
      */
-    public void attack(Player enemy)
+    public void attack(Player opponent)
     {
+
+        Pokemon pokemon = promptPokemon();
+        // Prompt the player to choose a pokemon to attack
+        Pokemon enemyPokemon = promptEnemyPokemon(opponent);
+        // Attaque le pokemon
+        pokemon.attack(enemyPokemon);
+        pokemon.setPlayable(false);
+        if(!enemyPokemon.isAlive()) {
+            // Ajoute le pokemon adverse au cimetière
+            opponent.getGraveyard().addPokemon(enemyPokemon);
+            opponent.getField().removePokemon(enemyPokemon.getName());
+        }
     }
     public void setPlayablePokemons()
     {
         // Parcourt la main et met à jour les pokemons jouables
-//        for(Pokemon pokemon : m_field.getPokemons())
-//        {
-//            pokemon.setPlayable(true);
-//        }
-    }
-    public void showDraw(Pokemon pokemon)
-    {
-        System.out.println( m_name+ " Drew " + pokemon.toString());
+        for(Pokemon pokemon : m_field.getPokemons())
+        {
+            pokemon.setPlayable(true);
+        }
     }
     public boolean hasPlayablePokemons()
     {
@@ -98,20 +135,84 @@ public class Player
     {
         return m_field.isEmpty() && m_hand.isEmpty() && m_deck.isEmpty();
     }
+    public Pokemon promptPokemon()
+    {
+        // Prompt the player to choose a pokemon to attack with
+        System.out.print("Choose a pokemon to attack with : ( ");
+        for(int i= 0; i < m_field.getPokemons().size(); i++)
+        {
+            if(m_field.getPokemon(i).isPlayable()) System.out.print(m_field.getPokemon(i).getName() + "(" + (i+1) + ") ");
+        }
+        System.out.print(" ) : ");
+        // Recupere le pokemon à jouer
+        // check if the player has entered the index of the pokemon
+        // check if the player has entered a valid index
+        int index = -1;
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= m_field.getPokemons().size() || !m_field.getPokemon(index).isPlayable())
+                {
+                    System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+            }
+        }
+        return m_field.getPokemons().get(index);
+    }
+    public Pokemon promptEnemyPokemon(Player opponent)
+    {
+        // Prompt the player to choose a pokemon to attack
+        System.out.println("Choose a pokemon to attack : ( ");
+        for(int i = 0; i < opponent.getField().getPokemons().size(); i++)
+        {
+            System.out.print(opponent.getField().getPokemon(i).getName() + " (" +  (i+1) + ") ");
+        }
+        System.out.print("): ");
+        // Recupere le pokemon à attaquer
+        int index = -1;
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= opponent.getField().getPokemons().size())
+                {
+                    System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+            }
+        }
+        return opponent.getField().getPokemon(index);
+    }
     /*
      * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
      */
     public void display()
     {
         // Affiche le joueur
-        System.out.println("Player : " + m_playerNumber);
+        System.out.println(HelperFunctions.colorizeAndCenter(m_name, "blue", 100));
         m_field.display();
-        System.out.println();
-        m_deck.display();
-        System.out.println();
-        m_graveyard.display();
-        System.out.println();
+//        m_deck.display();
+//        m_graveyard.display();
+        String out = " _________________________ \t\t _________________________ \n" +
+                "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
+
+                "|_________________________|     |_________________________|";
+        out = HelperFunctions.colorize(out, "blue");
+        System.out.println(out);
         m_hand.display();
+        System.out.println();
     }
 
     /**
@@ -122,6 +223,7 @@ public class Player
     {
         return m_playerNumber;
     }
+    public String getName(){return m_name;}
     public Field getField()
     {
         return m_field;
