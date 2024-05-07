@@ -13,7 +13,7 @@ public class AI extends Player
     {
         // Initialise le deck, la main, le cimetière et le terrain
         // Juste pour les tests pour l'instant
-        super(pokemons,playerNumber);
+        super(pokemons,playerNumber,"ai");
     }
 
     @Override

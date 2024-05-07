@@ -1,14 +1,11 @@
 import Pokemon.*;
 import Player.Player;
 import Player.AI;
-import Pokemon.*;
-import Utils.*;
-
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
-
+import Utils.HelperFunctions;
 
 public class Game
 {
@@ -18,6 +15,7 @@ public class Game
     private Player m_opponent;
     private String m_winner;
     private final ArrayList<String> m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
+    private ArrayList<Pokemon> m_pokemons;
     private int m_turn;
     private Scanner m_scanner = new Scanner(System.in);
 
@@ -28,8 +26,10 @@ public class Game
     public Game()
     {
         // Initialise les attributs de la classe
+        m_player = null;
+        m_ai = null;
+        m_currentPlayer = m_player;
         m_winner = null;
-        m_turn = 1;
         m_turn = 99;
         m_pokemons = createPokemons();
     }
