@@ -28,9 +28,6 @@ public class Deck extends CardCollection
      */
     public void display()
     {
-        // _________________________
-        //|        DECK: 21         |
-        //|_________________________|
         String out = " _________________________ " + "\n" +
                 "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_size),2,'0') + "         |" + "\n" +
                 "|_________________________|";

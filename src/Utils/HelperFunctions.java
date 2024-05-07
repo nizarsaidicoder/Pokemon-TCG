@@ -1,7 +1,4 @@
 package Utils;
-
-
-import Player.AI;
 import Pokemon.Element;
 
 public class HelperFunctions

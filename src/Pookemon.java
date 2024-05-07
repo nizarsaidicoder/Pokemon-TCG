@@ -10,7 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Pookemon {
   public static void main(String args[])
   {
-    String filePath = "src/music.wav"; // The path to the audio file
+    String filePath = "src/Utils/music.wav"; // The path to the audio file
     // Create a new thread to play the music in the background
     Thread musicThread = new Thread(() -> {
       try {
@@ -41,10 +41,10 @@ public class Pookemon {
     game.start();
     musicThread.interrupt();
     // Wait for the music thread to finish
-    try {
-      musicThread.join();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    // try {
+    //   musicThread.join();
+    // } catch (InterruptedException e) {
+    //   e.printStackTrace();
+    // }
   }
 }

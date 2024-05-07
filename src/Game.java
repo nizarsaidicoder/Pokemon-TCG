@@ -27,36 +27,136 @@ public class Game
         m_winner = null;
         m_turn = 1;
     }
+    /**
+     * Méthode pour démarrer le jeu
+     */
+    public void start()
+    {
+        // appelez la méthode welcome
+        Display.intro();
+        // Appelez la méthode initializePlayers
+        intializePlayers();
+        Display.coinFlip(m_player);
+        // Appelez la méthode play
+        play();
 
-    public static int getRandom(int min, int max) {
-
-        int range = (max - min) + 1;
-         int random = (int) ((range * Math.random()) + min);
-        return random;
     }
 
+    /**
+     * Méthode pour jouer le jeu
+     */
+    public void play()
+    {
+        while (!isGameOver())
+        {
+            drawPhase();
+            spawnPhase();
+            battlePhase();
+            endPhase();
+        }
+        Display.outro(m_winner);
+    }
+
+    /**
+     * La phase de pioche où le joueur actuel pioche des cartes
+     */
+    public void drawPhase()
+    {
+        // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
+        while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty())
+        {
+            m_currentPlayer.draw();
+        }
+    }
+
+    /**
+     * La phase d'invocation où le joueur actuel invoque des pokémons
+     */
+    public void spawnPhase()
+    {
+        // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
+        while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
+        {
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
+            Display.spawnPhase();
+            m_currentPlayer.spawn();
+        }
+        // Mettez à jour les pokémons jouables du joueur actuel
+        m_currentPlayer.setPlayablePokemons();
+    }
+    /**
+     * La phase de bataille est une phase où le joueur actuel attaque l'adversaire
+     */
+    public void battlePhase()
+    {
+        
+        // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
+        while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
+        {
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
+            Display.battlePhase();
+            m_currentPlayer.attack(m_opponent);
+        } 
+    }
+    /**
+     * La phase de fin où le joueur actuel passe au joueur suivant
+     */
+    public void endPhase()
+    {
+        // Passez au joueur suivant et incrémentez le tour
+        if(m_currentPlayer == m_player)
+        {
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
+        }
+        else
+        {
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
+        }
+        m_turn++;
+    }
+    /**
+     * Méthode pour initialiser les joueurs
+     */
+    public void intializePlayers()
+    {
+        // Générez les pokémons
+        // Déterminez aléatoirement le premier joueur
+        ArrayList<Pokemon> pokemons = createPokemons();
+        String playerName = promptUserName();
+        boolean firstPlayer = isFirstPlayer();
+        if (firstPlayer)
+        {
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 3)),1,playerName);
+            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2);
+            m_currentPlayer = m_player;
+            m_opponent = m_ai;
+        }
+        else
+        {
+            m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,playerName);
+            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 3)),1);
+            m_currentPlayer = m_ai;
+            m_opponent = m_player;
+        }
+    }
+    /**
+     * Méthode pour créer les pokémons
+     * @return une liste de pokémons ordonnée aléatoirement
+     */
     public ArrayList<Pokemon> createPokemons()
-    {      
+    {
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for(String pokemon : m_pokemonNames)
         {
-            int hp = getRandom(100, 200);
-            while(hp % 10 != 0)
-            {
-                hp = getRandom(100, 200);
-            }
-
-            int attack = getRandom(10, 40);
-            while(attack % 10 != 0)
-            {
-                attack = getRandom(10, 40);
-            }
-
+            int hp = getRandom(1, 20) * 10;
+            int attack = getRandom(1, 4) * 10 ;
             Element[] allElements = Element.values();
             int i = getRandom(0, allElements.length - 1);
 
             Affinity affinity;
-            
+
             switch(allElements[i])
             {
                 case FIRE:
@@ -90,107 +190,6 @@ public class Game
         }
         return pokemons;
     }
-
-    /**
-     * Méthode pour démarrer le jeu
-     */
-    public void start()
-    {
-        // appelez la méthode welcome
-        Display.intro();
-        // Appelez la méthode initializePlayers
-        intializePlayers();
-        Display.coinFlip(m_player);
-        // Appelez la méthode play
-        play();
-
-    }
-    public void play()
-    {
-        while (!isGameOver())
-        {
-            drawPhase();
-            spawnPhase();
-            battlePhase();
-            endPhase();
-        }
-        Display.outro(m_winner);
-    }
-
-    public void drawPhase()
-    {
-        // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
-        while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty())
-        {
-            m_currentPlayer.draw();
-        }
-    }
-    public void spawnPhase()
-    {
-        // tant que le joueur actuel a des cartes en main et que le terrain n'est pas plein
-        while(!m_currentPlayer.getHand().isEmpty() && !m_currentPlayer.getField().isFull())
-        {
-            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
-            Display.spawnPhase();
-            m_currentPlayer.spawn();
-        }
-        // Mettez à jour les pokémons jouables du joueur actuel
-        m_currentPlayer.setPlayablePokemons();
-    }
-    /**
-     * La phase de bataille est une phase où le joueur actuel attaque l'adversaire
-     */
-    public void battlePhase()
-    {
-        
-        // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
-        while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
-        {
-            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
-            Display.battlePhase();
-            m_currentPlayer.attack(m_opponent);
-        } 
-    }
-    /**
-     * Méthode pour passer à la phase suivante
-     */
-    public void endPhase()
-    {
-        // Phase de fin
-        // Passez au joueur suivant et incrémentez le tour
-        if(m_currentPlayer == m_player)
-        {
-            m_currentPlayer = m_ai;
-            m_opponent = m_player;
-        }
-        else
-        {
-            m_currentPlayer = m_player;
-            m_opponent = m_ai;
-        }
-        m_turn++;
-    }
-    public void intializePlayers()
-    {
-        // Générez les pokémons
-        // Déterminez aléatoirement le premier joueur
-        ArrayList<Pokemon> pokemons = createPokemons();
-        boolean firstPlayer = isFirstPlayer();
-        if (firstPlayer)
-        {
-            m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2);
-            m_currentPlayer = m_player;
-            m_opponent = m_ai;
-        }
-        else
-        {
-            m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,"Marie");
-            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1);
-            m_currentPlayer = m_ai;
-            m_opponent = m_player;
-        }
-    }
     /**
      * Méthode pour déterminer le premier joueur
      * @return true si le joueur commence, false sinon
@@ -213,7 +212,12 @@ public class Game
         int coin = rnd.nextInt(2) + 1;
         return ((coin == 1 && (choice.equals("heads") ||choice.equals("h"))) || ((coin == 2 && (choice.equals("tails") || choice.equals("t")))));
     }
-
+    public String promptUserName()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(HelperFunctions.colorize("Enter your name: ", "yellow"));
+        return scanner.nextLine();
+    }
     /**
      * Méthode pour vérifier si le jeu est terminé
      * @return true si le jeu est terminé, false sinon
@@ -233,5 +237,18 @@ public class Game
         }
         // Si le jeu est terminé, mettez à jour le gagnant
         return false;
+    }
+    /**
+     * Méthode pour obtenir un nombre aléatoire entre min et max
+     * @param min le nombre minimum
+     * @param max le nombre maximum
+     * @return un nombre aléatoire entre min et max
+     */
+
+    public static int getRandom(int min, int max) {
+
+        int range = (max - min) + 1;
+        int random = (int) ((range * Math.random()) + min);
+        return random;
     }
 }

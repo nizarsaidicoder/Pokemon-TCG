@@ -54,7 +54,7 @@ public class AI extends Player
             {
                 // Ajoute le pokemon adverse au cimetière
                 opponent.getGraveyard().addPokemon(enemyPokemon);
-                opponent.getField().removePokemon(enemyPokemon.getName());
+                opponent.getField().removePokemon(enemyPokemon);
             }
         }
 

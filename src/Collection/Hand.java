@@ -19,11 +19,6 @@ public class Hand extends CardCollection {
 
     public void display()
     {
-        // _________________________
-        //|                         |
-        //|        HAND: 21         |
-        //|_________________________|
-        // |   NAME    | HP  |  TYPE  |  WEAKNESS  |  RESISTANCE  |  ATTACKS  |
         System.out.println(HelperFunctions.colorizeAndCenter("HAND", "purple", 100));
         System.out.println("POKEMON                | HP                   | AFFINITY             | ATTACK");
         for(int i=0; i< m_pokemons.size(); i++)

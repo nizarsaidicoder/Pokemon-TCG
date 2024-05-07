@@ -42,15 +42,13 @@ public class Player
      */
     public void draw()
     {
-        // Pioche un pokemon dans le deck
-//        for(Pokemon pokemon : m_deck.getPokemons())
-//        {
-//            pokemon.display();
-//        }
         Pokemon pokemon = m_deck.pickPokemon(0);
         // Ajoute le pokemon à la main
         m_hand.addPokemon(pokemon);
     }
+    /**
+     * Methode pour piocher un pokemon
+     */
     public void spawn()
     {
         // Prompt the player to choose a pokemon to spawn from the hand
@@ -77,8 +75,9 @@ public class Player
         // Ajoute un pokemon du terrain
         m_field.addPokemon(m_hand.pickPokemon(index));
     }
-    /*
+    /**
      * Methode pour attaquer un joueur
+     * @param opponent joueur adverse
      */
     public void attack(Player opponent)
     {
@@ -92,9 +91,12 @@ public class Player
         if(!enemyPokemon.isAlive()) {
             // Ajoute le pokemon adverse au cimetière
             opponent.getGraveyard().addPokemon(enemyPokemon);
-            opponent.getField().removePokemon(enemyPokemon.getName());
+            opponent.getField().removePokemon(enemyPokemon);
         }
     }
+    /**
+     * Methode pour attribuer les pokemons jouables
+     */
     public void setPlayablePokemons()
     {
         // Parcourt la main et met à jour les pokemons jouables
@@ -103,6 +105,10 @@ public class Player
             pokemon.setPlayable(true);
         }
     }
+    /**
+     * Methode pour savoir si le joueur a des pokemons jouables
+     * @return true si le joueur a des pokemons jouables, false sinon
+     */
     public boolean hasPlayablePokemons()
     {
         ArrayList<Pokemon> playablePokemons = new ArrayList<>();
@@ -115,6 +121,10 @@ public class Player
         }
         return false;
     }
+    /**
+     * Methode pour recuperer les pokemons jouables
+     * @return liste des pokemons jouables
+     */
     public ArrayList<Pokemon> getPlayablePokemons()
     {
         ArrayList<Pokemon> playablePokemons = new ArrayList<>();
@@ -135,6 +145,11 @@ public class Player
     {
         return m_field.isEmpty() && m_hand.isEmpty() && m_deck.isEmpty();
     }
+
+    /**
+     * Methode pour demander au joueur de choisir un pokemon
+     * @return pokemon choisi
+     */
     public Pokemon promptPokemon()
     {
         // Prompt the player to choose a pokemon to attack with
@@ -166,10 +181,15 @@ public class Player
         }
         return m_field.getPokemons().get(index);
     }
+    /**
+     * Methode pour demander au joueur de choisir un pokemon adverse
+     * @param opponent joueur adverse
+     * @return pokemon adverse choisi
+     */
     public Pokemon promptEnemyPokemon(Player opponent)
     {
         // Prompt the player to choose a pokemon to attack
-        System.out.println("Choose a pokemon to attack : ( ");
+        System.out.print("Choose a pokemon to attack : ( ");
         for(int i = 0; i < opponent.getField().getPokemons().size(); i++)
         {
             System.out.print(opponent.getField().getPokemon(i).getName() + " (" +  (i+1) + ") ");
@@ -200,11 +220,8 @@ public class Player
      */
     public void display()
     {
-        // Affiche le joueur
         System.out.println(HelperFunctions.colorizeAndCenter(m_name, "blue", 100));
         m_field.display();
-//        m_deck.display();
-//        m_graveyard.display();
         String out = " _________________________ \t\t _________________________ \n" +
                 "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
 
@@ -223,19 +240,39 @@ public class Player
     {
         return m_playerNumber;
     }
+    /**
+     * Retourne le nom du joueur
+     * @return nom joueur
+     */
     public String getName(){return m_name;}
+    /**
+     * Retourne le terrain du joueur
+     * @return terrain joueur
+     */
     public Field getField()
     {
         return m_field;
     }
+    /**
+     * Retourne la main du joueur
+     * @return main joueur
+     */
     public Deck getDeck()
     {
         return m_deck;
     }
+    /**
+     * Retourne la main du joueur
+     * @return main joueur
+     */
     public Hand getHand()
     {
         return m_hand;
     }
+    /**
+     * Retourne le cimetière du joueur
+     * @return cimetière joueur
+     */
     public Graveyard getGraveyard()
     {
         return m_graveyard;

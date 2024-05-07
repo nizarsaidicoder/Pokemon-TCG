@@ -1,9 +1,5 @@
 import Utils.HelperFunctions;
 import Player.Player;
-import Pokemon.Pokemon;
-
-import java.util.function.Function;
-
 // Cette classe est utilisée pour afficher les différentes étapes du jeu et les informations des joueurs
 public class Display {
     public static int screenSize = 100;
@@ -44,6 +40,9 @@ public class Display {
         System.out.println();
         credits();
         System.out.println();
+        System.out.println(HelperFunctions.colorizeAndCenter("Please resize your terminal to have a better experience with the game", "red", screenSize));
+        try {Thread.sleep(2000);}
+        catch (InterruptedException e) {e.printStackTrace();}
         System.out.println(HelperFunctions.colorizeAndCenter("Preparing the game", "blue", screenSize));
         try {Thread.sleep(2000);}
         catch (InterruptedException e) {e.printStackTrace();}

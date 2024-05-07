@@ -20,10 +20,6 @@ public class Graveyard  extends CardCollection
     @Override
     public void display()
     {
-        // _________________________
-        //|      GRAVEYARD: 21      |
-        //_________________________
-
         String out = " _________________________ " + "\n" +
                 "|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_size),2,'0') + "      |" + "\n" +
                 "|_________________________|";

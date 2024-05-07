@@ -50,45 +50,6 @@ public abstract class CardCollection
             m_size++;
         }
     }
-    
-    /**
-     * Methode pour verifier si un pokemon existe dans la collection
-     * @return l'indice du pokemon dans la collection, -1 sinon
-     */
-    public int containsPokemon(String name)
-    {
-        // Verifie si le pokemon existe
-        for(int i = 0; i < m_pokemons.size(); i++)
-        {
-            if(m_pokemons.get(i).getName() == name)
-            {
-                return i;
-            }
-        }
-        // retourne l'indice du pokemon, si non -1
-        return -1;
-    }
-
-    /**
-     * Methode pour retirer un pokemon de la collection
-     * @param name le nom du pokemon à retirer
-     */
-    public void removePokemon(String name)
-    {
-        // Verifie si la collection n'est pas vide
-        if(!isEmpty())
-        {
-            int i = containsPokemon(name);
-            // Verifie si le pokemon existe
-            if(i != -1)
-            {
-                // Retire le pokemon de la main
-                m_pokemons.remove(i);
-                // decremente m_size par 1
-                m_size--;
-            }
-        }
-    }
 
     /**
      * Methode pour retirer un pokemon de la collection
@@ -96,7 +57,8 @@ public abstract class CardCollection
      */
     public void removePokemon(Pokemon pokemon)
     {
-        removePokemon(pokemon.getName());
+        m_pokemons.remove(pokemon);
+        m_size--;
     }
 
     /**
@@ -110,30 +72,6 @@ public abstract class CardCollection
         m_size--;
         // Retire le pokemon de la main et le retourne
         return m_pokemons.remove(index);
-    }
-
-    /**
-     * Methode pour recuperer un pokemon de la collection
-     * Cette methode Supprime pas le pokemon de la collection
-     * @param name le nom du pokemon à recuperer
-     * @return le pokemon à recuperer
-     */
-    public Pokemon getPokemon(String name)
-    {
-        // Verifie si la collection n'est pas vide
-        if(!isEmpty())
-        {
-            int i = containsPokemon(name);
-            // Verifie si le pokemon existe
-            if(i != -1)
-            {
-                // retourne le pokemon avec le nom passé par parametre
-                return m_pokemons.get(i);
-            }
-        }
-        // cette methode ne retourne pas une copie
-        // Sinon
-        return null;
     }
 
     /**
