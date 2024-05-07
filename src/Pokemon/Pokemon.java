@@ -37,6 +37,12 @@ public class Pokemon
       damages += 10;
     }
 
+    //si l'élément du pokémon a une faiblesse sur celui du pokémon qui est attaqué alors les dégâts sont diminués de 10
+    if(m_affinity.getWeakness() == pokemon.m_affinity.getElement())
+    {
+      damages -= 10;
+    }
+
 
     if(damages > pokemon.m_hp)
     {
