@@ -225,7 +225,7 @@ public class Player
         String out = " _________________________ \t\t _________________________ \n" +
                 "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
 
-                "|_________________________|     |_________________________|";
+                "|_________________________|\t\t|_________________________|";
         out = HelperFunctions.colorize(out, "blue");
         System.out.println(out);
         m_hand.display();

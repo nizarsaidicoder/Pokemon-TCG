@@ -1,6 +1,5 @@
 package Utils;
 import Pokemon.Element;
-
 public class HelperFunctions
 {
     /**
@@ -96,6 +95,7 @@ public class HelperFunctions
             case "CYAN_BACKGROUND" -> "\u001B[46m";
             default -> "\u001B[0m";
         };
+
     }
     public static void clearTerminal() {
         System.out.print("\033[H\033[2J");

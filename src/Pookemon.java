@@ -1,5 +1,8 @@
+import Pokemon.Pokemon;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -8,6 +11,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Pookemon {
+  private LinkedList<Pokemon> pokemons = new LinkedList<Pokemon>();
   public static void main(String args[])
   {
     String filePath = "src/Utils/music.wav"; // The path to the audio file
@@ -40,11 +44,6 @@ public class Pookemon {
     Game game = new Game();
     game.start();
     musicThread.interrupt();
-    // Wait for the music thread to finish
-    // try {
-    //   musicThread.join();
-    // } catch (InterruptedException e) {
-    //   e.printStackTrace();
-    // }
+
   }
 }
