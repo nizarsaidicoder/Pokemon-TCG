@@ -1,7 +1,7 @@
 package Collection;
 import java.util.ArrayList;
 import Pokemon.Pokemon;
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 public class Deck extends CardCollection
 {
@@ -22,9 +22,9 @@ public class Deck extends CardCollection
     public void display()
     {
         String out = " _________________________ " + "\n" +
-                "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_size),2,'0') + "         |" + "\n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(m_size),2,'0') + "         |" + "\n" +
                 "|_________________________|";
-        out = HelperFunctions.colorize(out, "blue");
+        out = UIFunctions.colorize(out, "blue");
         System.out.println(out);
     }
     

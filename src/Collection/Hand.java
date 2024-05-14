@@ -1,7 +1,6 @@
 package Collection;
 
-import Pokemon.*;
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 // import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class Hand extends CardCollection {
 
     public void display()
     {
-        System.out.println(HelperFunctions.colorizeAndCenter("HAND", "purple", 100));
+        System.out.println(UIFunctions.colorizeAndCenter("HAND", "purple", 100));
         System.out.println("POKEMON                | HP                   | AFFINITY             | ATTACK");
         for(int i=0; i< m_pokemons.size(); i++)
         {

@@ -3,7 +3,7 @@ package Collection;
 // import Pokemon.*;
 // import java.util.ArrayList;
 
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 public class Graveyard  extends CardCollection
 {
@@ -21,9 +21,9 @@ public class Graveyard  extends CardCollection
     public void display()
     {
         String out = " _________________________ " + "\n" +
-                "|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_size),2,'0') + "      |" + "\n" +
+                "|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(m_size),2,'0') + "      |" + "\n" +
                 "|_________________________|";
-        out = HelperFunctions.colorize(out, "red");
+        out = UIFunctions.colorize(out, "red");
         System.out.println(out);
     }
 

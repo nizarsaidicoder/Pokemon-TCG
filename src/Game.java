@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 public class Game
 {
@@ -204,14 +204,14 @@ public class Game
     public boolean isFirstPlayer()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(HelperFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
+        System.out.println(UIFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
         // Prompt the user to press Enter to continue
-        System.out.print(HelperFunctions.colorize("(H)eads or (T)ails ? :  ","yellow"));
+        System.out.print(UIFunctions.colorize("(H)eads or (T)ails ? :  ","yellow"));
         String choice = scanner.nextLine().toLowerCase();
         System.out.println();
         while(!choice.equals("heads") && !choice.equals("tails") && !choice.equals("h") && !choice.equals("t"))
         {
-            System.out.println(HelperFunctions.colorize("Invalid choice, please enter (H)eads or (T)ails ? : ", "red"));
+            System.out.println(UIFunctions.colorize("Invalid choice, please enter (H)eads or (T)ails ? : ", "red"));
             choice = scanner.nextLine().toLowerCase();
             System.out.println();
         }
@@ -222,7 +222,7 @@ public class Game
     public String promptUserName()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.print(HelperFunctions.colorize("Enter your name: ", "yellow"));
+        System.out.print(UIFunctions.colorize("Enter your name: ", "yellow"));
         return scanner.nextLine();
     }
     /**

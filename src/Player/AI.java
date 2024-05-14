@@ -1,7 +1,7 @@
 package Player;
 
 import Pokemon.Pokemon;
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -63,11 +63,11 @@ public class AI extends Player
     public void display()
     {
         // Affiche le joueur
-        System.out.println(HelperFunctions.colorizeAndCenter("AI", "red", 100));
+        System.out.println(UIFunctions.colorizeAndCenter("AI", "red", 100));
         String out = " _________________________ \t\t _________________________ \n" +
-                "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
                 "|_________________________|\t\t|_________________________|";
-        out = HelperFunctions.colorize(out, "red");
+        out = UIFunctions.colorize(out, "red");
         System.out.println(out);
         m_field.display();
     }

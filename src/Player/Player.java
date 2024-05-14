@@ -5,7 +5,7 @@ import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
 import Pokemon.Pokemon;
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -52,7 +52,7 @@ public class Player
     public void spawn()
     {
         // Prompt the player to choose a pokemon to spawn from the hand
-        System.out.print(HelperFunctions.colorize("Choose a pokemon to spawn : ", "blue"));
+        System.out.print(UIFunctions.colorize("Choose a pokemon to spawn : ", "blue"));
         // Recupere le pokemon à jouer
         int index = -1;
         // check if the player entered a valid pokemon index
@@ -63,13 +63,13 @@ public class Player
                 index = Integer.parseInt(m_scanner.nextLine()) -1;
                 if(index < 0 || index >= m_hand.getPokemons().size())
                 {
-                    System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                    System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index", "red"));
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
-                System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index", "red"));
             }
         }
         // Ajoute un pokemon du terrain
@@ -170,13 +170,13 @@ public class Player
                 index = Integer.parseInt(m_scanner.nextLine()) -1;
                 if(index < 0 || index >= m_field.getPokemons().size() || !m_field.getPokemon(index).isPlayable())
                 {
-                    System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
-                System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+                System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
             }
         }
         return m_field.getPokemons().get(index);
@@ -204,13 +204,13 @@ public class Player
                 index = Integer.parseInt(m_scanner.nextLine()) -1;
                 if(index < 0 || index >= opponent.getField().getPokemons().size())
                 {
-                    System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
-                System.out.println(HelperFunctions.colorize("Invalid index, please enter a valid index","red"));
+                System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
             }
         }
         return opponent.getField().getPokemon(index);
@@ -220,13 +220,13 @@ public class Player
      */
     public void display()
     {
-        System.out.println(HelperFunctions.colorizeAndCenter(m_name, "blue", 100));
+        System.out.println(UIFunctions.colorizeAndCenter(m_name, "blue", 100));
         m_field.display();
         String out = " _________________________ \t\t _________________________ \n" +
-                "|        DECK: " + HelperFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + HelperFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
 
                 "|_________________________|\t\t|_________________________|";
-        out = HelperFunctions.colorize(out, "blue");
+        out = UIFunctions.colorize(out, "blue");
         System.out.println(out);
         m_hand.display();
         System.out.println();

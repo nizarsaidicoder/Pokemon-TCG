@@ -1,6 +1,6 @@
 package Utils;
 import Pokemon.Element;
-public class HelperFunctions
+public class UIFunctions
 {
     /**
      * Remplit n caractères c nécessaire pour compléter une chaîne de caractères par la droite
@@ -69,33 +69,36 @@ public class HelperFunctions
         String GREEN_TEXT = "\u001B[32m";
         String YELLOW_TEXT = "\u001B[33m";
         String BLUE_TEXT = "\u001B[34m";
-        return switch (affinity) {
-            case EARTH -> YELLOW_TEXT;
-            case FIRE -> RED_TEXT;
-            case WATER -> BLUE_TEXT;
-            case AIR -> GREEN_TEXT;
-            default -> RESET;
+        String out = "";
+        switch (affinity) {
+            case EARTH -> out = YELLOW_TEXT;
+            case FIRE -> out = RED_TEXT;
+            case WATER -> out = BLUE_TEXT;
+            case AIR -> out = GREEN_TEXT;
+            default -> out = RESET;
         };
+        return out;
     }
     public static String getColorCode(String color) {
-        return switch (color.toUpperCase()) {
-            case "YELLOW_TEXT" -> "\u001B[33m";
-            case "RED_TEXT", "AI_TEXT" -> "\u001B[31m";
-            case "BLUE_TEXT" -> "\u001B[34m";
-            case "GREEN_TEXT", "PLAYER_TEXT" -> "\u001B[32m";
-            case "PURPLE_TEXT" -> "\u001B[35m";
-            case "WHITE_TEXT" -> "\u001B[37m";
-            case "CYAN_TEXT" -> "\u001B[36m";
-            case "BLACK_TEXT" -> "\u001B[30m";
-            case "RED_BACKGROUND", "AI_BACKGROUND" -> "\u001B[41m";
-            case "GREEN_BACKGROUND", "PLAYER_BACKGROUND" -> "\u001B[42m";
-            case "YELLOW_BACKGROUND" -> "\u001B[43m";
-            case "BLUE_BACKGROUND" -> "\u001B[44m";
-            case "PURPLE_BACKGROUND" -> "\u001B[45m";
-            case "CYAN_BACKGROUND" -> "\u001B[46m";
-            default -> "\u001B[0m";
+        String out = "";
+         switch (color.toUpperCase()) {
+            case "YELLOW_TEXT" -> color="\u001B[33m";
+            case "RED_TEXT", "AI_TEXT" -> color="\u001B[31m";
+            case "BLUE_TEXT" -> color="\u001B[34m";
+            case "GREEN_TEXT", "PLAYER_TEXT" -> color="\u001B[32m";
+            case "PURPLE_TEXT" -> color="\u001B[35m";
+            case "WHITE_TEXT" -> color="\u001B[37m";
+            case "CYAN_TEXT" -> color="\u001B[36m";
+            case "BLACK_TEXT" -> color="\u001B[30m";
+            case "RED_BACKGROUND", "AI_BACKGROUND" -> color="\u001B[41m";
+            case "GREEN_BACKGROUND", "PLAYER_BACKGROUND" -> color="\u001B[42m";
+            case "YELLOW_BACKGROUND" -> color="\u001B[43m";
+            case "BLUE_BACKGROUND" -> color="\u001B[44m";
+            case "PURPLE_BACKGROUND" -> color="\u001B[45m";
+            case "CYAN_BACKGROUND" -> color="\u001B[46m";
+            default -> out = "\u001B[0m";
         };
-
+        return out;
     }
     public static void clearTerminal() {
         System.out.print("\033[H\033[2J");

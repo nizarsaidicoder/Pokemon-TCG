@@ -1,6 +1,6 @@
 package Pokemon;
 
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 public class Pokemon
 {
@@ -114,7 +114,7 @@ public class Pokemon
   }
   public void display()
   {
-    String out = HelperFunctions.getCorrespondingColor(m_affinity.getElement()) + HelperFunctions.padRight(m_name,20) + HelperFunctions.getColorCode("reset") +  " | " + HelperFunctions.padRight(Integer.toString(m_hp) ,20) + " | " + HelperFunctions.getCorrespondingColor(m_affinity.getElement()) + HelperFunctions.padRight( m_affinity.getElement().toString(), 20 )+HelperFunctions.getColorCode("reset") + " | " + m_attack ;
+    String out = UIFunctions.getCorrespondingColor(m_affinity.getElement()) + UIFunctions.padRight(m_name,20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(m_hp) ,20) + " | " + UIFunctions.getCorrespondingColor(m_affinity.getElement()) + UIFunctions.padRight( m_affinity.getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + m_attack ;
     System.out.println(out);
   }
 

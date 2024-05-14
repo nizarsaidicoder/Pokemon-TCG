@@ -1,6 +1,6 @@
 package Collection;
 
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 public class Field extends CardCollection {
 
@@ -41,8 +41,8 @@ public class Field extends CardCollection {
             }
             else
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getElement());
-                System.out.print(HelperFunctions.padRight("| ("+(i+1)+") " + foreColor + m_pokemons.get(i).getName(),26)+ RESET+ "|");
+                String foreColor = UIFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getElement());
+                System.out.print(UIFunctions.padRight("| ("+(i+1)+") " + foreColor + m_pokemons.get(i).getName(),26)+ RESET+ "|");
                 System.out.print("\t\t");
             }
         }
@@ -64,7 +64,7 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                System.out.print(HelperFunctions.padRight("| Attack: " + Integer.toString(m_pokemons.get(i).getAttack()),21) + "|");
+                System.out.print(UIFunctions.padRight("| Attack: " + Integer.toString(m_pokemons.get(i).getAttack()),21) + "|");
                 System.out.print("\t\t");
             }
             else
@@ -80,7 +80,7 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(m_pokemons.get(i).getHP()) + "/" + Integer.toString(m_pokemons.get(i).getHPMax()),21) + "|");
+                System.out.print(UIFunctions.padRight("| HP: " + Integer.toString(m_pokemons.get(i).getHP()) + "/" + Integer.toString(m_pokemons.get(i).getHPMax()),21) + "|");
                 System.out.print("\t\t");
             }
             else
@@ -95,8 +95,8 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getElement());
-                System.out.print(HelperFunctions.padRight("| Affinity : " + foreColor + m_pokemons.get(i).getAffinity().getElement(),26) + RESET + "|");
+                String foreColor = UIFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getElement());
+                System.out.print(UIFunctions.padRight("| Affinity : " + foreColor + m_pokemons.get(i).getAffinity().getElement(),26) + RESET + "|");
                 System.out.print("\t\t");
             }
             else
@@ -110,8 +110,8 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getStrength());
-                System.out.print(HelperFunctions.padRight("| Strength : " + foreColor + m_pokemons.get(i).getAffinity().getStrength(), 26) + RESET + "|");
+                String foreColor = UIFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getStrength());
+                System.out.print(UIFunctions.padRight("| Strength : " + foreColor + m_pokemons.get(i).getAffinity().getStrength(), 26) + RESET + "|");
                 System.out.print("\t\t");
             }
             else
@@ -125,8 +125,8 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                String foreColor = HelperFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getWeakness());
-                System.out.print(HelperFunctions.padRight("| Weakness : " + foreColor + m_pokemons.get(i).getAffinity().getWeakness(), 26) + RESET + "|");
+                String foreColor = UIFunctions.getCorrespondingColor(m_pokemons.get(i).getAffinity().getWeakness());
+                System.out.print(UIFunctions.padRight("| Weakness : " + foreColor + m_pokemons.get(i).getAffinity().getWeakness(), 26) + RESET + "|");
                 System.out.print("\t\t");
             }
             else

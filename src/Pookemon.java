@@ -11,7 +11,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Pookemon {
-  private LinkedList<Pokemon> pokemons = new LinkedList<Pokemon>();
   public static void main(String args[])
   {
     String filePath = "src/Utils/music.wav"; // The path to the audio file
