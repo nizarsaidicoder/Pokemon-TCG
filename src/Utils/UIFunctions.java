@@ -1,4 +1,10 @@
 package Utils;
+<<<<<<< HEAD
+
+public class UIFunctions 
+{
+    /**
+=======
 import Pokemon.Element;
 public class UIFunctions
 {
@@ -16,6 +22,7 @@ public class UIFunctions
         return output.toString();
     }
     /**
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
      * Remplit n espaces nécessaire pour compléter une chaîne de caractères par la droite
      * @param s chaîne de caractères à compléter
      * @param n nombre espaces nécessaire
@@ -25,12 +32,22 @@ public class UIFunctions
     {
         return String.format("%-" + n + "s", s);
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
     /**
      * Remplit n espaces nécessaire pour compléter une chaîne de caractères par la gauche
      * @param s chaîne de caractères à compléter
      * @param n nombre espaces nécessaire
      * @return la chaîne de caractère modifiée
      */
+<<<<<<< HEAD
+    public static String padLeft(String s, int n) 
+    {
+        return String.format("%" + n + "s", s);
+    }
+=======
     public static String padLeft(String s, int n)
     {
         return String.format("%" + n + "s", s);
@@ -57,18 +74,45 @@ public class UIFunctions
         out.append(" ".repeat(Math.max(0, pad / 2))).append(s).append(" ".repeat(Math.max(0, pad / 2)));
         return pad % 2 == 0 ? out.toString() : out.append(" ").toString();
     }
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
 
     /**
      * Retourne la couleur en fonction de l'affinité envoyée en argument
      * @param affinity nom affinité
      * @return couleur
      */
+<<<<<<< HEAD
+    public static String getCorrespondingColor(String affinity) {
+=======
     public static String getCorrespondingColor(Element affinity) {
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
         String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
         String GREEN_TEXT = "\u001B[32m";
         String YELLOW_TEXT = "\u001B[33m";
         String BLUE_TEXT = "\u001B[34m";
+<<<<<<< HEAD
+        String foreColor = "";
+        switch (affinity.toLowerCase()) {
+            case "earth":
+                foreColor = YELLOW_TEXT;
+                break;
+            case "fire":
+                foreColor = RED_TEXT;
+                break;
+            case "water":
+                foreColor = BLUE_TEXT;
+                break;
+            case "air":
+                foreColor = GREEN_TEXT;
+                break;
+            default:
+                foreColor = RESET;
+        }
+        return foreColor;
+    }
+
+=======
         String out = "";
         switch (affinity) {
             case EARTH -> out = YELLOW_TEXT;
@@ -127,4 +171,5 @@ public class UIFunctions
     public static String colorize(String text, String foreColor, String backColor) {
         return getColorCode(foreColor + "_text") + getColorCode(backColor + "_background") + text + getColorCode("RESET");
     }
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
 }

@@ -51,6 +51,30 @@ public class Game
     }
 
     /**
+<<<<<<< HEAD
+     * Retourne un nombre aléatoire compris entre min et max
+     * @param min borne inférieure
+     * @param max borne supérieure
+     * @return nombre alétoire
+     */
+    public static int getRandom(int min, int max) {
+
+        int range = (max - min) + 1;
+         int random = (int) ((range * Math.random()) + min);
+        return random;
+    }
+
+    /**
+     * Créer des pokémons avec des attributs aléatoires à partir d'une liste de noms fixes
+     * @return une liste de pokémons
+     */
+    public ArrayList<Pokemon> createPokemons()
+    {
+        ArrayList<String> namesPokemons = new ArrayList<>(
+            Arrays.asList(
+                "Pikachu", "Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
+                ));
+=======
      * Méthode pour jouer le jeu
      */
     public void play()
@@ -173,20 +197,46 @@ public class Game
      */
     public ArrayList<Pokemon> createPokemons()
     {
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for(String pokemon : m_pokemonNames)
         {
+<<<<<<< HEAD
+            //nombre aléatoire pour les pt de vie
+            int hp = getRandom(100, 200);
+            while(hp % 10 != 0)
+=======
             int hp = getRandom(1, 20) * 10;
             int attack = getRandom(1, 4) * 10;
             if(pokemon.equals("Pedro"))
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
             {
                 hp = 1;
                 attack = 999;
             }
+<<<<<<< HEAD
+
+            //nombre aléatoire pour l'attaque
+            int attack = getRandom(10, 40);
+            while(attack % 10 != 0)
+            {
+                attack = getRandom(10, 40);
+            }
+
+            //récupération de tous les éléments dans un tableau
+=======
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
             Element[] allElements = Element.values();
+            //nombre aléatoire pour l'élément
             int i = getRandom(0, allElements.length - 1);
+<<<<<<< HEAD
+
+            //création de l'affinité du pokémon en fct de l'élément aléatoire
+            Affinity affinity;
+=======
             Affinity affinity;
 
+>>>>>>> a506022917e5b700aec548365e1c6e53a4ae78b7
             switch(allElements[i])
             {
                 case FIRE:
@@ -206,8 +256,9 @@ public class Game
                     break;
             }
 
+            //création du pokémons à partir des attributs aléatoires
             Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
-
+            //on ajoute le pokémon à la liste
             pokemons.add(p);
         }
         Random rnd = new Random();
