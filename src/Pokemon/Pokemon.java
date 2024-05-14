@@ -1,5 +1,7 @@
 package Pokemon;
 
+import Utils.UIFunctions;
+
 public class Pokemon
 {
   /**
@@ -54,16 +56,16 @@ public class Pokemon
     }
 
   }
-  /*
+  /**
    * Méthode pour vérifier si le pokemon est vivant
+   * @return true si le pokemon est vivant, false sinon
    */
   public boolean isAlive()
   {
-    // Le pokemon est vivant si et seulement si m_hp > 0
     return m_hp > 0;
   }
   /*
-   * Méthode pour vérifier si le pokemon est jouable
+    * Méthode pour vérifier si le pokemon est jouable
    */
   public boolean isPlayable()
   {
@@ -108,8 +110,14 @@ public class Pokemon
   }
   public void setPlayable(boolean isPlayable)
   {
-    m_isPlayable = isPlayable;
+      m_isPlayable = isPlayable;
   }
+  public void display()
+  {
+    String out = UIFunctions.getCorrespondingColor(m_affinity.getElement()) + UIFunctions.padRight(m_name,20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(m_hp) ,20) + " | " + UIFunctions.getCorrespondingColor(m_affinity.getElement()) + UIFunctions.padRight( m_affinity.getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + m_attack ;
+    System.out.println(out);
+  }
+
   @Override
   /**
    * Affichage pokémon

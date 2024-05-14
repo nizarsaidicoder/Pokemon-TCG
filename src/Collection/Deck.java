@@ -1,7 +1,7 @@
 package Collection;
-
-// import Pokemon.*;
-// import java.util.ArrayList;
+import java.util.ArrayList;
+import Pokemon.Pokemon;
+import Utils.UIFunctions;
 
 public class Deck extends CardCollection
 {
@@ -9,9 +9,11 @@ public class Deck extends CardCollection
     /**
      * Constructeur avec paramètres
      */
-    public Deck(int maxSize)
+    public Deck(int maxSize, ArrayList<Pokemon> pokemons)
     {
         super(maxSize);
+        m_pokemons = pokemons;
+        m_size = pokemons.size();
     }
 
     /**
@@ -19,7 +21,11 @@ public class Deck extends CardCollection
      */
     public void display()
     {
-        System.out.println(this.toString());
+        String out = " _________________________ " + "\n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(m_size),2,'0') + "         |" + "\n" +
+                "|_________________________|";
+        out = UIFunctions.colorize(out, "blue");
+        System.out.println(out);
     }
     
     @Override 
