@@ -27,6 +27,7 @@ public abstract class Affinity
      * @return Element fort
      */
     public abstract Element getStrength();
+
     /**
      * Retourne l'élément de l'affinité
      * @return Element
