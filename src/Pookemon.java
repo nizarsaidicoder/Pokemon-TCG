@@ -1,8 +1,5 @@
-import Pokemon.Pokemon;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

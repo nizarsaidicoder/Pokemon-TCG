@@ -50,8 +50,10 @@ public class Pokemon
         clip.start();
         // Wait for the clip to finish playing
         Thread.sleep(Long.MAX_VALUE);
-      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-        e.printStackTrace();
+      } 
+      catch ( Exception e) //UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException |
+      {        
+        //e.printStackTrace();
       }
     });
 
