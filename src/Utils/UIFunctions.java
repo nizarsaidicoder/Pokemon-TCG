@@ -1,6 +1,6 @@
 package Utils;
 
-public class HelperFunctions 
+public class UIFunctions 
 {
     /**
      * Remplit n espaces nécessaire pour compléter une chaîne de caractères par la droite

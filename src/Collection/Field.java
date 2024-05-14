@@ -1,7 +1,7 @@
 package Collection;
 
 import Pokemon.Pokemon;
-import Utils.HelperFunctions;
+import Utils.UIFunctions;
 
 // import java.util.ArrayList;
 
@@ -56,14 +56,14 @@ public class Field extends CardCollection {
         System.out.println();
         for(Pokemon pokemon : m_pokemons)
         {
-            System.out.print(HelperFunctions.padRight("| Attack: " + Integer.toString(pokemon.getAttack()),21) + "|");
+            System.out.print(UIFunctions.padRight("| Attack: " + Integer.toString(pokemon.getAttack()),21) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
 
         for(Pokemon pokemon : m_pokemons)
         {
-            System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(pokemon.getHP()) + " / "+ Integer.toString(pokemon.getHPMax()),21) + "|");
+            System.out.print(UIFunctions.padRight("| HP: " + Integer.toString(pokemon.getHP()) + " / "+ Integer.toString(pokemon.getHPMax()),21) + "|");
             System.out.print("\t\t");
         }
         System.out.println();
