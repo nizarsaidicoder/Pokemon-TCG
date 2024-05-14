@@ -71,33 +71,77 @@ public class UIFunctions
         String BLUE_TEXT = "\u001B[34m";
         String out = "";
         switch (affinity) {
-            case EARTH -> out = YELLOW_TEXT;
-            case FIRE -> out = RED_TEXT;
-            case WATER -> out = BLUE_TEXT;
-            case AIR -> out = GREEN_TEXT;
-            default -> out = RESET;
-        };
+            case EARTH:
+                out = YELLOW_TEXT;
+                break;
+            case FIRE:
+                out = RED_TEXT;
+                break;
+            case WATER:
+                out = BLUE_TEXT;
+                break;
+            case AIR:
+                out = GREEN_TEXT;
+                break;
+            default:
+                out = RESET;
+                break;
+        }
         return out;
     }
     public static String getColorCode(String color) {
         String out = "";
-         switch (color.toUpperCase()) {
-            case "YELLOW_TEXT" -> out="\u001B[33m";
-            case "RED_TEXT", "AI_TEXT" -> out="\u001B[31m";
-            case "BLUE_TEXT" -> out="\u001B[34m";
-            case "GREEN_TEXT", "PLAYER_TEXT" -> out="\u001B[32m";
-            case "PURPLE_TEXT" -> out="\u001B[35m";
-            case "WHITE_TEXT" -> out="\u001B[37m";
-            case "CYAN_TEXT" -> out="\u001B[36m";
-            case "BLACK_TEXT" -> out="\u001B[30m";
-            case "RED_BACKGROUND", "AI_BACKGROUND" -> out="\u001B[41m";
-            case "GREEN_BACKGROUND", "PLAYER_BACKGROUND" -> out="\u001B[42m";
-            case "YELLOW_BACKGROUND" -> out="\u001B[43m";
-            case "BLUE_BACKGROUND" -> out="\u001B[44m";
-            case "PURPLE_BACKGROUND" -> out="\u001B[45m";
-            case "CYAN_BACKGROUND" -> out="\u001B[46m";
-            default -> out = "\u001B[0m";
-        };
+        switch (color.toUpperCase()) {
+            case "YELLOW_TEXT":
+                out = "\u001B[33m";
+                break;
+            case "RED_TEXT":
+            case "AI_TEXT":
+                out = "\u001B[31m";
+                break;
+            case "BLUE_TEXT":
+                out = "\u001B[34m";
+                break;
+            case "GREEN_TEXT":
+            case "PLAYER_TEXT":
+                out = "\u001B[32m";
+                break;
+            case "PURPLE_TEXT":
+                out = "\u001B[35m";
+                break;
+            case "WHITE_TEXT":
+                out = "\u001B[37m";
+                break;
+            case "CYAN_TEXT":
+                out = "\u001B[36m";
+                break;
+            case "BLACK_TEXT":
+                out = "\u001B[30m";
+                break;
+            case "RED_BACKGROUND":
+            case "AI_BACKGROUND":
+                out = "\u001B[41m";
+                break;
+            case "GREEN_BACKGROUND":
+            case "PLAYER_BACKGROUND":
+                out = "\u001B[42m";
+                break;
+            case "YELLOW_BACKGROUND":
+                out = "\u001B[43m";
+                break;
+            case "BLUE_BACKGROUND":
+                out = "\u001B[44m";
+                break;
+            case "PURPLE_BACKGROUND":
+                out = "\u001B[45m";
+                break;
+            case "CYAN_BACKGROUND":
+                out = "\u001B[46m";
+                break;
+            default:
+                out = "\u001B[0m";
+                break;
+        }
         return out;
     }
     public static void clearTerminal() {
