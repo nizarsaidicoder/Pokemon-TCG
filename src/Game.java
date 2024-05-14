@@ -1,16 +1,11 @@
 import Pokemon.*;
 import Player.Player;
 import Player.AI;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 import Utils.UIFunctions;
-
-import javax.sound.sampled.*;
 
 public class Game
 {
@@ -62,24 +57,6 @@ public class Game
             battlePhase();
             endPhase();
         }
-        String filePath = "src/Utils/"; // The path to the audio file
-        if(m_winner == "Computer") filePath+="lose.wav";
-        else filePath+="win.wav";
-        String finalFilePath = filePath;
-        Thread musicThread = new Thread(() -> {
-            try
-            {
-                File audioFile = new File(finalFilePath);
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                Thread.sleep(Long.MAX_VALUE);
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        musicThread.start();
         Display.outro(m_winner);
     }
 

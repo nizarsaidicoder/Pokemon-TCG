@@ -82,20 +82,20 @@ public class UIFunctions
     public static String getColorCode(String color) {
         String out = "";
          switch (color.toUpperCase()) {
-            case "YELLOW_TEXT" -> out="\u001B[33m";
-            case "RED_TEXT", "AI_TEXT" -> out="\u001B[31m";
-            case "BLUE_TEXT" -> out="\u001B[34m";
-            case "GREEN_TEXT", "PLAYER_TEXT" -> out="\u001B[32m";
-            case "PURPLE_TEXT" -> out="\u001B[35m";
-            case "WHITE_TEXT" -> out="\u001B[37m";
-            case "CYAN_TEXT" -> out="\u001B[36m";
-            case "BLACK_TEXT" -> out="\u001B[30m";
-            case "RED_BACKGROUND", "AI_BACKGROUND" -> out="\u001B[41m";
-            case "GREEN_BACKGROUND", "PLAYER_BACKGROUND" -> out="\u001B[42m";
-            case "YELLOW_BACKGROUND" -> out="\u001B[43m";
-            case "BLUE_BACKGROUND" -> out="\u001B[44m";
-            case "PURPLE_BACKGROUND" -> out="\u001B[45m";
-            case "CYAN_BACKGROUND" -> out="\u001B[46m";
+            case "YELLOW_TEXT" -> color="\u001B[33m";
+            case "RED_TEXT", "AI_TEXT" -> color="\u001B[31m";
+            case "BLUE_TEXT" -> color="\u001B[34m";
+            case "GREEN_TEXT", "PLAYER_TEXT" -> color="\u001B[32m";
+            case "PURPLE_TEXT" -> color="\u001B[35m";
+            case "WHITE_TEXT" -> color="\u001B[37m";
+            case "CYAN_TEXT" -> color="\u001B[36m";
+            case "BLACK_TEXT" -> color="\u001B[30m";
+            case "RED_BACKGROUND", "AI_BACKGROUND" -> color="\u001B[41m";
+            case "GREEN_BACKGROUND", "PLAYER_BACKGROUND" -> color="\u001B[42m";
+            case "YELLOW_BACKGROUND" -> color="\u001B[43m";
+            case "BLUE_BACKGROUND" -> color="\u001B[44m";
+            case "PURPLE_BACKGROUND" -> color="\u001B[45m";
+            case "CYAN_BACKGROUND" -> color="\u001B[46m";
             default -> out = "\u001B[0m";
         };
         return out;
