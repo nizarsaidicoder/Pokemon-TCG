@@ -111,7 +111,6 @@ public class Player
      */
     public boolean hasPlayablePokemons()
     {
-        ArrayList<Pokemon> playablePokemons = new ArrayList<>();
         for(Pokemon pokemon : m_field.getPokemons())
         {
             if(pokemon.isPlayable())
