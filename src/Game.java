@@ -14,7 +14,10 @@ public class Game
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
-    private final ArrayList<String> m_pokemonNames = new ArrayList<>(Arrays.asList("Pikachu", "Charmander", "Bulbasaur", "Squirtle", "Jigglypuff", "Mewtwo", "Gengar", "Eevee", "Snorlax", "Dragonite", "Mew", "Gyarados", "Vaporeon", "Flareon", "Jolteon", "Articuno", "Zapdos", "Moltres", "Ditto", "Machamp", "Alakazam", "Blastoise", "Venusaur", "Raichu", "Sandslash", "Nidoking", "Nidoqueen", "Clefable", "Ninetales", "Wigglytuff", "Vileplume", "Parasect", "Venomoth", "Dugtrio", "Persian", "Golduck", "Primeape", "Arcanine", "Poliwrath", "Victreebel", "Tentacruel", "Golem", "Rapidash", "Slowbro", "Magneton", "Farfetch'd", "Dodrio", "Dewgong"));
+    private final ArrayList<String> m_pokemonNames =new ArrayList<>(
+        Arrays.asList(
+            "Pikachu","Pedro","Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
+            ));
     private int m_turn;
 
 
@@ -151,10 +154,14 @@ public class Game
         for(String pokemon : m_pokemonNames)
         {
             int hp = getRandom(1, 20) * 10;
-            int attack = getRandom(1, 4) * 10 ;
+            int attack = getRandom(1, 4) * 10;
+            if(pokemon.equals("Pedro"))
+            {
+                hp = 1;
+                attack = 999;
+            }
             Element[] allElements = Element.values();
             int i = getRandom(0, allElements.length - 1);
-
             Affinity affinity;
 
             switch(allElements[i])

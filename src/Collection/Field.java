@@ -80,7 +80,7 @@ public class Field extends CardCollection {
         {
             if(m_pokemons.size() > i)
             {
-                System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(m_pokemons.get(i).getHP()),21) + "|");
+                System.out.print(HelperFunctions.padRight("| HP: " + Integer.toString(m_pokemons.get(i).getHP()) + "/" + Integer.toString(m_pokemons.get(i).getHPMax()),21) + "|");
                 System.out.print("\t\t");
             }
             else
