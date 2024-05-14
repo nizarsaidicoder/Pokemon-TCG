@@ -2,6 +2,10 @@ package Pokemon;
 
 import Utils.UIFunctions;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
 public class Pokemon
 {
   /**
@@ -30,7 +34,29 @@ public class Pokemon
    */
   public void attack(Pokemon pokemon)
   {
+    String filePath = "src/Utils/attack.wav"; // The path to the audio file
+    // Create a new thread to play the music in the background
+    Thread musicThread = new Thread(() -> {
+      try {
+        // Open the audio file
+        File audioFile = new File(filePath);
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
 
+        // Get the clip for playing the audio
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+
+        // Start playing the audio
+        clip.start();
+        // Wait for the clip to finish playing
+        Thread.sleep(Long.MAX_VALUE);
+      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+        e.printStackTrace();
+      }
+    });
+
+    // Start the music thread
+    musicThread.start();
     int damages = m_attack;
 
     //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
