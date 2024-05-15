@@ -39,6 +39,6 @@ public class Pookemon {
     musicThread.start();
     Game game = new Game();
     game.start();
-
+    musicThread.interrupt();
   }
 }

@@ -154,7 +154,7 @@ public class Game
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
         {
-            m_player = new Player(new ArrayList<>(pokemons.subList(0, 3)),1,playerName);
+            m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1,playerName);
             m_ai = new AI(new ArrayList<>(pokemons.subList(20,41)),2);
             m_currentPlayer = m_player;
             m_opponent = m_ai;
@@ -162,7 +162,7 @@ public class Game
         else
         {
             m_player = new Player(new ArrayList<>(pokemons.subList(20,41)),2,playerName);
-            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 3)),1);
+            m_ai = new AI(new ArrayList<>(pokemons.subList(0, 20)),1);
             m_currentPlayer = m_ai;
             m_opponent = m_player;
         }
