@@ -82,7 +82,11 @@ public class Pokemon
     {
       pokemon.m_hp -= damages;
     }
-
+    System.out.println(m_name + " attaque " + pokemon.m_name + " et lui inflige " + damages + " points de dégâts");
+  }
+  public boolean isStrongTo(Affinity affinity)
+  {
+    return m_affinity.getElement() == affinity.getWeakness();
   }
   /**
    * Méthode pour vérifier si le pokemon est vivant

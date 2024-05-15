@@ -9,7 +9,7 @@ public class Earth extends Affinity
 
     public Element getWeakness()
     {
-        return Element.FIRE;
+        return Element.AIR;
     }
 
     public Element getStrength()

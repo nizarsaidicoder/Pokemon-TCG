@@ -31,7 +31,7 @@ public class UIFunctions
      * @param n nombre espaces nécessaire
      * @return la chaîne de caractère modifiée
      */
-    public static String padLeft(String s, int n)
+    public static String padLeft(String s, int n) 
     {
         return String.format("%" + n + "s", s);
     }
@@ -42,7 +42,7 @@ public class UIFunctions
      * @param c caractère à ajouter
      * @return la chaîne de caractère modifiée
      */
-    public static String padLeft(String s, int n,char c)
+    public static String padLeft(String s, int n,char c) 
     {
         // If the string is already longer than n, return the string
         if (s.length() >= n) return s;
@@ -50,7 +50,9 @@ public class UIFunctions
         output.append(String.valueOf(c).repeat(Math.max(0, n - s.length()))).append(s);
         return output.toString();
     }
-    public static String center(String s, int n)
+
+
+     public static String center(String s, int n)
     {
         StringBuilder out = new StringBuilder();
         int pad = n - s.length();
@@ -58,11 +60,6 @@ public class UIFunctions
         return pad % 2 == 0 ? out.toString() : out.append(" ").toString();
     }
 
-    /**
-     * Retourne la couleur en fonction de l'affinité envoyée en argument
-     * @param affinity nom affinité
-     * @return couleur
-     */
     public static String getCorrespondingColor(Element affinity) {
         String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
@@ -155,10 +152,12 @@ public class UIFunctions
      * @param color couleur
      * @return
      */
-    public static String colorize(String text, String color) {
+    public static String colorize(String text, String color) 
+    {
         return getColorCode(color + "_text") + text + getColorCode("RESET");
     }
-    public static String colorizeAndCenter(String text, String color, int n) {
+    public static String colorizeAndCenter(String text, String color, int n) 
+    {
         return colorize(center(text,n),"",color);
     }
     /*
