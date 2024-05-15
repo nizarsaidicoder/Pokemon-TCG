@@ -42,10 +42,9 @@ public class AI extends Player
             }
         }
         Pokemon pokemon = m_field.getPokemon(pokemonIndex);
-        int opponentFieldSize = opponent.getField().getPokemons().size();
-        Random random = new Random();
-        int randomIndex = random.nextInt(opponentFieldSize);
-        Pokemon enemyPokemon = opponent.getField().getPokemon(randomIndex);
+        // get the pokemon that is weak to the current pokemon
+        Pokemon enemyPokemon = getOpponentPokemon(pokemon, opponent.getField().getPokemons());
+        
         if(pokemon.isPlayable())
         {
             pokemon.attack(enemyPokemon);
@@ -58,6 +57,69 @@ public class AI extends Player
             }
         }
 
+    }
+    public Pokemon getOpponentPokemon(Pokemon pokemon,ArrayList<Pokemon> pokemons)
+    {
+        // Pokemon enemyPokemonFound = null;
+        // for(Pokemon enemyPokemon : pokemons)
+        // {
+        //     //attaque le pokémon dont l'affinité lui donne l'avantage
+        //     if(pokemon.isStrongTo(enemyPokemon.getAffinity()))
+        //     {
+        //         enemyPokemonFound = enemyPokemon;
+        //     }
+        //     //attaque le pokémon dont l'affinité lui donne l'avantage et qui a le moins de points de vie
+        //     if(pokemon.isStrongTo(enemyPokemon.getAffinity()) && enemyPokemon.getHP() < enemyPokemonFound.getHP()) enemyPokemonFound = enemyPokemon;
+        //     //attaque l'un de ces Pokémons au hasard
+        //     if(enemyPokemonFound == null)
+        //     {
+
+        //     }
+
+        // }
+        // return null;
+        // 
+        // Un Pokémon de l'ordinateur :
+
+        // - attaque en priorité le Pokémon dont l'affinité lui donne l'avantage
+        // - s'il n'y en a pas (ou s'il y en a plusieurs), il attaque le Pokémon qui possède le moins de points de vie (parmi ceux-ci).
+        // - s'il y en a encore plusieurs, il attaque l'un de ces Pokémon au hasard.
+        ArrayList<Pokemon> strongPokemons = new ArrayList<Pokemon>();
+        for(Pokemon enemyPokemon : pokemons)
+        {
+            if(pokemon.isStrongTo(enemyPokemon.getAffinity()))
+            {
+                strongPokemons.add(enemyPokemon);
+            }
+        }
+        if(strongPokemons.size() == 1)
+        {
+            return strongPokemons.get(0);
+        }
+        else if(strongPokemons.size() > 1)
+        {
+            Pokemon weakestPokemon = strongPokemons.get(0);
+            for(Pokemon enemyPokemon : strongPokemons)
+            {
+                if(enemyPokemon.getHP() < weakestPokemon.getHP())
+                {
+                    weakestPokemon = enemyPokemon;
+                }
+            }   
+            return weakestPokemon;
+        }
+        else
+        {
+            Pokemon weakestPokemon = pokemons.get(0);
+            for(Pokemon enemyPokemon : pokemons)
+            {
+                if(enemyPokemon.getHP() < weakestPokemon.getHP())
+                {
+                    weakestPokemon = enemyPokemon;
+                }
+            }
+            return weakestPokemon;
+        }
     }
     @Override
     public void display()
