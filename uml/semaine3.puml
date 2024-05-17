@@ -23,32 +23,30 @@ package Collection
         + getPokemon(index : Integer) : Pokemon
         + getSize() : Integer
         + {abstract}display()
-        + toString() : String
     }
     class Deck
     {
-        + <<Create>> Deck(21/20)
+        + <<Create>> Deck(maxSize : Integer, pokemons : Pokemon[])
         + display()
         + toString() : String
     }
 
     class Field
     {
-        + <<Create>> Field(3)
+        + <<Create>> Field(maxSize : Integer)
         + display()
-        + toString() : String
     }
 
     class Graveyard
     {
-        + <<Create>> Graveyard(21)
+        + <<Create>> Graveyard(maxSize : Integer)
         + display()
         + toString() : String
     }
 
     class Hand
     {
-        + <<Create>> Hand(5)
+        + <<Create>> Hand(maxSize : Integer)
         + display()
         + toString() : String
     }
@@ -74,24 +72,24 @@ package Player
         - m_playerNumber : Integer
         - m_name : String
 
-        + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer)
+        + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer, name : String)
         + display()
         + draw()
-        + attack(opponent : Player)
         + spawn()
+        + attack(opponent : Player)
+        + setPlayablePokemons()
         + hasPlayablePokemons() : Boolean
+        + getPlayablePokemons() : Pokemon[]
         + isDefeated() : Boolean
         + promptPokemon() : Pokemon
         + promptEnemyPokemon() : Pokemon
-        + getPlayablePokemons() : Pokemon[]
+        + display()
         + getPlayerNumber() : Integer
         + getName() : String
         + getField() : Field
-        + getGraveyard() : Graveyard
         + getDeck() : Deck
         + getHand() : Hand
-        + setPlayablePokemons()
-        + toString() : String
+        + getGraveyard() : Graveyard
     }
 
     class AI
@@ -99,6 +97,7 @@ package Player
         + <<Create>> AI(Pokemons : Pokemon[], playerNumber : Integer)
         + spawn()
         + attack(opponent : Player)
+        + getOpponentPokemon(pokemon : Pokemon, pokemon : Pokemon[]) : Pokemon
         + display()
     }
 }
@@ -123,15 +122,17 @@ package Pokemon
        - m_attack : Integer
        - m_isPlayable : Boolean
        + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
+       + attack(pokemon : Pokemon)
+       + isStrongTo(affinity : Affinity) : Boolean
        + isAlive() : Boolean
        + isPlayable() : Boolean
-       + setPlayable(isPlayable : Boolean)
-       + attack(pokemon : Pokemon)
        + getName() : String
        + getHP() : Integer
        + getHPMax() : Integer
        + getAttack() : Integer
        + getAffinity() : Affinity
+       + setPlayable(isPlayable : Boolean)
+       + display()
        + toString() : String
     }
 
@@ -194,14 +195,27 @@ package Utils
         +{static}padRight(s : String, n : Integer, c : Char) : String
         +{static}padLeft(s : String, n : Integer, c : Char) : String
         +{static}padLeft(s : String, n : Integer) : String
-        +{static} center(s : String, n : Integer) : String
+        +{static}center(s : String, n : Integer) : String
         +{static}getCorrespondingColor(affinity : Element) : String
         +{static}getColorCode(color : String) : String
         +{static}clearTerminal()
-        +{static}colorize(s : String, color : String) : String
-        +{static}colorize(s : String, foreColor : String, backColor : String) : String
-        +{static}colorizeAndCenter(s : String, color : String, n : Integer) : String
+        +{static}colorize(text : String, color : String) : String
+        +{static}colorize(text : String, foreColor : String, backColor : String) : String
+        +{static}colorizeAndCenter(text : String, color : String, n : Integer) : String
     }
+}
+
+class Display
+{
+    +{static} screenSize : Integer
+    +{static} intro()
+    +{static} outro()
+    +{static} winner(winner : String)
+    +{static} credits()
+    +{static} gameStatus(turn : Integer, currentPlayer : Player, player : Player, ai : AI)
+    +{static} coinFlip(player : Player)
+    +{static} spawnPhase()
+    +{static} battlePhase()
 }
 
 class Game
@@ -217,23 +231,11 @@ class Game
     + battlePhase()
     + endPhase()
     + initializePlayers()
+    + createPokemons()
     + isFirstPlayer() : Boolean
-    + promptUserName()
+    + promptUserName() : String
     + isGameOver() : Boolean
     + {static} getRandom(min : Integer, max : Integer) : Integer
-    + createPokemons()
-}
-class Display
-{
-    +{static} screenSize : Integer
-    +{static} intro()
-    +{static} outro()
-    +{static} winner(winner : String)
-    +{static} credits()
-    +{static} gameStatus(turn : Integer, currentPlayer : Player, player : Player, ai : AI)
-    +{static} coinFlip(Player)
-    +{static} spawnPhase()
-    +{static} battlePhase()
 }
 Game .> "Uses" Display
 Display .> "Uses" Utils.HelperFunctions
@@ -246,7 +248,7 @@ Game .> "Uses" java.util.Random
 Game .> "Uses" java.util.Scanner
 class Pookemon
 {
-    +{static}main(arg : String*)
+    +{static}main(arg : String[])
 }
 
 Pookemon .> "uses" Game
