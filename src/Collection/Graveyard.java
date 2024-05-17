@@ -3,6 +3,8 @@ package Collection;
 // import Pokemon.*;
 // import java.util.ArrayList;
 
+import Utils.UIFunctions;
+
 public class Graveyard  extends CardCollection
 {
     /**
@@ -18,9 +20,14 @@ public class Graveyard  extends CardCollection
     @Override
     public void display()
     {
-        System.out.println(this.toString());
+        String out = " _________________________ " + "\n" +
+                "|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(m_size),2,'0') + "      |" + "\n" +
+                "|_________________________|";
+        out = UIFunctions.colorize(out, "red");
+        System.out.println(out);
     }
-    
+
+
     @Override 
     public String toString()
     {

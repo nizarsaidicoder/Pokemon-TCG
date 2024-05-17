@@ -1,5 +1,11 @@
 package Pokemon;
 
+import Utils.UIFunctions;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
 public class Pokemon
 {
   /**
@@ -28,7 +34,31 @@ public class Pokemon
    */
   public void attack(Pokemon pokemon)
   {
+    String filePath = "src/Utils/attack.wav"; // The path to the audio file
+    // Create a new thread to play the music in the background
+    Thread musicThread = new Thread(() -> {
+      try {
+        // Open the audio file
+        File audioFile = new File(filePath);
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
 
+        // Get the clip for playing the audio
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+
+        // Start playing the audio
+        clip.start();
+        // Wait for the clip to finish playing
+        Thread.sleep(Long.MAX_VALUE);
+      } 
+      catch ( Exception e) //UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException |
+      {        
+        //e.printStackTrace();
+      }
+    });
+
+    // Start the music thread
+    musicThread.start();
     int damages = m_attack;
 
     //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
@@ -52,18 +82,21 @@ public class Pokemon
     {
       pokemon.m_hp -= damages;
     }
-
   }
-  /*
+  public boolean isStrongTo(Affinity affinity)
+  {
+    return m_affinity.getElement() == affinity.getWeakness();
+  }
+  /**
    * Méthode pour vérifier si le pokemon est vivant
+   * @return true si le pokemon est vivant, false sinon
    */
   public boolean isAlive()
   {
-    // Le pokemon est vivant si et seulement si m_hp > 0
     return m_hp > 0;
   }
   /*
-   * Méthode pour vérifier si le pokemon est jouable
+    * Méthode pour vérifier si le pokemon est jouable
    */
   public boolean isPlayable()
   {
@@ -108,8 +141,14 @@ public class Pokemon
   }
   public void setPlayable(boolean isPlayable)
   {
-    m_isPlayable = isPlayable;
+      m_isPlayable = isPlayable;
   }
+  public void display()
+  {
+    String out = UIFunctions.getCorrespondingColor(m_affinity.getElement()) + UIFunctions.padRight(m_name,20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(m_hp) ,20) + " | " + UIFunctions.getCorrespondingColor(m_affinity.getElement()) + UIFunctions.padRight( m_affinity.getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + m_attack ;
+    System.out.println(out);
+  }
+
   @Override
   /**
    * Affichage pokémon

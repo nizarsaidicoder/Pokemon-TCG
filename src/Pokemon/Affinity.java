@@ -15,13 +15,22 @@ public abstract class Affinity
     {
         m_element = element;
     }
+
+    /**
+     * Retourne l'élément faible du pokémon
+     * @return Element faible
+     */
     
     public abstract Element getWeakness();
+    /**
+     * Retourne l'élément fort du pokémon
+     * @return Element fort
+     */
     public abstract Element getStrength();
 
     /**
-     * Retourne l'élément du pokémon
-     * @return élément
+     * Retourne l'élément de l'affinité
+     * @return Element
      */
     public Element getElement()
     {
