@@ -56,10 +56,10 @@ Deck --|> CardCollection
 Field --|> CardCollection
 Graveyard --|> CardCollection
 Hand --|> CardCollection
-Deck .> "Uses" Utils.HelperFunctions
-Graveyard .> "Uses" Utils.HelperFunctions
-Hand .> "Uses" Utils.HelperFunctions
-Field .> "Uses" Utils.HelperFunctions
+Deck .> "Uses" Utils.UIFunctions
+Graveyard .> "Uses" Utils.UIFunctions
+Hand .> "Uses" Utils.UIFunctions
+Field .> "Uses" Utils.UIFunctions
 
 
 ' Agrégations
@@ -107,7 +107,7 @@ Player.Player *--> "-m_graveyard\n 1,1" Collection.Graveyard
 Player.Player *--> "-m_deck\n 1,1" Collection.Deck
 Player.Player *--> "-m_hand\n 1,1" Collection.Hand
 Player.Player *--> "-m_scanner\n 1,1" java.util.Scanner
-Player.Player .> "Uses" Utils.HelperFunctions
+Player.Player .> "Uses" Utils.UIFunctions
 Player.AI .> "Uses" java.util.Random
 
 AI --up-|> Player.Player
@@ -186,7 +186,7 @@ Pokemon.Affinity <|-- Pokemon.Water
 Pokemon.Affinity <|-- Pokemon.Earth
 Pokemon.Affinity <|-- Pokemon.Fire
 Pokemon.Affinity <|-- Pokemon.Air
-Pokemon.Pokemon .> "Uses" Utils.HelperFunctions
+Pokemon.Pokemon .> "Uses" Utils.UIFunctions
 package Utils
 {
     class UIFunctions
@@ -238,12 +238,12 @@ class Game
     + {static} getRandom(min : Integer, max : Integer) : Integer
 }
 Game .> "Uses" Display
-Display .> "Uses" Utils.HelperFunctions
+Display .> "Uses" Utils.UIFunctions
 Game *--> "-m_player\n 1,1" Player.Player
 Game *--> "-m_ai\n 1,1" Player.AI
 Game *--> "-m_currentPlayer\n 1,1" Player.Player
 Game *--> "-m_winner\n 1,1" Player.Player
-Game .> "Uses" Utils.HelperFunctions
+Game .> "Uses" Utils.UIFunctions
 Game .> "Uses" java.util.Random
 Game .> "Uses" java.util.Scanner
 class Pookemon
@@ -252,6 +252,6 @@ class Pookemon
 }
 
 Pookemon .> "uses" Game
-Field .> "uses" Utils.HelperFunctions
+Field .> "uses" Utils.UIFunctions
 
 @enduml
