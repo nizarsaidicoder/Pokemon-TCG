@@ -31,7 +31,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
 
 ## Déroulement du jeu
 
-- Pour le déroulement du jeu on a choisi d'implémenter une classe Game qui gère le déroulement du jeu à travers de deux méthodes:
+- Pour le déroulement du jeu on a choisi d'implémenter une classe Game qui gère le déroulement du jeu au travers de deux méthodes:
 - `start` : qui initialise la partie (Les decks, les mains, les défausses... ainsi que le premier joueur)
 
 - `play` : qui gère le déroulement du jeu à partir des phases
@@ -40,7 +40,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
   - `Spawn Phase` : Chaque joueur peut poser un pokemon sur le terrain
   - `Battle Phase` : Chaque joueur peut attaquer avec ses pokemons
 
-  ![alt text](../uml/Untitled.png)
+  ![alt text](../rapports/fontionnementJeu.png)
 
 ## L'Affichage
 
@@ -48,7 +48,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
 
 ## L'Input
 
-- On a opter pour un input de type `int` pour les choix de l'utilisateur pour simplifier le choix de l'utilisateur vu que ecrire le nom de la carte est plus long et plus compliqué en plus la gestion des erreurs est plus facile avec un input de type `int`
+- On a opter pour un input de type `int` pour les choix de l'utilisateur ainsi il suffit d'entrer l'indice du pokémon pour le sélectionner (écrire le nom du pokémon serait trop long). De plus, la gestion des erreurs est plus facile avec un input de type `int`
 
 # Difficultés rencontrées
 
