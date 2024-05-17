@@ -1,5 +1,7 @@
 import Utils.UIFunctions;
-import Player.Player;
+import Player.*;
+import Pokemon.*;
+import java.util.ArrayList;
 // Cette classe est utilisée pour afficher les différentes étapes du jeu et les informations des joueurs
 public class Display {
     public static int screenSize = 100;
@@ -137,10 +139,10 @@ public class Display {
             System.out.println(UIFunctions.colorizeAndCenter("AI's turn", "red", screenSize));
         }
         System.out.println();
-        ai.display();
+        printAI(ai);
         System.out.println();
         System.out.println();
-        player.display();
+        printPlayer(player);
     }
     /*
      * Affiche qui commence le jeu
@@ -165,6 +167,202 @@ public class Display {
     {
         System.out.println(UIFunctions.colorizeAndCenter("Spawn phase 🐣", "blue", screenSize));
     }
+
+    public static void printDeck(int size)
+    {
+        String out = " _________________________ " + "\n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(size),2,'0') + "         |" + "\n" +
+                "|_________________________|";
+        out = UIFunctions.colorize(out, "blue");
+        System.out.println(out);
+    }
+
+    public static void printField(ArrayList<Pokemon> pokemons)
+    {
+        String RESET = "\033[0m";  // Text Color Reset
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.print(" ____________________ ");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.print("|                    |");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            if(i > pokemons.size() - 1)
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                String foreColor = UIFunctions.getCorrespondingColor(pokemons.get(i).getAffinity().getElement());
+                System.out.print(UIFunctions.padRight("| ("+(i+1)+") " + foreColor + pokemons.get(i).getName(),26)+ RESET+ "|");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.print("|____________________|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.print("|                    |");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(int i=0;i<3;i++)
+        {
+            if(pokemons.size() > i)
+            {
+                System.out.print(UIFunctions.padRight("| Attack: " + Integer.toString(pokemons.get(i).getAttack()),21) + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+
+        }
+        System.out.println();
+
+        for(int i = 0; i < 3; i++)
+        {
+            if(pokemons.size() > i)
+            {
+                System.out.print(UIFunctions.padRight("| HP: " + Integer.toString(pokemons.get(i).getHP()) + "/" + Integer.toString(pokemons.get(i).getHPMax()),21) + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+
+        for(int i = 0; i < 3; i++)
+        {
+            if(pokemons.size() > i)
+            {
+                String foreColor = UIFunctions.getCorrespondingColor(pokemons.get(i).getAffinity().getElement());
+                System.out.print(UIFunctions.padRight("| Affinity : " + foreColor + pokemons.get(i).getAffinity().getElement(),26) + RESET + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            if(pokemons.size() > i)
+            {
+                String foreColor = UIFunctions.getCorrespondingColor(pokemons.get(i).getAffinity().getStrength());
+                System.out.print(UIFunctions.padRight("| Strength : " + foreColor + pokemons.get(i).getAffinity().getStrength(), 26) + RESET + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            if(pokemons.size() > i)
+            {
+                String foreColor = UIFunctions.getCorrespondingColor(pokemons.get(i).getAffinity().getWeakness());
+                System.out.print(UIFunctions.padRight("| Weakness : " + foreColor + pokemons.get(i).getAffinity().getWeakness(), 26) + RESET + "|");
+                System.out.print("\t\t");
+            }
+            else
+            {
+                System.out.print("|                    |");
+                System.out.print("\t\t");
+            }
+        }
+        System.out.println();
+
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.print("|____________________|");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.print("\\____________________/");
+            System.out.print("\t\t");
+        }
+        System.out.println();
+    }
+
+    public static void printGraveyard(int size)
+    {
+        String out = " _________________________ " + "\n" +
+                "|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(size),2,'0') + "      |" + "\n" +
+                "|_________________________|";
+        out = UIFunctions.colorize(out, "red");
+        System.out.println(out);
+    }
+
+    public static void printHand(ArrayList<Pokemon> pokemons)
+    {
+        System.out.println(UIFunctions.colorizeAndCenter("HAND", "purple", 100));
+        System.out.println("POKEMON                | HP                   | AFFINITY             | ATTACK");
+        for(int i=0; i< pokemons.size(); i++)
+        {
+            System.out.print((i+1) + " ");
+            printPokemon(pokemons.get(i));
+        }
+    }
+
+    public static void printAI(Player ai)
+    {
+        // Affiche le joueur
+        System.out.println(UIFunctions.colorizeAndCenter("AI", "red", 100));
+        String out = " _________________________ \t\t _________________________ \n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(ai.getDeck().getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(ai.getGraveyard().getSize()),2,'0') + "      |" + "\n" +
+                "|_________________________|\t\t|_________________________|";
+        out = UIFunctions.colorize(out, "red");
+        System.out.println(out);
+        printField(ai.getField().getPokemons());
+    }
+
+    public static void printPlayer(Player player)
+    {
+        System.out.println(UIFunctions.colorizeAndCenter(player.getName(), "blue", 100));
+        printField(player.getField().getPokemons());
+        String out = " _________________________ \t\t _________________________ \n" +
+                "|        DECK: " + UIFunctions.padLeft(Integer.toString(player.getDeck().getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(player.getGraveyard().getSize()),2,'0') + "      |" + "\n" +
+
+                "|_________________________|\t\t|_________________________|";
+        out = UIFunctions.colorize(out, "blue");
+        System.out.println(out);
+        printHand(player.getHand().getPokemons());
+        System.out.println();
+    }
+
+    public static void printPokemon(Pokemon pokemon)
+    {
+        String out = UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight(pokemon.getName(),20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(pokemon.getHP()) ,20) + " | " + UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight( pokemon.getAffinity().getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + pokemon.getAttack() ;
+        System.out.println(out);
+    }
+
     /*
      * Affiche la phase de bataille
      */
@@ -172,4 +370,6 @@ public class Display {
     {
         System.out.println(UIFunctions.colorizeAndCenter("Battle phase ⚔️", "blue", screenSize));
     }
+
+
 }

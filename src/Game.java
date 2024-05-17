@@ -176,7 +176,7 @@ public class Game
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for(String pokemon : m_pokemonNames)
         {
-            int hp = getRandom(1, 20) * 10;
+            int hp = getRandom(10, 20) * 10;
             int attack = getRandom(1, 4) * 10;
             if(pokemon.equals("Pedro"))
             {

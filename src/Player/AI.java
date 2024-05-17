@@ -1,10 +1,8 @@
 package Player;
 
 import Pokemon.Pokemon;
-import Utils.UIFunctions;
-
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class AI extends Player
 {
@@ -120,17 +118,5 @@ public class AI extends Player
             }
             return weakestPokemon;
         }
-    }
-    @Override
-    public void display()
-    {
-        // Affiche le joueur
-        System.out.println(UIFunctions.colorizeAndCenter("AI", "red", 100));
-        String out = " _________________________ \t\t _________________________ \n" +
-                "|        DECK: " + UIFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
-                "|_________________________|\t\t|_________________________|";
-        out = UIFunctions.colorize(out, "red");
-        System.out.println(out);
-        m_field.display();
     }
 }

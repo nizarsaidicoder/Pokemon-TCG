@@ -98,9 +98,4 @@ public abstract class CardCollection
     {
         return m_size;
     }
-
-    /**
-     * Methode pour afficher les pokemons de la collection
-     */
-    public abstract void display();
 }

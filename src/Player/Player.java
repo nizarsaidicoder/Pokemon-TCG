@@ -214,22 +214,6 @@ public class Player
         }
         return opponent.getField().getPokemon(index);
     }
-    /*
-     * Methode pour afficher les informations du joueur (main, pioche, cimetière, terrain)
-     */
-    public void display()
-    {
-        System.out.println(UIFunctions.colorizeAndCenter(m_name, "blue", 100));
-        m_field.display();
-        String out = " _________________________ \t\t _________________________ \n" +
-                "|        DECK: " + UIFunctions.padLeft(Integer.toString(m_deck.getSize()),2,'0') + "         |\t\t" +"|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(m_graveyard.getSize()),2,'0') + "      |" + "\n" +
-
-                "|_________________________|\t\t|_________________________|";
-        out = UIFunctions.colorize(out, "blue");
-        System.out.println(out);
-        m_hand.display();
-        System.out.println();
-    }
 
     /**
      * Retourn le numéro du joueur

@@ -1,7 +1,5 @@
 package Collection;
 
-import Utils.UIFunctions;
-
 // import java.util.ArrayList;
 
 public class Hand extends CardCollection {
@@ -12,19 +10,6 @@ public class Hand extends CardCollection {
     public Hand(int maxSize)
     {
         super(maxSize);
-    }
-
-    @Override
-
-    public void display()
-    {
-        System.out.println(UIFunctions.colorizeAndCenter("HAND", "purple", 100));
-        System.out.println("POKEMON                | HP                   | AFFINITY             | ATTACK");
-        for(int i=0; i< m_pokemons.size(); i++)
-        {
-            System.out.print((i+1) + " ");
-            m_pokemons.get(i).display();
-        }
     }
 
     @Override
