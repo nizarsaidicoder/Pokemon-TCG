@@ -14,6 +14,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
     - Ajout de couleurs pour les affinités
     - Ajout de couleurs pour les cartes
     - Ajout de couleurs pour les actions
+    - Les classes ne gèrent plus leur propre affichage. Une classe 'Display' se charge de ça.
 
 ## Fonctionnalité 3 : Implémentations de l'algorithme de l'IA
 

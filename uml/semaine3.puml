@@ -22,32 +22,27 @@ package Collection
         + getPokemons() : Pokemon[]
         + getPokemon(index : Integer) : Pokemon
         + getSize() : Integer
-        + {abstract}display()
     }
     class Deck
     {
         + <<Create>> Deck(maxSize : Integer, pokemons : Pokemon[])
-        + display()
         + toString() : String
     }
 
     class Field
     {
         + <<Create>> Field(maxSize : Integer)
-        + display()
     }
 
     class Graveyard
     {
         + <<Create>> Graveyard(maxSize : Integer)
-        + display()
         + toString() : String
     }
 
     class Hand
     {
         + <<Create>> Hand(maxSize : Integer)
-        + display()
         + toString() : String
     }
 }
@@ -56,11 +51,6 @@ Deck --|> CardCollection
 Field --|> CardCollection
 Graveyard --|> CardCollection
 Hand --|> CardCollection
-Deck .> "Uses" Utils.UIFunctions
-Graveyard .> "Uses" Utils.UIFunctions
-Hand .> "Uses" Utils.UIFunctions
-Field .> "Uses" Utils.UIFunctions
-
 
 ' Agrégations
 CardCollection o--> " # m_pokemons\n0, m_maxSize" Pokemon.Pokemon
@@ -73,7 +63,6 @@ package Player
         - m_name : String
 
         + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer, name : String)
-        + display()
         + draw()
         + spawn()
         + attack(opponent : Player)
@@ -98,7 +87,6 @@ package Player
         + spawn()
         + attack(opponent : Player)
         + getOpponentPokemon(pokemon : Pokemon, pokemon : Pokemon[]) : Pokemon
-        + display()
     }
 }
 
@@ -107,7 +95,6 @@ Player.Player *--> "-m_graveyard\n 1,1" Collection.Graveyard
 Player.Player *--> "-m_deck\n 1,1" Collection.Deck
 Player.Player *--> "-m_hand\n 1,1" Collection.Hand
 Player.Player *--> "-m_scanner\n 1,1" java.util.Scanner
-Player.Player .> "Uses" Utils.UIFunctions
 Player.AI .> "Uses" java.util.Random
 
 AI --up-|> Player.Player
@@ -132,7 +119,6 @@ package Pokemon
        + getAttack() : Integer
        + getAffinity() : Affinity
        + setPlayable(isPlayable : Boolean)
-       + display()
        + toString() : String
     }
 
@@ -186,7 +172,7 @@ Pokemon.Affinity <|-- Pokemon.Water
 Pokemon.Affinity <|-- Pokemon.Earth
 Pokemon.Affinity <|-- Pokemon.Fire
 Pokemon.Affinity <|-- Pokemon.Air
-Pokemon.Pokemon .> "Uses" Utils.UIFunctions
+
 package Utils
 {
     class UIFunctions
@@ -215,6 +201,13 @@ class Display
     +{static} gameStatus(turn : Integer, currentPlayer : Player, player : Player, ai : AI)
     +{static} coinFlip(player : Player)
     +{static} spawnPhase()
+    +{static} printDeck(size : Integer)
+    +{static} printField(pokemons : Pokemon[])
+    +{static} printGraveyard(size : Integer)
+    +{static} printHand(pokemons : Pokemon[])
+    +{static} printAi(ai : Player)
+    +{static} printPlayer(player : Player)
+    +{static} printPokemon(pokemon : Pokemon)
     +{static} battlePhase()
 }
 
@@ -252,6 +245,5 @@ class Pookemon
 }
 
 Pookemon .> "uses" Game
-Field .> "uses" Utils.UIFunctions
 
 @enduml
