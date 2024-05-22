@@ -1,0 +1,249 @@
+@startuml POOKEMON
+title | POOKEMON |
+left to right direction
+
+package java.util
+{
+    class Random
+    class Scanner
+}
+package Collection
+{
+    abstract class CardCollection
+    {
+        # m_maxSize : Integer
+        # m_size : Integer
+        + <<Create>> CardCollection(maxSize : Integer)
+        + isEmpty() : Boolean
+        + isFull() : Boolean
+        + addPokemon(pokemon : Pokemon)
+        + removePokemon(pokemon : Pokemon)
+        + pickPokemon(index : Integer) : Pokemon
+        + getPokemons() : Pokemon[]
+        + getPokemon(index : Integer) : Pokemon
+        + getSize() : Integer
+    }
+    class Deck
+    {
+        + <<Create>> Deck(maxSize : Integer, pokemons : Pokemon[])
+        + toString() : String
+    }
+
+    class Field
+    {
+        + <<Create>> Field(maxSize : Integer)
+    }
+
+    class Graveyard
+    {
+        + <<Create>> Graveyard(maxSize : Integer)
+        + toString() : String
+    }
+
+    class Hand
+    {
+        + <<Create>> Hand(maxSize : Integer)
+        + toString() : String
+    }
+}
+' Heritage
+Deck --|> CardCollection
+Field --|> CardCollection
+Graveyard --|> CardCollection
+Hand --|> CardCollection
+
+' Agrégations
+CardCollection o--> " # m_pokemons\n0, m_maxSize" Pokemon.Pokemon
+
+package Player
+{
+    class Player
+    {
+        - m_playerNumber : Integer
+        - m_name : String
+
+        + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer, name : String)
+        + draw()
+        + spawn()
+        + attack(opponent : Player)
+        + setPlayablePokemons()
+        + hasPlayablePokemons() : Boolean
+        + getPlayablePokemons() : Pokemon[]
+        + isDefeated() : Boolean
+        + promptPokemon() : Pokemon
+        + promptEnemyPokemon() : Pokemon
+        + display()
+        + getPlayerNumber() : Integer
+        + getName() : String
+        + getField() : Field
+        + getDeck() : Deck
+        + getHand() : Hand
+        + getGraveyard() : Graveyard
+    }
+
+    class AI
+    {
+        + <<Create>> AI(Pokemons : Pokemon[], playerNumber : Integer)
+        + spawn()
+        + attack(opponent : Player)
+        + getOpponentPokemon(pokemon : Pokemon, pokemon : Pokemon[]) : Pokemon
+    }
+}
+
+Player.Player *--> "-m_field\n1, 1" Collection.Field
+Player.Player *--> "-m_graveyard\n 1,1" Collection.Graveyard
+Player.Player *--> "-m_deck\n 1,1" Collection.Deck
+Player.Player *--> "-m_hand\n 1,1" Collection.Hand
+Player.Player *--> "-m_scanner\n 1,1" java.util.Scanner
+Player.AI .> "Uses" java.util.Random
+
+AI --up-|> Player.Player
+
+package Pokemon
+{
+    class Pokemon
+    {
+       - m_name : String
+       - m_hp : Integer
+       - m_hpMax : Integer
+       - m_attack : Integer
+       - m_isPlayable : Boolean
+       + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
+       + attack(pokemon : Pokemon)
+       + isStrongTo(affinity : Affinity) : Boolean
+       + isAlive() : Boolean
+       + isPlayable() : Boolean
+       + getName() : String
+       + getHP() : Integer
+       + getHPMax() : Integer
+       + getAttack() : Integer
+       + getAffinity() : Affinity
+       + setPlayable(isPlayable : Boolean)
+       + toString() : String
+    }
+
+    enum Element
+    {
+        WATER
+        EARTH
+        FIRE
+        AIR
+    }
+
+    abstract class Affinity
+    {
+        + <<Create>> Affinity(element : Element)
+        +{abstract} getWeakness() : Element
+        +{abstract} getStrength() : Element
+        +{abstract} getElement() : Element
+    }
+    class Water
+    {
+        + <<Create>> Water()
+        + getWeakness() : Element
+        + getStrength() : Element
+        + getElement() : Element
+    }
+    class Earth
+    {
+        + <<Create>> Earth()
+        + getWeakness() : Element
+        + getStrength() : Element
+        + getElement() : Element
+    }
+    class Fire
+    {
+        + <<Create>> Fire()
+        + getWeakness() : Element
+        + getStrength() : Element
+        + getElement() : Element
+    }
+    class Air
+    {
+        + <<Create>> Air()
+        + getWeakness() : Element
+        + getStrength() : Element
+        + getElement() : Element
+    }
+}
+Pokemon.Element "- m_element\n 1,1"  <--* Pokemon.Affinity
+Pokemon.Affinity "- m_affinity\n 1,1" <--* Pokemon.Pokemon
+Pokemon.Affinity <|-- Pokemon.Water
+Pokemon.Affinity <|-- Pokemon.Earth
+Pokemon.Affinity <|-- Pokemon.Fire
+Pokemon.Affinity <|-- Pokemon.Air
+
+package Utils
+{
+    class UIFunctions
+    {
+        +{static}padRight(s : String, n : Integer) : String
+        +{static}padRight(s : String, n : Integer, c : Char) : String
+        +{static}padLeft(s : String, n : Integer, c : Char) : String
+        +{static}padLeft(s : String, n : Integer) : String
+        +{static}center(s : String, n : Integer) : String
+        +{static}getCorrespondingColor(affinity : Element) : String
+        +{static}getColorCode(color : String) : String
+        +{static}clearTerminal()
+        +{static}colorize(text : String, color : String) : String
+        +{static}colorize(text : String, foreColor : String, backColor : String) : String
+        +{static}colorizeAndCenter(text : String, color : String, n : Integer) : String
+    }
+}
+
+class Display
+{
+    +{static} screenSize : Integer
+    +{static} intro()
+    +{static} outro()
+    +{static} winner(winner : String)
+    +{static} credits()
+    +{static} gameStatus(turn : Integer, currentPlayer : Player, player : Player, ai : AI)
+    +{static} coinFlip(player : Player)
+    +{static} spawnPhase()
+    +{static} printDeck(size : Integer)
+    +{static} printField(pokemons : Pokemon[])
+    +{static} printGraveyard(size : Integer)
+    +{static} printHand(pokemons : Pokemon[])
+    +{static} printAi(ai : Player)
+    +{static} printPlayer(player : Player)
+    +{static} printPokemon(pokemon : Pokemon)
+    +{static} battlePhase()
+}
+
+class Game
+{
+    - m_turn : Integer
+    - m_winner : String
+    - m_pokemonNames : String[]
+    + <<Create>> Game()
+    + start()
+    + play()
+    + drawPhase()
+    + spawnPhase()
+    + battlePhase()
+    + endPhase()
+    + initializePlayers()
+    + createPokemons()
+    + isFirstPlayer() : Boolean
+    + promptUserName() : String
+    + isGameOver() : Boolean
+    + {static} getRandom(min : Integer, max : Integer) : Integer
+}
+Game .> "Uses" Display
+Display .> "Uses" Utils.UIFunctions
+Game *--> "-m_player\n 1,1" Player.Player
+Game *--> "-m_ai\n 1,1" Player.AI
+Game *--> "-m_currentPlayer\n 1,1" Player.Player
+Game *--> "-m_winner\n 1,1" Player.Player
+Game .> "Uses" Utils.UIFunctions
+Game .> "Uses" java.util.Random
+Game .> "Uses" java.util.Scanner
+class Pookemon
+{
+    +{static}main(arg : String[])
+}
+
+Pookemon .> "uses" Game
+
+@enduml
