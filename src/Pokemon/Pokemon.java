@@ -1,5 +1,6 @@
 package Pokemon;
 
+import Effects.Effect;
 import Utils.UIFunctions;
 
 import javax.sound.sampled.*;
@@ -15,6 +16,8 @@ public class Pokemon
   private int m_hp;
   private int m_hpMax;
   private int m_attack;
+  private int m_defense = 0;
+  private Effect m_effect;
   private Affinity m_affinity;
   private boolean m_isPlayable;
 
@@ -27,7 +30,6 @@ public class Pokemon
     m_attack = attack;
     m_affinity = affinity;
   }
-
   /**
    * Attaque un autre pokémon avec gestion de l'affinité
    * @param pokemon pokémon qui reçoit les dégâts
@@ -61,6 +63,7 @@ public class Pokemon
     musicThread.start();
     int damages = m_attack;
 
+
     //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
     if(m_affinity.getStrength() == pokemon.m_affinity.getElement())
     {
@@ -80,7 +83,7 @@ public class Pokemon
     }
     else
     {
-      pokemon.m_hp -= damages;
+      pokemon.m_hp -= (damages - m_defense);
     }
   }
   public boolean isStrongTo(Affinity affinity)
@@ -103,11 +106,32 @@ public class Pokemon
     return m_isPlayable;
   }
 
+  public boolean hasEffect()
+  {
+    return m_effect.getTriggerCount() > 0;
+  }
+  public void setEffect(Effect effect)
+  {
+    m_effect = effect;
+  }
+  public Effect getEffect()
+  {
+      return m_effect;
+  }
+
   //accesseurs
   public String getName()
   {
     return m_name;
   }
+  public int getDefense()
+  {
+    return m_defense;
+  }
+    public void setDefense(int defense)
+    {
+        m_defense = defense;
+    }
 
   /**
    * Retourne la vie actuelle du pokémon
@@ -143,6 +167,21 @@ public class Pokemon
   {
       m_isPlayable = isPlayable;
   }
+  public void setHP(int hp)
+  {
+    if(hp > m_hpMax)
+    {
+      m_hp = m_hpMax;
+    }
+    else
+    {
+      m_hp = hp;
+    }
+  }
+    public void setAttack(int attack)
+    {
+        m_attack = attack;
+    }
 
   @Override
   /**

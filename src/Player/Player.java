@@ -4,6 +4,7 @@ import Collection.Deck;
 import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
+import Effects.Effect;
 import Pokemon.Pokemon;
 import Utils.UIFunctions;
 
@@ -81,7 +82,6 @@ public class Player
      */
     public void attack(Player opponent)
     {
-
         Pokemon pokemon = promptPokemon();
         // Prompt the player to choose a pokemon to attack
         Pokemon enemyPokemon = promptEnemyPokemon(opponent);
@@ -93,6 +93,36 @@ public class Player
             opponent.getGraveyard().addPokemon(enemyPokemon);
             opponent.getField().removePokemon(enemyPokemon);
         }
+    }
+
+    public boolean hasEffects()
+    {
+        for(Pokemon pokemon : m_field.getPokemons())
+        {
+            if(pokemon.hasEffect())
+            {
+                if(pokemon.getEffect().getIsTriggered() == false)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Effect> useEffects(Player opponent)
+    {
+        ArrayList<Effect> effects = new ArrayList<>();
+        for(Pokemon pokemon : m_field.getPokemons())
+        {
+            if(pokemon.hasEffect())
+            {
+                Effect effect = pokemon.getEffect();
+                effect.activate(this,opponent);
+                effects.add(effect);
+            }
+        }
+        return effects;
     }
     /**
      * Methode pour attribuer les pokemons jouables

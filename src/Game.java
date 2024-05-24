@@ -1,3 +1,6 @@
+import Effects.Abilities.Warrior;
+import Effects.Effect;
+import Effects.EffectPlayer;
 import Pokemon.*;
 import Player.Player;
 import Player.AI;
@@ -23,6 +26,7 @@ public class Game
         Arrays.asList(
             "Pikachu","Pedro","Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
             ));
+    private ArrayList<Effect> m_effects = new ArrayList<>();
     private int m_turn;
 
 
@@ -59,6 +63,7 @@ public class Game
         {
             drawPhase();
             spawnPhase();
+            EffectPhase();
             battlePhase();
             endPhase();
         }
@@ -110,6 +115,21 @@ public class Game
         // Mettez à jour les pokémons jouables du joueur actuel
         m_currentPlayer.setPlayablePokemons();
     }
+
+    public void EffectPhase()
+    {
+        // Tant que le joueur a des pokemons qui ont des effets pas encore utilisés
+        ArrayList<Effect> effects = new ArrayList<>();
+        while(m_currentPlayer.hasEffects())
+        {
+            Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
+            effects = m_currentPlayer.useEffects(m_opponent);
+        }
+        for(Effect effect : effects)
+        {
+            m_effects.add(effect);
+        }
+    }
     /**
      * La phase de bataille est une phase où le joueur actuel attaque l'adversaire
      */
@@ -129,6 +149,14 @@ public class Game
      */
     public void endPhase()
     {
+        // Deactivate all effects which have 0 trigger count
+        for(Effect effect : m_effects)
+        {
+            if(effect.getTriggerCount() == 0)
+            {
+                effect.deactivate();
+            }
+        }
         // Passez au joueur suivant et incrémentez le tour
         if(m_currentPlayer == m_player)
         {
@@ -206,9 +234,10 @@ public class Game
                     affinity = new Fire();
                     break;
             }
-
             //création du pokémons à partir des attributs aléatoires
             Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
+            Warrior warrior = new Warrior(p);
+            p.setEffect(warrior);
             //on ajoute le pokémon à la liste
             pokemons.add(p);
         }

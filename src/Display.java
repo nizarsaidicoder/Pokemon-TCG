@@ -38,7 +38,7 @@ public class Display {
                         "⠀⠀⠀⠀⠀⠀⠀⠀⢹⣦⡀⠈⠃⣦⠘⢷⡀⠀⠀⠀⢀⣧⣤⣤⣿⠀⠀⠀⢀⣼⠃⣀⠒⠛⢀⣤⣾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                         "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣛⣦⠴⢿⢶⣿⣿⡤⢴⣶⢿⡛⠁⠙⣿⣶⣤⣤⣾⣗⢶⣯⣤⣴⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀","purple");
         System.out.println(pikachuArt);
-        System.out.println(UIFunctions.colorizeAndCenter("Welcome to the Pokemon card game!", "purple", screenSize));
+        System.out.println(UIFunctions.colorizeAndCenter("Welcome to the Pokemon card game!", "purple", 300));
         System.out.println();
         credits();
         System.out.println();
