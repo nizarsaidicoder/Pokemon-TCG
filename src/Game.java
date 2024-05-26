@@ -1,6 +1,5 @@
-import Effects.Abilities.Warrior;
-import Effects.Effect;
-import Effects.EffectPlayer;
+import Pokemon.Effects.Abilities.Warrior;
+import Pokemon.Effects.Effect;
 import Pokemon.*;
 import Player.Player;
 import Player.AI;

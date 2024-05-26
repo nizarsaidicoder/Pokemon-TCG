@@ -1,5 +1,9 @@
 package Utils;
 import Pokemon.Element;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class UIFunctions
 {
     /**
@@ -169,5 +173,32 @@ public class UIFunctions
      */
     public static String colorize(String text, String foreColor, String backColor) {
         return getColorCode(foreColor + "_text") + getColorCode(backColor + "_background") + text + getColorCode("RESET");
+    }
+
+    public static List<String> splitString(String input, int maxChunkSize) {
+        List<String> chunks = new ArrayList<>();
+
+        String[] words = input.split("\\s+"); // Split the input string into words
+
+        StringBuilder chunk = new StringBuilder();
+        for (String word : words) {
+            if (chunk.length() + word.length() <= maxChunkSize) {
+                // If adding the word to the current chunk doesn't exceed the max size
+                if (chunk.length() > 0) {
+                    // Add a space before appending the word if it's not the first word
+                    chunk.append(" ");
+                }
+                chunk.append(word);
+            } else {
+                // If adding the word exceeds the max size, start a new chunk
+                chunks.add(chunk.toString());
+                chunk = new StringBuilder(word);
+            }
+        }
+
+        // Add the last chunk
+        chunks.add(chunk.toString());
+
+        return chunks;
     }
 }

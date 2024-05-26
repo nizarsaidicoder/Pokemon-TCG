@@ -2,6 +2,8 @@ import Utils.UIFunctions;
 import Player.*;
 import Pokemon.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 // Cette classe est utilisée pour afficher les différentes étapes du jeu et les informations des joueurs
 public class Display {
     public static int screenSize = 100;
@@ -38,7 +40,7 @@ public class Display {
                         "⠀⠀⠀⠀⠀⠀⠀⠀⢹⣦⡀⠈⠃⣦⠘⢷⡀⠀⠀⠀⢀⣧⣤⣤⣿⠀⠀⠀⢀⣼⠃⣀⠒⠛⢀⣤⣾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                         "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣛⣦⠴⢿⢶⣿⣿⡤⢴⣶⢿⡛⠁⠙⣿⣶⣤⣤⣾⣗⢶⣯⣤⣴⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀","purple");
         System.out.println(pikachuArt);
-        System.out.println(UIFunctions.colorizeAndCenter("Welcome to the Pokemon card game!", "purple", 300));
+        System.out.println(UIFunctions.colorizeAndCenter("Welcome to the Pokemon card game!", "purple", screenSize));
         System.out.println();
         credits();
         System.out.println();
@@ -283,22 +285,6 @@ public class Display {
         System.out.println();
         for(int i = 0; i < 3; i++)
         {
-            if(pokemons.size() > i)
-            {
-                String foreColor = UIFunctions.getCorrespondingColor(pokemons.get(i).getAffinity().getWeakness());
-                System.out.print(UIFunctions.padRight("| Weakness : " + foreColor + pokemons.get(i).getAffinity().getWeakness(), 26) + RESET + "|");
-                System.out.print("\t\t");
-            }
-            else
-            {
-                System.out.print("|                    |");
-                System.out.print("\t\t");
-            }
-        }
-        System.out.println();
-
-        for(int i = 0; i < 3; i++)
-        {
             System.out.print("|____________________|");
             System.out.print("\t\t");
         }
@@ -310,7 +296,7 @@ public class Display {
         }
         System.out.println();
     }
-
+    //Resistance: Upon use, the Pokémon with this current effect can select an ally (including itself). Until the end of the battle or the death of the chosen Pokémon, that Pokémon takes 10 less damage from each attack.
     public static void printGraveyard(int size)
     {
         String out = " _________________________ " + "\n" +
@@ -362,7 +348,23 @@ public class Display {
         String out = UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight(pokemon.getName(),20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(pokemon.getHP()) ,20) + " | " + UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight( pokemon.getAffinity().getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + pokemon.getAttack() ;
         System.out.println(out);
     }
-
+    public static void printEffect(String effect)
+    {
+        List<String> split = UIFunctions.splitString("Upon use, the Pokémon with this current effect can select an ally (including itself). Until the end of the battle or the death of the chosen Pokémon, that Pokémon takes 10 less damage from each attack.", 27);
+        System.out.println(" _______________________________");
+        System.out.println("|                               |");
+        System.out.println("|" + UIFunctions.center(effect, 31) + "|");
+        System.out.println("|_______________________________|");
+        System.out.println("| Type      : Buff              |");
+        System.out.println("| Duration  : Continuous        |");
+        System.out.println("|                               |");
+        for(String s : split)
+        {
+            System.out.println("| " + UIFunctions.center(s, 30) + "|");
+        }
+        System.out.println("|                               |");
+        System.out.println("|_______________________________|");
+    }
     /*
      * Affiche la phase de bataille
      */
@@ -370,6 +372,4 @@ public class Display {
     {
         System.out.println(UIFunctions.colorizeAndCenter("Battle phase ⚔️", "blue", screenSize));
     }
-
-
 }

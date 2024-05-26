@@ -1,4 +1,4 @@
-package Effects;
+package Pokemon.Effects;
 import  Player.Player;
 
 public interface Triggerable {

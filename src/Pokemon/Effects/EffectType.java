@@ -1,4 +1,4 @@
-package Effects;
+package Pokemon.Effects;
 
 public enum EffectType
 {

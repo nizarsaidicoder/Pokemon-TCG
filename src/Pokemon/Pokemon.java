@@ -1,7 +1,6 @@
 package Pokemon;
 
-import Effects.Effect;
-import Utils.UIFunctions;
+import Pokemon.Effects.Effect;
 
 import javax.sound.sampled.*;
 import java.io.File;
