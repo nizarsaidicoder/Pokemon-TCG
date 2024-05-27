@@ -1,8 +1,8 @@
-package Effects.Abilities;
+package Pokemon.Effects.Abilities;
 import Player.Player;
 import Pokemon.Pokemon;
-import Effects.EffectPokemon;
-import Effects.EffectType;
+import Pokemon.Effects.EffectPokemon;
+import Pokemon.Effects.EffectType;
 
 public class Warrior extends EffectPokemon
 {

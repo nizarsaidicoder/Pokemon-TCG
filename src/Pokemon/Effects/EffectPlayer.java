@@ -1,6 +1,6 @@
-package Effects;
+package Pokemon.Effects;
 
-import Effects.Abilities.Ability;
+import Pokemon.Effects.Abilities.Ability;
 import Player.Player;
 import Pokemon.Pokemon;
 

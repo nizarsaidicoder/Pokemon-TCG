@@ -4,7 +4,7 @@ import Collection.Deck;
 import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
-import Effects.Effect;
+import Pokemon.Effects.Effect;
 import Pokemon.Pokemon;
 import Utils.UIFunctions;
 

@@ -1,7 +1,6 @@
-package Effects;
-import Effects.Abilities.Ability;
+package Pokemon.Effects;
+import Pokemon.Effects.Abilities.Ability;
 import Pokemon.Pokemon;
-import Utils.UIFunctions;
 
 import java.util.ArrayList;
 

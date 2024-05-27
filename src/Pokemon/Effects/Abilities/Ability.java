@@ -1,4 +1,4 @@
-package Effects.Abilities;
+package Pokemon.Effects.Abilities;
 
 public enum Ability {
     RESISTANCE,
