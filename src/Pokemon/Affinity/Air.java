@@ -1,4 +1,4 @@
-package Pokemon;
+package Pokemon.Affinity;
 
 public class Air extends Affinity
 {

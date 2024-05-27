@@ -1,6 +1,7 @@
 package Pokemon;
 
-import Pokemon.Effects.Effect;
+import Pokemon.Affinity.*;
+import Pokemon.Effects.*;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -27,6 +28,7 @@ public class Pokemon
     m_hpMax = hp;
     m_attack = attack;
     m_affinity = affinity;
+
   }
   /**
    * Attaque un autre pokémon avec gestion de l'affinité
@@ -75,7 +77,7 @@ public class Pokemon
     }
 
 
-    if(damages > pokemon.m_hp)
+    if((damages - m_defense) > pokemon.m_hp)
     {
       pokemon.m_hp = 0;
     }
@@ -104,32 +106,31 @@ public class Pokemon
     return m_isPlayable;
   }
 
-  public boolean hasEffect()
+  public boolean hasPower()
   {
-    return m_effect.getTriggerCount() > 0;
+    return false;
   }
-  public void setEffect(Effect effect)
-  {
-    m_effect = effect;
-  }
+
+  
+  //accesseurs
   public Effect getEffect()
   {
       return m_effect;
   }
-
-  //accesseurs
   public String getName()
   {
     return m_name;
   }
+
   public int getDefense()
   {
     return m_defense;
   }
-    public void setDefense(int defense)
-    {
-        m_defense = defense;
-    }
+
+  public void setDefense(int defense)
+  {
+      m_defense = defense;
+  }
 
   /**
    * Retourne la vie actuelle du pokémon
@@ -149,22 +150,6 @@ public class Pokemon
     return m_hpMax;
   }
 
-  /**
-   * Retourne l'attaque du pokémon
-   * @return attaque pokémon
-   */
-  public int getAttack()
-  {
-    return m_attack;
-  }
-  public Affinity getAffinity()
-  {
-    return m_affinity;
-  }
-  public void setPlayable(boolean isPlayable)
-  {
-      m_isPlayable = isPlayable;
-  }
   public void setHP(int hp)
   {
     if(hp > m_hpMax)
@@ -176,10 +161,31 @@ public class Pokemon
       m_hp = hp;
     }
   }
-    public void setAttack(int attack)
-    {
-        m_attack = attack;
-    }
+
+  /**
+   * Retourne l'attaque du pokémon
+   * @return attaque pokémon
+   */
+  public int getAttack()
+  {
+    return m_attack;
+  }
+  
+  public void setAttack(int attack)
+  {
+      m_attack = attack;
+  }
+
+  public Affinity getAffinity()
+  {
+    return m_affinity;
+  }
+
+  public void setPlayable(boolean isPlayable)
+  {
+      m_isPlayable = isPlayable;
+  }
+
 
   @Override
   /**

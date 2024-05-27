@@ -1,5 +1,5 @@
-import Pokemon.Effects.Abilities.Warrior;
 import Pokemon.Effects.Effect;
+import Pokemon.Affinity.*;
 import Pokemon.*;
 import Player.Player;
 import Player.AI;

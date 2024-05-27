@@ -192,6 +192,7 @@ package Pokemon
             - m_used : Boolean
 
             + getPower() : Power
+            + getTargetType() : TargetType
             + isUsed() : Boolean
             + activate(p : Pokemon)
         }

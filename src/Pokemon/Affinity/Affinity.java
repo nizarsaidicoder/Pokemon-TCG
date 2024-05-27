@@ -1,4 +1,4 @@
-package Pokemon;
+package Pokemon.Affinity;
 
 public abstract class Affinity 
 {

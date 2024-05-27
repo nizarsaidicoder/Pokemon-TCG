@@ -1,5 +1,5 @@
 package Utils;
-import Pokemon.Element;
+import Pokemon.Affinity.Element;
 
 import java.util.ArrayList;
 import java.util.List;
