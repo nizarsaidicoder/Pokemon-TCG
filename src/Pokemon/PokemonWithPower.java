@@ -11,7 +11,6 @@ public class PokemonWithPower extends Pokemon
     {
         super(name, hp, attack, affinity);
         m_effect = effect;
-
     }
 
     @Override

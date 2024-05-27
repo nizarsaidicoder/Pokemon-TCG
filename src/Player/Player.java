@@ -100,9 +100,9 @@ public class Player
     {
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            if(pokemon.hasEffect())
+            if(pokemon.hasPower())
             {
-                if(pokemon.getEffect().getIsTriggered() == false)
+                if(pokemon.getEffect().isUsed() == false)
                 {
                     return true;
                 }
@@ -116,10 +116,10 @@ public class Player
         ArrayList<Effect> effects = new ArrayList<>();
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            if(pokemon.hasEffect())
+            if(pokemon.hasPower())
             {
                 Effect effect = pokemon.getEffect();
-                effect.activate(this,opponent);
+                effect.activate(pokemon);
                 effects.add(effect);
             }
         }

@@ -3,7 +3,7 @@ import Player.*;
 import Pokemon.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
+//import java.util.Arrays;
 // Cette classe est utilisée pour afficher les différentes étapes du jeu et les informations des joueurs
 public class Display {
     public static int screenSize = 100;
