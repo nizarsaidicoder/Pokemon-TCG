@@ -61,7 +61,7 @@ package Player
     {
         - m_playerNumber : Integer
         - m_name : String
-        - m_specialEffects : SpecialEffect[*]
+        ' - m_specialEffects : SpecialEffect[*]
         + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer, name : String)
         + draw()
         + triggerEffects()
@@ -108,72 +108,174 @@ package Pokemon
        - m_hp : Integer
        - m_hpMax : Integer
        - m_attack : Integer
+       - m_defense : Integer
        - m_isPlayable : Boolean
+       
        + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
        + attack(pokemon : Pokemon)
-       + triggerEffect()
+       + hasPower() : Boolean
        + isStrongTo(affinity : Affinity) : Boolean
        + isAlive() : Boolean
        + isPlayable() : Boolean
        + getName() : String
        + getHP() : Integer
+       + setHP()
        + getHPMax() : Integer
        + getAttack() : Integer
+       + setAttack()
+       + getDefense() : Integer
+       + setDefense()
        + getAffinity() : Affinity
        + setPlayable(isPlayable : Boolean)
        + toString() : String {redefines}
     }
 
-    enum Element
+    class PokemonWithPower
     {
-        WATER
-        EARTH
-        FIRE
-        AIR
+        + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
+        + hasPower() : Boolean {redefine}
+        + getEffect() : Effect
+        + toString() : String {redefine}
     }
-    abstract class Affinity
+
+
+    package Affinity
     {
-        + <<Create>> Affinity(element : Element)
-        +{abstract} getWeakness() : Element
-        +{abstract} getStrength() : Element
-        +{abstract} getElement() : Element
+        enum Element
+        {
+            WATER
+            EARTH
+            FIRE
+            AIR
+        }
+        abstract class Affinity
+        {
+            + <<Create>> Affinity(element : Element)
+            +{abstract} getWeakness() : Element
+            +{abstract} getStrength() : Element
+            +{abstract} getElement() : Element
+        }
+        class Water
+        {
+            + <<Create>> Water()
+            + getWeakness() : Element
+            + getStrength() : Element
+            + getElement() : Element
+        }
+        class Earth
+        {
+            + <<Create>> Earth()
+            + getWeakness() : Element
+            + getStrength() : Element
+            + getElement() : Element
+        }
+        class Fire
+        {
+            + <<Create>> Fire()
+            + getWeakness() : Element
+            + getStrength() : Element
+            + getElement() : Element
+        }
+        class Air
+        {
+            + <<Create>> Air()
+            + getWeakness() : Element
+            + getStrength() : Element
+            + getElement() : Element
+        }
     }
-    class Water
+
+    package Effects
     {
-        + <<Create>> Water()
-        + getWeakness() : Element
-        + getStrength() : Element
-        + getElement() : Element
+        abstract class Effect
+        {
+            - m_used : Boolean
+
+            + getPower() : Power
+            + isUsed() : Boolean
+            + activate(p : Pokemon)
+        }
+
+        enum Power
+        {
+            RESISTANCE
+            BERSERK
+            SOIN_TOTAL
+            KAMIKAZE
+            USURPATION
+            REGENERATION
+            EMPOISONNEMENT
+            DEJA_VU
+        }
+
+        enum TargetType
+        {
+            ALLY
+            ENNEMY
+            BOTH
+        }
+        class Resistance
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class Berserk
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class SoinTotal
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class Kamikaze
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class Usurpation
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class Regeneration
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class Empoisonnement
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        class DejaVu
+        {
+            + activate(p : Pokemon) {redefine}
+        }
+
+        Effect "- m_power\n 1" <-* Power
+        Effect <|-- Resistance
+        Effect <|-- Berserk
+        Effect <|-- SoinTotal
+        Effect <|-- Kamikaze
+        Effect <|-- Usurpation
+        Effect <|-- Regeneration
+        Effect <|-- Empoisonnement
+        Effect <|-- DejaVu
+        Effect "- m_targetType\n 1" <--* TargetType
     }
-    class Earth
-    {
-        + <<Create>> Earth()
-        + getWeakness() : Element
-        + getStrength() : Element
-        + getElement() : Element
-    }
-    class Fire
-    {
-        + <<Create>> Fire()
-        + getWeakness() : Element
-        + getStrength() : Element
-        + getElement() : Element
-    }
-    class Air
-    {
-        + <<Create>> Air()
-        + getWeakness() : Element
-        + getStrength() : Element
-        + getElement() : Element
-    }
+
+Affinity.Element "- m_element\n 1"  <--* Affinity.Affinity
+Affinity.Affinity "- m_affinity\n 1" <--* Pokemon.Pokemon
+PokemonWithPower "- m_effect\n 0..1" *--> Effects.Effect
+Affinity.Affinity <|-- Affinity.Water
+Affinity.Affinity <|-- Affinity.Earth
+Affinity.Affinity <|-- Affinity.Fire
+Affinity.Affinity <|-- Affinity.Air
+Pokemon <|-- PokemonWithPower
+
 }
-Pokemon.Element "- m_element\n 1"  <--* Pokemon.Affinity
-Pokemon.Affinity "- m_affinity\n 1" <--* Pokemon.Pokemon
-Pokemon.Pokemon "- m_effect\n 0..1" *-> Effects.Effect
-Pokemon.Affinity <|-- Pokemon.Water
-Pokemon.Affinity <|-- Pokemon.Earth
-Pokemon.Affinity <|-- Pokemon.Fire
-Pokemon.Affinity <|-- Pokemon.Air
 
 package Utils
 {
@@ -233,216 +335,222 @@ class Game
     + isGameOver() : Boolean
     + {static} getRandom(min : Integer, max : Integer) : Integer
 }
+
 Game .> "Uses" Display
 Display .> "Uses" Utils.UIFunctions
 Game *--> "-m_player\n 1,1" Player.Player
 Game *--> "-m_ai\n 1,1" Player.AI
 Game *--> "-m_currentPlayer\n 1,1" Player.Player
 Game *--> "-m_winner\n 1,1" Player.Player
-Game *--> "-m_effects\n 0..*" Effects.Effect
+' Game *--> "-m_effects\n 0..*" Effects.Effect
 Game .> "Uses" Utils.UIFunctions
 Game .> "Uses" java.util.Random
 Game .> "Uses" java.util.Scanner
+
 class Pookemon
 {
     +{static}main(arg : String[])
 }
-package Effects
-{
-    abstract class Effect
-    {
-        # m_effect : Effect
-        # m_triggerCount : Integer
-        # m_caster : Pokemon
-        + <<Create>> Effect(triggerCount : Integer, caster : Pokemon )
-        + {abstract} activate( player : Player, opponent : Player )
-        + {abstract} deactivate( player : Player, opponent : Player)
-        + getTriggerCount() : Integer
-    }
-    abstract class EffectPokemon
-    {
-        # m_target : Pokemon[*]
-        + getTriggerTarget() : Pokemon[*]
-    }
-    abstract class EffectPlayer
-    {
-        # m_target : Player
-        + getTriggerTarget() : Player
-    }
-    class RESISTANCE
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player)      {redefine}   
-    }
-    class WARRIOR_ZEAL
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class FEAR
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class BERSERK
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class INTIMIDATION
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class FULL_HEAL
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class SIMPLE_HEAL
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class KAMIKAZE
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class ETHER_AFFINITY
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class LEAD_AFFINITY
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class USURPATION
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class REGENERATION
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class ZONE_HEAL
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class POISON
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class PERMANENT_HEAL
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class PROTECT
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class IMMUNITY
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class DEJA_VU
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class BLOCK
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class NECROMANCY
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class TERRITORY_EXPANSION
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class MANIPULATION
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class CONFUSION
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    class CHEAT
-    {
-        + activate( player : Player, opponent : Player ) {redefine}
-        + deactivate( player : Player, opponent : Player) {redefine}
-    }
-    enum Effects
-    {
-        RESISTANCE
-        WARRIOR_ZEAL
-        FEAR
-        BERSERK
-        INTIMIDATION
-        FULL_HEAL
-        SIMPLE_HEAL
-        KAMIKAZE
-        ETHER_AFFINITY
-        LEAD_AFFINITY
-        USURPATION
-        REGENERATION
-        ZONE_HEAL
-        POISON
-        PERMANENT_HEAL
-        PROTECT
-        IMMUNITY
-        DEJA_VU
-        BLOCK
-        NECROMANCY
-        TERRITORY_EXPANSION
-        MANIPULATION
-        CONFUSION
-        CHEAT
-    }
-}
-EffectPokemon --|> Effect
-EffectPlayer --|> Effect
-Effects.RESISTANCE --|> EffectPokemon
-Effects.WARRIOR_ZEAL --|> EffectPokemon
-Effects.FEAR --|> EffectPokemon
-Effects.BERSERK --|> EffectPokemon
-Effects.INTIMIDATION --|> EffectPokemon
-Effects.FULL_HEAL --|> EffectPokemon
-Effects.SIMPLE_HEAL --|> EffectPokemon
-Effects.KAMIKAZE --|> EffectPokemon
-Effects.ETHER_AFFINITY --|> EffectPokemon
-Effects.LEAD_AFFINITY --|> EffectPokemon
-Effects.USURPATION --|> EffectPokemon
-Effects.REGENERATION --|> EffectPokemon
-Effects.ZONE_HEAL --|> EffectPokemon
-Effects.POISON --|> EffectPokemon
-Effects.PERMANENT_HEAL --|> EffectPokemon
-Effects.PROTECT --|> EffectPokemon
-Effects.IMMUNITY --|> EffectPokemon
-Effects.DEJA_VU --|> EffectPokemon
-Effects.BLOCK --|> EffectPokemon
-Effects.NECROMANCY --|> EffectPlayer
-Effects.TERRITORY_EXPANSION --|> EffectPlayer
-Effects.MANIPULATION --|> EffectPlayer
-Effects.CONFUSION --|> EffectPlayer
-Effects.CHEAT --|> EffectPlayer
+
 Pookemon .> "uses" Game
+
+
+
+' package Effects
+' {
+'     abstract class Effect
+'     {
+'         # m_effect : Effect
+'         # m_triggerCount : Integer
+'         # m_caster : Pokemon
+'         + <<Create>> Effect(triggerCount : Integer, caster : Pokemon )
+'         + {abstract} activate( player : Player, opponent : Player )
+'         + {abstract} deactivate( player : Player, opponent : Player)
+'         + getTriggerCount() : Integer
+'     }
+'     abstract class EffectPokemon
+'     {
+'         # m_target : Pokemon[*]
+'         + getTriggerTarget() : Pokemon[*]
+'     }
+'     abstract class EffectPlayer
+'     {
+'         # m_target : Player
+'         + getTriggerTarget() : Player
+'     }
+'     class RESISTANCE
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player)      {redefine}   
+'     }
+'     class WARRIOR_ZEAL
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class FEAR
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class BERSERK
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class INTIMIDATION
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class FULL_HEAL
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class SIMPLE_HEAL
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class KAMIKAZE
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class ETHER_AFFINITY
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class LEAD_AFFINITY
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class USURPATION
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class REGENERATION
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class ZONE_HEAL
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class POISON
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class PERMANENT_HEAL
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class PROTECT
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class IMMUNITY
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class DEJA_VU
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class BLOCK
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class NECROMANCY
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class TERRITORY_EXPANSION
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class MANIPULATION
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class CONFUSION
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     class CHEAT
+'     {
+'         + activate( player : Player, opponent : Player ) {redefine}
+'         + deactivate( player : Player, opponent : Player) {redefine}
+'     }
+'     enum Effects
+'     {
+'         RESISTANCE
+'         WARRIOR_ZEAL
+'         FEAR
+'         BERSERK
+'         INTIMIDATION
+'         FULL_HEAL
+'         SIMPLE_HEAL
+'         KAMIKAZE
+'         ETHER_AFFINITY
+'         LEAD_AFFINITY
+'         USURPATION
+'         REGENERATION
+'         ZONE_HEAL
+'         POISON
+'         PERMANENT_HEAL
+'         PROTECT
+'         IMMUNITY
+'         DEJA_VU
+'         BLOCK
+'         NECROMANCY
+'         TERRITORY_EXPANSION
+'         MANIPULATION
+'         CONFUSION
+'         CHEAT
+'     }
+' }
+' EffectPokemon --|> Effect
+' EffectPlayer --|> Effect
+' Effects.RESISTANCE --|> EffectPokemon
+' Effects.WARRIOR_ZEAL --|> EffectPokemon
+' Effects.FEAR --|> EffectPokemon
+' Effects.BERSERK --|> EffectPokemon
+' Effects.INTIMIDATION --|> EffectPokemon
+' Effects.FULL_HEAL --|> EffectPokemon
+' Effects.SIMPLE_HEAL --|> EffectPokemon
+' Effects.KAMIKAZE --|> EffectPokemon
+' Effects.ETHER_AFFINITY --|> EffectPokemon
+' Effects.LEAD_AFFINITY --|> EffectPokemon
+' Effects.USURPATION --|> EffectPokemon
+' Effects.REGENERATION --|> EffectPokemon
+' Effects.ZONE_HEAL --|> EffectPokemon
+' Effects.POISON --|> EffectPokemon
+' Effects.PERMANENT_HEAL --|> EffectPokemon
+' Effects.PROTECT --|> EffectPokemon
+' Effects.IMMUNITY --|> EffectPokemon
+' Effects.DEJA_VU --|> EffectPokemon
+' Effects.BLOCK --|> EffectPokemon
+' Effects.NECROMANCY --|> EffectPlayer
+' Effects.TERRITORY_EXPANSION --|> EffectPlayer
+' Effects.MANIPULATION --|> EffectPlayer
+' Effects.CONFUSION --|> EffectPlayer
+' Effects.CHEAT --|> EffectPlayer
 
 @enduml
