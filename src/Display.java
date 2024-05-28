@@ -352,17 +352,22 @@ public class Display {
     }
     public static void printEffects(ArrayList<Effect> effects)
     {
+        System.out.println(UIFunctions.colorizeAndCenter("Effects", "purple", 30) + UIFunctions.colorizeAndCenter("Target", "purple", 30) + UIFunctions.colorizeAndCenter("Description", "purple", 30));
+        int i = 1;
         for(Effect effect : effects)
         {
-            printEffect(effect);
+            String target = effect.getTargetType().toString();
+            String description = effect.getDescription();
+            System.out.println(i + " " + UIFunctions.colorizeAndCenter(effect.getPower().toString(), UIFunctions.getCorrespondingColor(effect.getPower()),30) + UIFunctions.center(target, 30) + UIFunctions.center(description, 30));
+            i++;
         }
     }
     public static void printEffect(Effect effect)
     {
-        List<String> split = UIFunctions.splitString("Upon use, the Pokémon with this current effect can select an ally (including itself). Until the end of the battle or the death of the chosen Pokémon, that Pokémon takes 10 less damage from each attack.", 27);
+        List<String> split = UIFunctions.splitString(effect.getDescription(), 27);
         System.out.println(" _______________________________");
         System.out.println("|                               |");
-        System.out.println("|" + UIFunctions.center(effect.getPower().toString(), 31) + "|");
+        System.out.println("|" + UIFunctions.colorizeAndCenter(effect.getPower().toString(), UIFunctions.getCorrespondingColor(effect.getPower()),30) + " |");
         System.out.println("|_______________________________|");
         System.out.println("| Type      : Buff              |");
         System.out.println("| Duration  : Unique            |");

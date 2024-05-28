@@ -1,6 +1,6 @@
 package Utils;
 import Pokemon.Affinity.Element;
-
+import Pokemon.Effects.Power;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +83,44 @@ public class UIFunctions
                 break;
             case AIR:
                 out = GREEN_TEXT;
+                break;
+            default:
+                out = RESET;
+                break;
+        }
+        return out;
+    }
+    public static String  getCorrespondingColor(Power power) {
+        String RESET = "\u001B[0m";
+        String RED_TEXT = "\u001B[31m";
+        String GREEN_TEXT = "\u001B[32m";
+        String YELLOW_TEXT = "\u001B[33m";
+        String BLUE_TEXT = "\u001B[34m";
+        String out = "";
+        switch (power) {
+            case RESISTANCE :
+                out = GREEN_TEXT;
+                break;
+            case BERSERK:
+                out = RED_TEXT;
+                break;
+            case SOIN_TOTAL:
+                out = BLUE_TEXT;
+                break;
+            case KAMIKAZE:
+                out = RED_TEXT;
+                break;
+            case USURPATION:
+                out = YELLOW_TEXT;
+                break;
+            case REGENERATION:
+                out = GREEN_TEXT;
+                break;
+            case EMPOISONNEMENT:
+                out = RED_TEXT;
+                break;
+            case DEJA_VU:
+                out = BLUE_TEXT;
                 break;
             default:
                 out = RESET;

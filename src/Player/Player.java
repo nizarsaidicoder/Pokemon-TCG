@@ -14,6 +14,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.print.DocFlavor.READER;
+
 public class Player
 {
     /**
@@ -308,7 +310,6 @@ public class Player
         }
         return opponent.getField().getPokemon(index);
     }
-
     /**
      * Retourn le numéro du joueur
      * @return numéro joueur
@@ -353,6 +354,18 @@ public class Player
     public Graveyard getGraveyard()
     {
         return m_graveyard;
+    }
+    public ArrayList<Effect> getActiveEffects()
+    {
+        ArrayList<Effect> activeEffects = new ArrayList<>();
+        for(PokemonWithPower pokemon : m_field.getPokemonsWithPower())
+        {
+            if(!pokemon.getEffect().isUsed())
+            {
+                activeEffects.add(pokemon.getEffect());
+            }
+        }
+        return activeEffects;
     }
 
 }

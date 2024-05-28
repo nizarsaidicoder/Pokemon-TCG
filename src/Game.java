@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+
+import Pokemon.Effects.Abilities.*;
 import Utils.UIFunctions;
 
 import javax.sound.sampled.*;
@@ -122,8 +124,67 @@ public class Game
             Display.effectPhase();
             // SEE IF THE PLAYER WANTS TO USE THE EFFECT OR NOT
             Scanner scanner = new Scanner(System.in);
-            System.out.print(UIFunctions.colorize("Do you want to use the effect of a pokemon ? (Y)es or (N)o : ", "yellow"));
-            m_currentPlayer.useEffects(m_opponent);
+            
+            System.out.print(UIFunctions.colorize("Do you want to use the effect of a pokemon ? (Y)es or (N)o or (H)elp to consult the effects : ", "yellow"));
+            String choice = scanner.nextLine().toLowerCase();
+            System.out.println();
+            if(choice.equals("y") || choice.equals("yes"))
+            {
+                m_currentPlayer.useEffects(m_opponent);
+            }
+            else if(choice.equals("h") || choice.equals("help"))
+            {
+                ArrayList<Effect> activeEffects = new ArrayList<>();
+                activeEffects.addAll(m_currentPlayer.getActiveEffects());
+                activeEffects.addAll(m_opponent.getActiveEffects());
+                Display.printEffects(activeEffects);
+                System.out.print(UIFunctions.colorize("Which Effect you want to see its description : ", "yellow"));
+                int i =1;
+                for(Effect effect : activeEffects)
+                {
+                    System.out.print(UIFunctions.colorize( effect.getPower() + " (" +i + ") " , "yellow"));
+                    i++;
+                }
+                System.out.println(" OR (O) to exit )");
+                int x = Integer.parseInt( scanner.nextLine());
+                while(x !=0)
+                {
+                    i = 1;
+                    System.out.print(UIFunctions.colorize("Which Effect you want to see its description : ", "yellow"));
+                    for(Effect effect : activeEffects)
+                    {
+                        System.out.print(UIFunctions.colorize( effect.getPower() + " (" +i + ") " , "yellow"));
+                        i++;
+                    }
+                    System.out.println(" OR (O) to exit )");
+                    x = Integer.parseInt( scanner.nextLine());
+                    if(x != 0)
+                    {
+                        Display.printEffect(activeEffects.get(x-1));
+                    }
+                }
+                // int index = -1;
+                // while(index == -1)
+                // {
+                //     try
+                //     {
+                //         index = Integer.parseInt(m_scanner.nextLine()) -1;
+                //         if(index < 0 || index >= opponent.getField().getPokemons().size())
+                //         {
+                //             System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                //             index = -1;
+                //         }
+                //     }
+                //     catch (NumberFormatException e)
+                //     {
+                //         System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                //     }
+                // }
+            }
+            else if (choice.equals("n") || choice.equals("no"))
+            {
+                continueEffectPhase = false;
+            }
         }
     }
     /**
@@ -190,12 +251,7 @@ public class Game
     public ArrayList<Pokemon> createPokemons()
     {
         ArrayList<Pokemon> pokemons = new ArrayList<>();
-        int counter = 0;
-        ArrayList<Effect> effects = new ArrayList<>(
-            Arrays.asList(
-                new Resistance(), new Berserk(), new DejaVu(), new Empoisonnement(), new Kamikaze(), new Regeneration(), new SoinTotal(), new Usurpation()
-            )
-        );
+        
         for(String pokemon : m_pokemonNames)
         {
             int hp = getRandom(10, 20) * 10;
@@ -230,19 +286,23 @@ public class Game
                     affinity = new Fire();
                     break;
             }
-
+            ArrayList<Effect> effects = new ArrayList<>(
+            Arrays.asList(
+                new Resistance(), new Berserk(), new DejaVu(), new Empoisonnement(), new Kamikaze(), new Regeneration(), new SoinTotal(), new Usurpation()
+            )
+        );
+            int counter = 0;
             //Attribution des pouvoirs
             if((counter < 8) && (getRandom(0, 1) == 1))
             {
                 int length = effects.size();
                 int index = getRandom(0, length - 1);
-
                 PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effects.get(index));
                 //on ajoute le pokémon à la liste
                 pokemons.add(p);
 
                 effects.remove(index);
-                counter--;
+                counter++;
             }
             else
             {
@@ -251,9 +311,7 @@ public class Game
                 //on ajoute le pokémon à la liste
                 pokemons.add(p);
             }
-    
         }
-
 
         //On mélange la liste des pokémons
         Random rnd = new Random();
