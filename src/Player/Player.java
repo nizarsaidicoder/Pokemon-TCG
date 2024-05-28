@@ -8,6 +8,7 @@ import Pokemon.Effects.*;
 import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;
 import UI.UIFunctions;
+import UI.Display;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -66,35 +67,81 @@ public class Player
                 if(index < 0 || index >= m_hand.getPokemons().size())
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                    System.out.print(UIFunctions.colorize("Choose a pokemon to spawn : ", "blue"));
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
                 System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                System.out.print(UIFunctions.colorize("Choose a pokemon to spawn : ", "blue"));
             }
         }
         // Ajoute un pokemon du terrain
         m_field.addPokemon(m_hand.pickPokemon(index));
     }
-    /**
-     * Methode pour attaquer un joueur
-     * @param opponent joueur adverse
-     */
-    public void attack(Player opponent)
+    public boolean playEffects(Player opponent)
     {
-        Pokemon pokemon = promptPokemon();
         // Prompt the player to choose a pokemon to attack
-        Pokemon enemyPokemon = promptEnemyPokemon(opponent);
-        // Attaque le pokemon
-        pokemon.attack(enemyPokemon);
-        pokemon.setPlayable(false);
-        if(!enemyPokemon.isAlive()) {
-            // Ajoute le pokemon adverse au cimetière
-            opponent.getGraveyard().addPokemon(enemyPokemon);
-            opponent.getField().removePokemon(enemyPokemon);
+        System.out.print("Do you want to use a pokemon effect? (Y/N) or (S)ee the effects preview : ");
+        String choice = m_scanner.nextLine();
+        System.out.println();
+        boolean continueEffectPhase = true;
+        while(continueEffectPhase)
+        {
+            if(choice.equals("y") || choice.equals("yes"))
+            {
+                useEffects(opponent);
+                System.out.print("Do you want to use another pokemon effect? (Y/N) or (S)ee the effects preview : ");
+                choice = m_scanner.nextLine().toLowerCase();
+            }
+            else if (choice.equals("n") || choice.equals("no"))
+            {
+                continueEffectPhase = false;
+            }
+            else if (choice.equals("s"))
+            {
+                ArrayList<Effect> activeEffects = new ArrayList<>();
+                activeEffects.addAll(getActiveEffects());
+                activeEffects.addAll(opponent.getActiveEffects());
+                Display.printEffects(activeEffects);
+                StringBuilder message = new StringBuilder("Which Effect you want to see its description : ");
+                int i =1;
+                for(Effect effect : activeEffects)
+                {
+                    message.append(effect.getPower()).append(" (").append(i).append(") ");
+                    i++;
+                }
+                message.append(" OR (0) to exit :");
+                System.out.print(message);
+                int index = -1;
+                while (index == -1)
+                {
+                    try
+                    {
+                        index = Integer.parseInt(m_scanner.nextLine());
+                        if(index < 0 || index > activeEffects.size())
+                        {
+                            System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                            System.out.print(message);
+                            index = -1;
+                        }
+                        else if (index != 0) Display.printEffect(activeEffects.get(index-1));
+                    }
+                    catch (Exception e) {System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red")); System.out.print(message);}
+                }
+                System.out.print("Do you want to use a pokemon effect? (Y/N) or (S)ee the effects preview : ");
+                choice = m_scanner.nextLine().toLowerCase();
+            }
+            else
+            {
+                System.out.print(UIFunctions.colorize("Invalid choice, please enter (Y)es or (N)o or (S)ee the effects preview :","red"));
+                choice = m_scanner.nextLine().toLowerCase();
+            }
         }
+        return false;
     }
+
 
     public boolean hasEffects()
     {
@@ -113,6 +160,24 @@ public class Player
         PokemonWithPower pokemonWithPower = promptPokemonWithPower();
         Pokemon targetPokemon = getTargetPokemon(pokemonWithPower,opponent);
         pokemonWithPower.getEffect().activate(targetPokemon);
+    }
+    /**
+     * Methode pour attaquer un joueur
+     * @param opponent joueur adverse
+     */
+    public void attack(Player opponent)
+    {
+        Pokemon pokemon = promptPokemon();
+        // Prompt the player to choose a pokemon to attack
+        Pokemon enemyPokemon = promptEnemyPokemon(opponent);
+        // Attaque le pokemon
+        pokemon.attack(enemyPokemon);
+        pokemon.setPlayable(false);
+        if(!enemyPokemon.isAlive()) {
+            // Ajoute le pokemon adverse au cimetière
+            opponent.getGraveyard().addPokemon(enemyPokemon);
+            opponent.getField().removePokemon(enemyPokemon);
+        }
     }
     /**
      * Methode pour attribuer les pokemons jouables
@@ -172,12 +237,13 @@ public class Player
     public Pokemon promptPokemon()
     {
         // Prompt the player to choose a pokemon to attack with
-        System.out.print("Choose a pokemon to attack with : ( ");
+        StringBuilder message = new StringBuilder("Choose a pokemon to attack with : ( ");
         for(int i= 0; i < m_field.getPokemons().size(); i++)
         {
-            if(m_field.getPokemon(i).isPlayable()) System.out.print(m_field.getPokemon(i).getName() + "(" + (i+1) + ") ");
+            if(m_field.getPokemon(i).isPlayable()) message.append(m_field.getPokemon(i).getName()).append("(").append(i + 1).append(") ");
         }
-        System.out.print(" ) : ");
+        message.append(" ) : ");
+        System.out.print(message);
         // Recupere le pokemon à jouer
         int index = -1;
         while(index == -1)
@@ -188,12 +254,14 @@ public class Player
                 if(index < 0 || index >= m_field.getPokemons().size() || !m_field.getPokemon(index).isPlayable())
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    System.out.print(message);
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
                 System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                System.out.print(message);
             }
         }
         return m_field.getPokemons().get(index);
@@ -202,12 +270,13 @@ public class Player
     {
         // Prompt the player to choose a pokemon to attack with
         ArrayList<PokemonWithPower> pokemonsWithPower = m_field.getPokemonsWithPower();
-        System.out.print("Choose a pokemon to use its effect : ( ");
+        StringBuilder message = new StringBuilder("Choose a pokemon to use its effect : ( ");
         for(int i=0; i< pokemonsWithPower.size(); i++)
         {
-            if(!pokemonsWithPower.get(i).getEffect().isUsed()) System.out.print(pokemonsWithPower.get(i).getName() + "(" + (i+1) + ") ");
+            if(!pokemonsWithPower.get(i).getEffect().isUsed())  message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
         }
-        System.out.print(" ) : ");
+        message.append(" ) : ");
+        System.out.print(message);
         // Recupere le pokemon à jouer
         int index = -1;
         while(index == -1)
@@ -218,12 +287,14 @@ public class Player
                 if(index < 0 || index >= pokemonsWithPower.size() || pokemonsWithPower.get(index).getEffect().isUsed())
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid pokemon index","red"));
+                    System.out.print(message);
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
                 System.out.println(UIFunctions.colorize("Invalid index, please enter a valid pokemon index","red"));
+                System.out.print(message);
             }
         }
         return pokemonsWithPower.get(index);
@@ -232,7 +303,7 @@ public class Player
     public Pokemon getTargetPokemon(PokemonWithPower pokemonWithPower, Player opponent)
     {
         // Prompt the player to choose a pokemon to attack
-        System.out.print("Choose a pokemon to use effect on : ( ");
+        String message = "Choose a pokemon to target with " + pokemonWithPower.getName() + " : ( ";
         ArrayList<Pokemon> targetPokemons = new ArrayList<>();
         if(pokemonWithPower.getEffect().getTargetType() == TargetType.ENEMY)
         {
@@ -249,9 +320,10 @@ public class Player
         }
         for(int i = 0; i < targetPokemons.size(); i++)
         {
-            System.out.print(targetPokemons.get(i).getName() + " (" +  (i+1) + ") ");
+            message += targetPokemons.get(i).getName() + " (" + (i+1) + ") ";
         }
-        System.out.print("): ");
+        message += " ) : ";
+        System.out.print(message);
         // Recupere le pokemon à attaquer
         int index = -1;
         while(index == -1)
@@ -262,12 +334,14 @@ public class Player
                 if(index < 0 || index >= targetPokemons.size())
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    System.out.print(message);
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
                 System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                System.out.print(message);
             }
         }
         return targetPokemons.get(index);
@@ -280,12 +354,13 @@ public class Player
     public Pokemon promptEnemyPokemon(Player opponent)
     {
         // Prompt the player to choose a pokemon to attack
-        System.out.print("Choose a pokemon to attack : ( ");
+        StringBuilder message = new StringBuilder("Choose a pokemon to attack ( ");
         for(int i = 0; i < opponent.getField().getPokemons().size(); i++)
         {
-            System.out.print(opponent.getField().getPokemon(i).getName() + " (" +  (i+1) + ") ");
+            message.append(opponent.getField().getPokemon(i).getName()).append(" (").append(i + 1).append(") ");
         }
-        System.out.print("): ");
+        message.append(" ) : ");
+        System.out.print(message);
         // Recupere le pokemon à attaquer
         int index = -1;
         while(index == -1)
@@ -296,12 +371,14 @@ public class Player
                 if(index < 0 || index >= opponent.getField().getPokemons().size())
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    System.out.print(message);
                     index = -1;
                 }
             }
             catch (NumberFormatException e)
             {
                 System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                System.out.print(message);
             }
         }
         return opponent.getField().getPokemon(index);

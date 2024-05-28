@@ -1,23 +1,16 @@
 package Game;
 
 import Pokemon.Effects.*;
-import Pokemon.Affinity.*;
 import Pokemon.*;
 import Player.Player;
 import Player.AI;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-import Pokemon.Effects.Abilities.*;
 import UI.Display;
 import UI.UIFunctions;
-
-import javax.sound.sampled.*;
 
 public class Game
 {
@@ -26,11 +19,9 @@ public class Game
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
+    private Scanner m_scanner = new Scanner(System.in);
 
     private int m_turn;
-    /**
-     * Constructeur de la classe Game.Game
-     */
     public Game()
     {
         // Initialise les attributs de la classe
@@ -47,9 +38,6 @@ public class Game
         // Appelez la méthode initializePlayers
         intializePlayers();
         Display.coinFlip(m_player);
-        // Appelez la méthode play
-        play();
-
     }
 
     /**
@@ -101,69 +89,7 @@ public class Game
         {
             Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
             Display.effectPhase();
-            // SEE IF THE PLAYER WANTS TO USE THE EFFECT OR NOT
-            Scanner scanner = new Scanner(System.in);
-            
-            System.out.print(UIFunctions.colorize("Do you want to use the effect of a pokemon ? (Y)es or (N)o or (H)elp to consult the effects : ", "yellow"));
-            String choice = scanner.nextLine().toLowerCase();
-            System.out.println();
-            if(choice.equals("y") || choice.equals("yes"))
-            {
-                m_currentPlayer.useEffects(m_opponent);
-            }
-            else if(choice.equals("h") || choice.equals("help"))
-            {
-                ArrayList<Effect> activeEffects = new ArrayList<>();
-                activeEffects.addAll(m_currentPlayer.getActiveEffects());
-                activeEffects.addAll(m_opponent.getActiveEffects());
-                Display.printEffects(activeEffects);
-                System.out.print(UIFunctions.colorize("Which Effect you want to see its description : ", "yellow"));
-                int i =1;
-                for(Effect effect : activeEffects)
-                {
-                    System.out.print(UIFunctions.colorize( effect.getPower() + " (" +i + ") " , "yellow"));
-                    i++;
-                }
-                System.out.println(" OR (O) to exit )");
-                int x = Integer.parseInt( scanner.nextLine());
-                while(x !=0)
-                {
-                    i = 1;
-                    System.out.print(UIFunctions.colorize("Which Effect you want to see its description : ", "yellow"));
-                    for(Effect effect : activeEffects)
-                    {
-                        System.out.print(UIFunctions.colorize( effect.getPower() + " (" +i + ") " , "yellow"));
-                        i++;
-                    }
-                    System.out.println(" OR (O) to exit )");
-                    x = Integer.parseInt( scanner.nextLine());
-                    if(x != 0)
-                    {
-                        Display.printEffect(activeEffects.get(x-1));
-                    }
-                }
-                // int index = -1;
-                // while(index == -1)
-                // {
-                //     try
-                //     {
-                //         index = Integer.parseInt(m_scanner.nextLine()) -1;
-                //         if(index < 0 || index >= opponent.getField().getPokemons().size())
-                //         {
-                //             System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
-                //             index = -1;
-                //         }
-                //     }
-                //     catch (NumberFormatException e)
-                //     {
-                //         System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
-                //     }
-                // }
-            }
-            else if (choice.equals("n") || choice.equals("no"))
-            {
-                continueEffectPhase = false;
-            }
+            continueEffectPhase =  m_currentPlayer.playEffects(m_opponent);
         }
     }
     /**
@@ -207,7 +133,7 @@ public class Game
         // Déterminez aléatoirement le premier joueur
         ArrayList<Pokemon> pokemons = PokemonGenerator.createPokemons();
         String playerName = promptUserName();
-        boolean firstPlayer = isFirstPlayer();
+        boolean firstPlayer = decideFirstPlayer();
         if (firstPlayer)
         {
             m_player = new Player(new ArrayList<>(pokemons.subList(0, 20)),1,playerName);
@@ -223,23 +149,21 @@ public class Game
             m_opponent = m_player;
         }
     }
-
     /**
      * Méthode pour déterminer le premier joueur
      * @return true si le joueur commence, false sinon
      */
-    public boolean isFirstPlayer()
+    public boolean decideFirstPlayer()
     {
-        Scanner scanner = new Scanner(System.in);
         System.out.println(UIFunctions.colorizeAndCenter("Deciding who starts ...", "purple", 100));
         // Prompt the user to press Enter to continue
         System.out.print(UIFunctions.colorize("(H)eads or (T)ails ? :  ","yellow"));
-        String choice = scanner.nextLine().toLowerCase();
+        String choice = m_scanner.nextLine().toLowerCase();
         System.out.println();
         while(!choice.equals("heads") && !choice.equals("tails") && !choice.equals("h") && !choice.equals("t"))
         {
             System.out.println(UIFunctions.colorize("Invalid choice, please enter (H)eads or (T)ails ? : ", "red"));
-            choice = scanner.nextLine().toLowerCase();
+            choice = m_scanner.nextLine().toLowerCase();
             System.out.println();
         }
         Random rnd = new Random();
@@ -248,9 +172,8 @@ public class Game
     }
     public String promptUserName()
     {
-        Scanner scanner = new Scanner(System.in);
         System.out.print(UIFunctions.colorize("Enter your name: ", "yellow"));
-        return scanner.nextLine();
+        return m_scanner.nextLine();
     }
     /**
      * Méthode pour vérifier si le jeu est terminé

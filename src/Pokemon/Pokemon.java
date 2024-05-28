@@ -100,19 +100,14 @@ public class Pokemon
   {
     return m_hpMax;
   }
-
   public void setHP(int hp)
   {
-    if(hp > m_hpMax)
-    {
-      m_hp = m_hpMax;
-    }
-    else
-    {
-      m_hp = hp;
-    }
+      m_hp = Math.min(hp, m_hpMax);
   }
-
+  public void setAttack(int attack)
+  {
+    m_attack = attack;
+  }
   /**
    * Retourne l'attaque du pokémon
    * @return attaque pokémon
@@ -121,12 +116,6 @@ public class Pokemon
   {
     return m_attack;
   }
-  
-  public void setAttack(int attack)
-  {
-      m_attack = attack;
-  }
-
   public Affinity getAffinity()
   {
     return m_affinity;
