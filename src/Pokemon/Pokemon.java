@@ -16,7 +16,6 @@ public class Pokemon
   private int m_hpMax;
   private int m_attack;
   private int m_defense = 0;
-  private Effect m_effect;
   private Affinity m_affinity;
   private boolean m_isPlayable;
 
@@ -106,17 +105,13 @@ public class Pokemon
     return m_isPlayable;
   }
 
-  public boolean hasPower()
+  public boolean hasEffect()
   {
     return false;
   }
 
   
   //accesseurs
-  public Effect getEffect()
-  {
-      return m_effect;
-  }
   public String getName()
   {
     return m_name;
@@ -185,8 +180,6 @@ public class Pokemon
   {
       m_isPlayable = isPlayable;
   }
-
-
   @Override
   /**
    * Affichage pokémon

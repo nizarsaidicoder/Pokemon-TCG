@@ -5,10 +5,12 @@ import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
 import Pokemon.Affinity.*;
-import Pokemon.Effects.Effect;
+import Pokemon.Effects.*;
 import Pokemon.Pokemon;
+import Pokemon.PokemonWithPower;
 import Utils.UIFunctions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -98,32 +100,21 @@ public class Player
 
     public boolean hasEffects()
     {
-        for(Pokemon pokemon : m_field.getPokemons())
+        for(PokemonWithPower pokemon : m_field.getPokemonsWithPower())
         {
-            if(pokemon.hasPower())
+            if(!pokemon.getEffect().isUsed())
             {
-                if(pokemon.getEffect().isUsed() == false)
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
     }
 
-    public ArrayList<Effect> useEffects(Player opponent)
+    public void useEffects(Player opponent)
     {
-        ArrayList<Effect> effects = new ArrayList<>();
-        for(Pokemon pokemon : m_field.getPokemons())
-        {
-            if(pokemon.hasPower())
-            {
-                Effect effect = pokemon.getEffect();
-                effect.activate(pokemon);
-                effects.add(effect);
-            }
-        }
-        return effects;
+        PokemonWithPower pokemonWithPower = promptPokemonWithPower();
+        Pokemon targetPokemon = getTargetPokemon(pokemonWithPower,opponent);
+        pokemonWithPower.getEffect().activate(targetPokemon);
     }
     /**
      * Methode pour attribuer les pokemons jouables
@@ -190,8 +181,6 @@ public class Player
         }
         System.out.print(" ) : ");
         // Recupere le pokemon à jouer
-        // check if the player has entered the index of the pokemon
-        // check if the player has entered a valid index
         int index = -1;
         while(index == -1)
         {
@@ -210,6 +199,80 @@ public class Player
             }
         }
         return m_field.getPokemons().get(index);
+    }
+    public PokemonWithPower promptPokemonWithPower()
+    {
+        // Prompt the player to choose a pokemon to attack with
+        ArrayList<PokemonWithPower> pokemonsWithPower = m_field.getPokemonsWithPower();
+        System.out.print("Choose a pokemon to use its effect : ( ");
+        for(int i=0; i< pokemonsWithPower.size(); i++)
+        {
+            if(!pokemonsWithPower.get(i).getEffect().isUsed()) System.out.print(pokemonsWithPower.get(i).getName() + "(" + (i+1) + ") ");
+        }
+        System.out.print(" ) : ");
+        // Recupere le pokemon à jouer
+        int index = -1;
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= pokemonsWithPower.size() || pokemonsWithPower.get(index).getEffect().isUsed())
+                {
+                    System.out.println(UIFunctions.colorize("Invalid index, please enter a valid pokemon index","red"));
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println(UIFunctions.colorize("Invalid index, please enter a valid pokemon index","red"));
+            }
+        }
+        return pokemonsWithPower.get(index);
+    }
+
+    public Pokemon getTargetPokemon(PokemonWithPower pokemonWithPower, Player opponent)
+    {
+        // Prompt the player to choose a pokemon to attack
+        System.out.print("Choose a pokemon to use effect on : ( ");
+        ArrayList<Pokemon> targetPokemons = new ArrayList<>();
+        if(pokemonWithPower.getEffect().getTargetType() == TargetType.ENEMY)
+        {
+            targetPokemons = opponent.getField().getPokemons();
+        }
+        else if(pokemonWithPower.getEffect().getTargetType() == TargetType.ALLY)
+        {
+            targetPokemons = m_field.getPokemons();
+        }
+        else if(pokemonWithPower.getEffect().getTargetType() == TargetType.BOTH)
+        {
+            targetPokemons.addAll(m_field.getPokemons());
+            targetPokemons.addAll(opponent.getField().getPokemons());
+        }
+        for(int i = 0; i < targetPokemons.size(); i++)
+        {
+            System.out.print(targetPokemons.get(i).getName() + " (" +  (i+1) + ") ");
+        }
+        System.out.print("): ");
+        // Recupere le pokemon à attaquer
+        int index = -1;
+        while(index == -1)
+        {
+            try
+            {
+                index = Integer.parseInt(m_scanner.nextLine()) -1;
+                if(index < 0 || index >= targetPokemons.size())
+                {
+                    System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+                    index = -1;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
+            }
+        }
+        return targetPokemons.get(index);
     }
     /**
      * Methode pour demander au joueur de choisir un pokemon adverse

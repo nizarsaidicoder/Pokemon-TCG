@@ -1,6 +1,8 @@
 import Utils.UIFunctions;
 import Player.*;
 import Pokemon.*;
+import Pokemon.Effects.Effect;
+
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.Arrays;
@@ -348,15 +350,22 @@ public class Display {
         String out = UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight(pokemon.getName(),20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(pokemon.getHP()) ,20) + " | " + UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight( pokemon.getAffinity().getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + pokemon.getAttack() ;
         System.out.println(out);
     }
-    public static void printEffect(String effect)
+    public static void printEffects(ArrayList<Effect> effects)
+    {
+        for(Effect effect : effects)
+        {
+            printEffect(effect);
+        }
+    }
+    public static void printEffect(Effect effect)
     {
         List<String> split = UIFunctions.splitString("Upon use, the Pokémon with this current effect can select an ally (including itself). Until the end of the battle or the death of the chosen Pokémon, that Pokémon takes 10 less damage from each attack.", 27);
         System.out.println(" _______________________________");
         System.out.println("|                               |");
-        System.out.println("|" + UIFunctions.center(effect, 31) + "|");
+        System.out.println("|" + UIFunctions.center(effect.getPower().toString(), 31) + "|");
         System.out.println("|_______________________________|");
         System.out.println("| Type      : Buff              |");
-        System.out.println("| Duration  : Continuous        |");
+        System.out.println("| Duration  : Unique            |");
         System.out.println("|                               |");
         for(String s : split)
         {
@@ -371,5 +380,9 @@ public class Display {
     public static void battlePhase()
     {
         System.out.println(UIFunctions.colorizeAndCenter("Battle phase ⚔️", "blue", screenSize));
+    }
+    public static void effectPhase()
+    {
+        System.out.println(UIFunctions.colorizeAndCenter("Effect phase 🌀", "blue", screenSize));
     }
 }

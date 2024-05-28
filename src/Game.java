@@ -1,4 +1,5 @@
 import Pokemon.Effects.Effect;
+import Pokemon.Effects.Resistance;
 import Pokemon.Affinity.*;
 import Pokemon.*;
 import Player.Player;
@@ -25,10 +26,7 @@ public class Game
         Arrays.asList(
             "Pikachu","Pedro","Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
             ));
-    private ArrayList<Effect> m_effects = new ArrayList<>();
     private int m_turn;
-
-
     /**
      * Constructeur de la classe Game
      */
@@ -118,15 +116,15 @@ public class Game
     public void EffectPhase()
     {
         // Tant que le joueur a des pokemons qui ont des effets pas encore utilisés
-        ArrayList<Effect> effects = new ArrayList<>();
-        while(m_currentPlayer.hasEffects())
+        boolean continueEffectPhase = true;
+        while(m_currentPlayer.hasEffects() && continueEffectPhase)
         {
             Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
-            effects = m_currentPlayer.useEffects(m_opponent);
-        }
-        for(Effect effect : effects)
-        {
-            m_effects.add(effect);
+            Display.effectPhase();
+            // SEE IF THE PLAYER WANTS TO USE THE EFFECT OR NOT
+            Scanner scanner = new Scanner(System.in);
+            System.out.print(UIFunctions.colorize("Do you want to use the effect of a pokemon ? (Y)es or (N)o : ", "yellow"));
+            m_currentPlayer.useEffects(m_opponent);
         }
     }
     /**
@@ -148,14 +146,6 @@ public class Game
      */
     public void endPhase()
     {
-        // Deactivate all effects which have 0 trigger count
-        for(Effect effect : m_effects)
-        {
-            if(effect.getTriggerCount() == 0)
-            {
-                effect.deactivate();
-            }
-        }
         // Passez au joueur suivant et incrémentez le tour
         if(m_currentPlayer == m_player)
         {
@@ -234,9 +224,8 @@ public class Game
                     break;
             }
             //création du pokémons à partir des attributs aléatoires
-            Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
-            Warrior warrior = new Warrior(p);
-            p.setEffect(warrior);
+            Resistance resistance = new Resistance();
+            PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity,resistance);
             //on ajoute le pokémon à la liste
             pokemons.add(p);
         }

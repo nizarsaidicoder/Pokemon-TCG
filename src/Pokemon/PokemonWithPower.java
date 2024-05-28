@@ -14,7 +14,7 @@ public class PokemonWithPower extends Pokemon
     }
 
     @Override
-    public boolean hasPower() {
+    public boolean hasEffect() {
         return true;
     }
 
