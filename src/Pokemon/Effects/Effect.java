@@ -1,4 +1,6 @@
 package Pokemon.Effects;
+import java.lang.annotation.Target;
+
 import Pokemon.Pokemon;
 
 public abstract class Effect 
@@ -8,6 +10,12 @@ public abstract class Effect
     private TargetType m_targetType;
     private Boolean m_used = false;
 
+    public Effect(Power power, TargetType target)
+    {
+        m_power = power;
+        m_targetType = target;
+    }
+    
     public Power getPower()
     {
         return m_power;
