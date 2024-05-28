@@ -1,4 +1,6 @@
-import Utils.UIFunctions;
+package UI;
+
+import UI.UIFunctions;
 import Player.*;
 import Pokemon.*;
 import Pokemon.Effects.Effect;
@@ -101,7 +103,7 @@ public class Display {
                 "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛🟧🟨🟧🟧⬛⬛⬛⬛⬛⬛⬛🟧🟧🟨🟧⬛⬜⬜⬜⬜⬜⬜⬜\n" +
                 "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛🟨🟨🟨⬛⬛⬛⬜⬜⬜⬜⬜⬜⬛⬛🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜\n" +
                 "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜\n";
-        System.out.println(UIFunctions.colorizeAndCenter("Game Over", "red", screenSize));
+        System.out.println(UIFunctions.colorizeAndCenter("Game.Game Over", "red", screenSize));
         winner(winner);
         credits();
         System.out.println(pikachuArt);

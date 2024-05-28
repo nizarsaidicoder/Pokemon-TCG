@@ -34,7 +34,7 @@ public class Pokemon
    */
   public void attack(Pokemon pokemon)
   {
-    String filePath = "src/Utils/attack.wav"; // The path to the audio file
+    String filePath = "src/UI/attack.wav"; // The path to the audio file
     // Create a new thread to play the music in the background
     Thread musicThread = new Thread(() -> {
       try {

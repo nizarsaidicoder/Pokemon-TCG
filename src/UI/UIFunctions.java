@@ -1,4 +1,4 @@
-package Utils;
+package UI;
 import Pokemon.Affinity.Element;
 import Pokemon.Effects.Power;
 import java.util.ArrayList;

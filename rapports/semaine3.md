@@ -5,7 +5,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
 
 ## Fonctionnalité 1 : L'avancement du jeu
 
-    - Implémentation de la classe Game qui gère le déroulement du jeu
+    - Implémentation de la classe Game.Game qui gère le déroulement du jeu
     - Implémentation de la classe Player qui gère les actions du joueur
     - Implémentation de la classe IA qui gère les actions de l'ordinateur
 
@@ -14,7 +14,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
     - Ajout de couleurs pour les affinités
     - Ajout de couleurs pour les cartes
     - Ajout de couleurs pour les actions
-    - Les classes ne gèrent plus leur propre affichage. Une classe 'Display' se charge de ça.
+    - Les classes ne gèrent plus leur propre affichage. Une classe 'UI.Display' se charge de ça.
 
 ## Fonctionnalité 3 : Implémentations de l'algorithme de l'IA
 
@@ -32,7 +32,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
 
 ## Déroulement du jeu
 
-- Pour le déroulement du jeu on a choisi d'implémenter une classe Game qui gère le déroulement du jeu au travers de deux méthodes:
+- Pour le déroulement du jeu on a choisi d'implémenter une classe Game.Game qui gère le déroulement du jeu au travers de deux méthodes:
 - `start` : qui initialise la partie (Les decks, les mains, les défausses... ainsi que le premier joueur)
 
 - `play` : qui gère le déroulement du jeu à partir des phases

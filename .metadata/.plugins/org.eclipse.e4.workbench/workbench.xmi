@@ -1552,7 +1552,7 @@
   <commands xmi:id="_aslvahBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.edit.text.toggleInsertMode" commandName="Toggle Insert Mode" description="Toggle insert mode" category="_asfooxBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_aslvaxBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.RepositoriesViewDelete" commandName="Delete Repository" category="_asg21hBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_aslvbBBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.file.closePart" commandName="Close Part" description="Close the active workbench part" category="_asg2zRBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_aslvbRBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.editors.revisions.id.toggle" commandName="Toggle Revision Id Display" description="Toggles the display of the revision id" category="_asg2wRBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_aslvbRBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.editors.revisions.id.toggle" commandName="Toggle Revision Id UI.Display" description="Toggles the display of the revision id" category="_asg2wRBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_aslvbhBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.project.cleanAction" commandName="Build Clean" description="Discard old built state" category="_asg20BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_aslvbxBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.edit.text.select.multiCaretDown" commandName="Multi caret down" description="Add a new caret/multi selection below the current line, or remove the first caret/multi selection " category="_asg2wRBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_aslvcBBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.navigate.back" commandName="Back" description="Navigate back" category="_asg2xBBXEe-b05OYGKQLdg"/>
@@ -1590,7 +1590,7 @@
   <commands xmi:id="_asmWYxBXEe-b05OYGKQLdg" elementId="org.eclipse.jdt.debug.ui.commands.Watch" commandName="Watch" description="Create new watch expression" category="_asg20xBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asmWZBBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.history.Reword" commandName="Reword Commit" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asmWZRBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.team.OpenCommit" commandName="Open Git Commit" category="_asg21hBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_asmWZhBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.help.displayHelp" commandName="Display Help" description="Display a Help topic" category="_asg2zxBXEe-b05OYGKQLdg">
+  <commands xmi:id="_asmWZhBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.help.displayHelp" commandName="UI.Display Help" description="UI.Display a Help topic" category="_asg2zxBXEe-b05OYGKQLdg">
     <parameters xmi:id="_asmWZxBXEe-b05OYGKQLdg" elementId="href" name="Help topic href"/>
   </commands>
   <commands xmi:id="_asmWaBBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.edit.text.select.pageDown" commandName="Select Page Down" description="Select to the bottom of the page" category="_asg2wRBXEe-b05OYGKQLdg"/>
@@ -2044,7 +2044,7 @@
   </commands>
   <commands xmi:id="_asqn9BBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.team.Rebase" commandName="Rebase on" category="_asg21hBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asqn9RBXEe-b05OYGKQLdg" elementId="org.eclipse.mylyn.tasks.ui.command.previousTask" commandName="Previous Task Command" category="_asg23BBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_asqn9hBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.file.properties" commandName="Properties" description="Display the properties of the selected item" category="_asg2yRBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_asqn9hBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.file.properties" commandName="Properties" description="UI.Display the properties of the selected item" category="_asg2yRBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asqn9xBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.team.ReplaceWithHead" commandName="Replace with HEAD revision" category="_asg21hBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asqn-BBXEe-b05OYGKQLdg" elementId="org.eclipse.jdt.ui.correction.renameInFile.assist" commandName="Quick Assist - Rename in file" description="Invokes quick assist and selects 'Rename in file'" category="_asg22RBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asqn-RBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.activeContextInfo" commandName="Show activeContext Info" category="_asg2zRBXEe-b05OYGKQLdg"/>
@@ -2073,7 +2073,7 @@
   <commands xmi:id="_asqoEBBXEe-b05OYGKQLdg" elementId="org.eclipse.lsp4e.openCallHierarchy" commandName="Open Call Hierarchy" description="Open Call Hierarchy for the selected item" category="_asg2xxBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asqoERBXEe-b05OYGKQLdg" elementId="org.eclipse.compare.compareWithOther" commandName="Compare With Other Resource" description="Compare resources, clipboard contents or editors" category="_asg2yxBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asrO0BBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.team.CreatePatch" commandName="Create Patch..." category="_asg21hBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_asrO0RBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.editors.revisions.author.toggle" commandName="Toggle Revision Author Display" description="Toggles the display of the revision author" category="_asg2wRBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_asrO0RBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.editors.revisions.author.toggle" commandName="Toggle Revision Author UI.Display" description="Toggles the display of the revision author" category="_asg2wRBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asrO0hBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.edit.text.goto.windowEnd" commandName="Window End" description="Go to the end of the window" category="_asg2wRBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asrO0xBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.perspectives.showPerspective" commandName="Show Perspective" description="Show a particular perspective" category="_asg21xBXEe-b05OYGKQLdg">
     <parameters xmi:id="_asrO1BBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.perspectives.showPerspective.perspectiveId" name="Parameter"/>
@@ -2095,7 +2095,7 @@
   <commands xmi:id="_asrO4xBXEe-b05OYGKQLdg" elementId="org.eclipse.eclemma.ui.selectCounters" commandName="Select Counters" category="_asg2yBBXEe-b05OYGKQLdg">
     <parameters xmi:id="_asrO5BBXEe-b05OYGKQLdg" elementId="type" name="type" optional="false"/>
   </commands>
-  <commands xmi:id="_asrO5RBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.project.properties" commandName="Properties" description="Display the properties of the selected item's project " category="_asg20BBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_asrO5RBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.project.properties" commandName="Properties" description="UI.Display the properties of the selected item's project " category="_asg20BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asrO5hBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.history.CompareVersionsInTree" commandName="Compare in Tree" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asrO5xBXEe-b05OYGKQLdg" elementId="org.eclipse.epp.package.common.contribute" commandName="Contribute" description="Contribute to the development and success of the Eclipse IDE!" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asrO6BBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.edit.text.select.columnPrevious" commandName="Select Previous Column" description="Select the previous column" category="_asg2wRBXEe-b05OYGKQLdg"/>
@@ -2191,7 +2191,7 @@
   <commands xmi:id="_asr2GRBXEe-b05OYGKQLdg" elementId="org.eclipse.jdt.ui.edit.text.java.organize.imports" commandName="Organize Imports" description="Evaluate all required imports and replace the current imports" category="_asg22RBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asr2GhBXEe-b05OYGKQLdg" elementId="org.eclipse.ui.ide.markers.copyDescription" commandName="Copy Description To Clipboard" description="Copies markers description field to the clipboard" category="_asfooxBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asr2GxBXEe-b05OYGKQLdg" elementId="org.eclipse.debug.ui.commands.DropToFrame" commandName="Drop to Frame" description="Drop to Frame" category="_asg20xBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_asr2HBBXEe-b05OYGKQLdg" elementId="org.eclipse.jdt.debug.ui.commands.Display" commandName="Display" description="Display result of evaluating selected text" category="_asg20xBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_asr2HBBXEe-b05OYGKQLdg" elementId="org.eclipse.jdt.debug.ui.commands.UI.Display" commandName="UI.Display" description="UI.Display result of evaluating selected text" category="_asg20xBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asr2HRBXEe-b05OYGKQLdg" elementId="org.eclipse.jdt.ui.edit.text.java.search.exception.occurrences" commandName="Search Exception Occurrences in File" description="Search for exception occurrences of a selected exception type" category="_asg20hBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asr2HhBXEe-b05OYGKQLdg" elementId="org.eclipse.tm.terminal.view.ui.command.disconnect" commandName="Disconnect Terminal" category="_asg2yhBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_asr2HxBXEe-b05OYGKQLdg" elementId="org.eclipse.egit.ui.team.ShowBlame" commandName="Show Revision Information" category="_asg21hBXEe-b05OYGKQLdg"/>
@@ -2304,7 +2304,7 @@
   <commands xmi:id="_bBFYkxBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ClassFileEditor.BreakpointRulerActions/org.eclipse.jdt.debug.ui.actions.ManageBreakpointRulerAction" commandName="Toggle Breakpoint" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBFYlBBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ClassFileEditor.BreakpointRulerActions/org.eclipse.jdt.debug.ui.actions.RunToLineRulerActionDelegate" commandName="Run to Line" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBFYlRBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.JavaSnippetToolbarActions/org.eclipse.jdt.debug.ui.SnippetExecute" commandName="Execute" description="Execute the Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_bBFYlhBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.JavaSnippetToolbarActions/org.eclipse.jdt.debug.ui.SnippetDisplay" commandName="Display" description="Display Result of Evaluating Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_bBFYlhBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.JavaSnippetToolbarActions/org.eclipse.jdt.debug.ui.SnippetDisplay" commandName="UI.Display" description="UI.Display Result of Evaluating Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBFYlxBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.JavaSnippetToolbarActions/org.eclipse.jdt.debug.ui.SnippetInspect" commandName="Inspect" description="Inspect Result of Evaluating Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBF_oBBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.internal.ui.CompilationUnitEditor.ruler.actions/org.eclipse.jdt.internal.ui.javaeditor.BookmarkRulerAction" commandName="Java Editor Bookmark Ruler Action" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBF_oRBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.internal.ui.CompilationUnitEditor.ruler.actions/org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction" commandName="Java Editor Ruler Single-Click" category="_asg23BBXEe-b05OYGKQLdg"/>
@@ -2356,7 +2356,7 @@
   <commands xmi:id="_bBIb4BBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.LaunchViewActions/org.eclipse.jdt.debug.ui.launchViewActions.ShowMonitorThreadInfo" commandName="Show Monitors" description="Show the Thread &amp; Monitor Information" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBIb4RBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.Watch" commandName="Watch" description="Create a Watch Expression from the Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBIb4hBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.Execute" commandName="Execute" description="Execute the Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
-  <commands xmi:id="_bBIb4xBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.Display" commandName="Display" description="Display Result of Evaluating Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
+  <commands xmi:id="_bBIb4xBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.UI.Display" commandName="UI.Display" description="UI.Display Result of Evaluating Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBIb5BBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.Inspect" commandName="Inspect" description="Inspect Result of Evaluating Selected Text" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBIb5RBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.mylyn.context.ui.outline.contribution/org.eclipse.mylyn.context.ui.contentOutline.focus" commandName="Focus on Active Task" description="Focus on Active Task (Alt+click to reveal filtered elements)" category="_asg23BBXEe-b05OYGKQLdg"/>
   <commands xmi:id="_bBIb5hBXEe-b05OYGKQLdg" elementId="AUTOGEN:::org.eclipse.mylyn.java.ui.markers.breakpoints.contribution/org.eclipse.mylyn.java.ui.actions.focus.markers.breakpoints" commandName="Focus on Active Task" description="Focus on Active Task" category="_asg23BBXEe-b05OYGKQLdg"/>

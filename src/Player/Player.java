@@ -7,12 +7,10 @@ import Collection.Hand;
 import Pokemon.Effects.*;
 import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;
-import Utils.UIFunctions;
+import UI.UIFunctions;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.print.DocFlavor.READER;
 
 public class Player
 {

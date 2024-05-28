@@ -1,3 +1,5 @@
+package Game;
+
 import Pokemon.Effects.*;
 import Pokemon.Affinity.*;
 import Pokemon.*;
@@ -12,7 +14,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Pokemon.Effects.Abilities.*;
-import Utils.UIFunctions;
+import UI.Display;
+import UI.UIFunctions;
 
 import javax.sound.sampled.*;
 
@@ -23,13 +26,10 @@ public class Game
     private Player m_currentPlayer;
     private Player m_opponent;
     private String m_winner;
-    private final ArrayList<String> m_pokemonNames =new ArrayList<>(
-        Arrays.asList(
-            "Pikachu","Pedro","Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
-            ));
+
     private int m_turn;
     /**
-     * Constructeur de la classe Game
+     * Constructeur de la classe Game.Game
      */
     public Game()
     {
@@ -65,7 +65,7 @@ public class Game
             battlePhase();
             endPhase();
         }
-        String filePath = "src/Utils/"; // The path to the audio file
+        String filePath = "src/UI/"; // The path to the audio file
         if(m_winner == "Computer") filePath+="lose.wav";
         else filePath+="win.wav";
         String finalFilePath = filePath;
@@ -226,7 +226,7 @@ public class Game
     {
         // Générez les pokémons
         // Déterminez aléatoirement le premier joueur
-        ArrayList<Pokemon> pokemons = createPokemons();
+        ArrayList<Pokemon> pokemons = PokemonGenerator.createPokemons();
         String playerName = promptUserName();
         boolean firstPlayer = isFirstPlayer();
         if (firstPlayer)
@@ -244,86 +244,7 @@ public class Game
             m_opponent = m_player;
         }
     }
-    /**
-     * Méthode pour créer les pokémons
-     * @return une liste de pokémons ordonnée aléatoirement
-     */
-    public ArrayList<Pokemon> createPokemons()
-    {
-        ArrayList<Pokemon> pokemons = new ArrayList<>();
-        
-        for(String pokemon : m_pokemonNames)
-        {
-            int hp = getRandom(10, 20) * 10;
-            int attack = getRandom(1, 4) * 10;
-            if(pokemon.equals("Pedro"))
-            {
-                hp = 1;
-                attack = 999;
-            }
 
-            //Attribution des éléments aléatoirement
-            Element[] allElements = Element.values();
-            //nombre aléatoire pour l'élément
-            int i = getRandom(0, allElements.length - 1);
-            Affinity affinity;
-
-            switch(allElements[i])
-            {
-                case FIRE:
-                    affinity = new Fire();
-                    break;
-                case WATER:
-                    affinity = new Water();
-                    break;
-                case EARTH:
-                    affinity = new Earth();
-                    break;
-                case AIR:
-                    affinity = new Air();
-                    break;
-                default:
-                    affinity = new Fire();
-                    break;
-            }
-            ArrayList<Effect> effects = new ArrayList<>(
-            Arrays.asList(
-                new Resistance(), new Berserk(), new DejaVu(), new Empoisonnement(), new Kamikaze(), new Regeneration(), new SoinTotal(), new Usurpation()
-            )
-        );
-            int counter = 0;
-            //Attribution des pouvoirs
-            if((counter < 8) && (getRandom(0, 1) == 1))
-            {
-                int length = effects.size();
-                int index = getRandom(0, length - 1);
-                PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effects.get(index));
-                //on ajoute le pokémon à la liste
-                pokemons.add(p);
-
-                effects.remove(index);
-                counter++;
-            }
-            else
-            {
-                //création du pokémons à partir des attributs aléatoires
-                Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
-                //on ajoute le pokémon à la liste
-                pokemons.add(p);
-            }
-        }
-
-        //On mélange la liste des pokémons
-        Random rnd = new Random();
-        for(int i = 0; i < pokemons.size(); i++)
-        {
-            int randomIndexToSwap = rnd.nextInt(pokemons.size());
-            Pokemon temp = pokemons.get(randomIndexToSwap);
-            pokemons.set(randomIndexToSwap, pokemons.get(i));
-            pokemons.set(i, temp);
-        }
-        return pokemons;
-    }
     /**
      * Méthode pour déterminer le premier joueur
      * @return true si le joueur commence, false sinon
@@ -372,17 +293,5 @@ public class Game
         // Si le jeu est terminé, mettez à jour le gagnant
         return false;
     }
-    /**
-     * Méthode pour obtenir un nombre aléatoire entre min et max
-     * @param min le nombre minimum
-     * @param max le nombre maximum
-     * @return un nombre aléatoire entre min et max
-     */
 
-    public static int getRandom(int min, int max) {
-
-        int range = (max - min) + 1;
-        int random = (int) ((range * Math.random()) + min);
-        return random;
-    }
 }

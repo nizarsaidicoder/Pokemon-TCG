@@ -1,3 +1,5 @@
+import Game.Game;
+
 import java.io.File;
 //import java.io.IOException;
 
@@ -12,7 +14,7 @@ public class Pookemon {
   {
     Thread musicThread = new Thread(() -> {
       try {
-        File audioFile = new File("src/Utils/music.wav");
+        File audioFile = new File("src/UI/music.wav");
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);

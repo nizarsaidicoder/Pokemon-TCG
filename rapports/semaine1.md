@@ -11,7 +11,7 @@ Binôme : Haggui Nesrine | Saidi Nizar
   - De la défausse du joueur/ordinateur
   - Du terrain du joueur/ordinateur
 - **Fonctionnalité 2** : Un pokémon peut attaquer un autre pokémon
-- **Fonctionnalité 3** : Initialiser les class Game et Player pour le développement
+- **Fonctionnalité 3** : Initialiser les class Game.Game et Player pour le développement
 
 ## Choix de conception
 
@@ -22,9 +22,9 @@ Binôme : Haggui Nesrine | Saidi Nizar
 On a estimé qu'un terrain, une main, un deck et une défausse dépendent de chaque joueur.
 Mais étant donné que tous ses attributs ont des méthodes quelques peu similaires, une optimisation de cela est à prévoir.
 
-- Les classes sont initialisées dans la classe Game.
+- Les classes sont initialisées dans la classe Game.Game.
 
-La classe Game se charge de gérer le bon déroulement du jeu. (A voir si cette classe a une trop grande responsabilité)
+La classe Game.Game se charge de gérer le bon déroulement du jeu. (A voir si cette classe a une trop grande responsabilité)
 
 - On a une classe Player et AI qui hérite de Player
 

@@ -343,7 +343,7 @@ Game *--> "-m_player\n 1,1" Player.Player
 Game *--> "-m_ai\n 1,1" Player.AI
 Game *--> "-m_currentPlayer\n 1,1" Player.Player
 Game *--> "-m_winner\n 1,1" Player.Player
-' Game *--> "-m_effects\n 0..*" Effects.Effect
+' Game.Game *--> "-m_effects\n 0..*" Effects.Effect
 Game .> "Uses" Utils.UIFunctions
 Game .> "Uses" java.util.Random
 Game .> "Uses" java.util.Scanner
