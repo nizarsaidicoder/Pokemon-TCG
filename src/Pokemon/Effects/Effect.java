@@ -1,4 +1,5 @@
 package Pokemon.Effects;
+
 import Pokemon.Pokemon;
 
 public abstract class Effect 

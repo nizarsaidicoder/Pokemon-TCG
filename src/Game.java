@@ -1,5 +1,4 @@
-import Pokemon.Effects.Effect;
-import Pokemon.Effects.Resistance;
+import Pokemon.Effects.*;
 import Pokemon.Affinity.*;
 import Pokemon.*;
 import Player.Player;
@@ -191,6 +190,12 @@ public class Game
     public ArrayList<Pokemon> createPokemons()
     {
         ArrayList<Pokemon> pokemons = new ArrayList<>();
+        int counter = 0;
+        ArrayList<Effect> effects = new ArrayList<>(
+            Arrays.asList(
+                new Resistance(), new Berserk(), new DejaVu(), new Empoisonnement(), new Kamikaze(), new Regeneration(), new SoinTotal(), new Usurpation()
+            )
+        );
         for(String pokemon : m_pokemonNames)
         {
             int hp = getRandom(10, 20) * 10;
@@ -200,6 +205,8 @@ public class Game
                 hp = 1;
                 attack = 999;
             }
+
+            //Attribution des éléments aléatoirement
             Element[] allElements = Element.values();
             //nombre aléatoire pour l'élément
             int i = getRandom(0, allElements.length - 1);
@@ -223,12 +230,32 @@ public class Game
                     affinity = new Fire();
                     break;
             }
-            //création du pokémons à partir des attributs aléatoires
-            Resistance resistance = new Resistance();
-            PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity,resistance);
-            //on ajoute le pokémon à la liste
-            pokemons.add(p);
+
+            //Attribution des pouvoirs
+            if((counter < 8) && (getRandom(0, 1) == 1))
+            {
+                int length = effects.size();
+                int index = getRandom(0, length - 1);
+
+                PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effects.get(index));
+                //on ajoute le pokémon à la liste
+                pokemons.add(p);
+
+                effects.remove(index);
+                counter--;
+            }
+            else
+            {
+                //création du pokémons à partir des attributs aléatoires
+                Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
+                //on ajoute le pokémon à la liste
+                pokemons.add(p);
+            }
+    
         }
+
+
+        //On mélange la liste des pokémons
         Random rnd = new Random();
         for(int i = 0; i < pokemons.size(); i++)
         {

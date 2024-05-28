@@ -1,7 +1,6 @@
 package Pokemon;
 
 import Pokemon.Affinity.*;
-import Pokemon.Effects.*;
 
 import javax.sound.sampled.*;
 import java.io.File;
