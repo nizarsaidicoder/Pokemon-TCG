@@ -255,7 +255,7 @@ package Pokemon
             + activate(p : Pokemon) {redefine}
         }
 
-        Effect "- m_power\n 1" <-* Power
+        Effect "- m_power\n 1" *-> Power
         Effect <|-- Resistance
         Effect <|-- Berserk
         Effect <|-- SoinTotal
@@ -264,7 +264,7 @@ package Pokemon
         Effect <|-- Regeneration
         Effect <|-- Empoisonnement
         Effect <|-- DejaVu
-        Effect "- m_targetType\n 1" <--* TargetType
+        Effect "- m_targetType\n 1" *--> TargetType
     }
 
 Affinity.Element "- m_element\n 1"  <--* Affinity.Affinity
