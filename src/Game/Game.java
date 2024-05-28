@@ -65,24 +65,6 @@ public class Game
             battlePhase();
             endPhase();
         }
-        String filePath = "src/UI/"; // The path to the audio file
-        if(m_winner == "Computer") filePath+="lose.wav";
-        else filePath+="win.wav";
-        String finalFilePath = filePath;
-        Thread musicThread = new Thread(() -> {
-            try
-            {
-                File audioFile = new File(finalFilePath);
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                Thread.sleep(Long.MAX_VALUE);
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        musicThread.start();
         Display.outro(m_winner);
     }
 
@@ -92,10 +74,7 @@ public class Game
     public void drawPhase()
     {
         // tant que la main du joueur actuel est vide et que le deck du joueur actuel n'est pas vide
-        while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty())
-        {
-            m_currentPlayer.draw();
-        }
+        while(!m_currentPlayer.getHand().isFull() && !m_currentPlayer.getDeck().isEmpty()) m_currentPlayer.draw();
     }
 
     /**

@@ -34,55 +34,13 @@ public class Pokemon
    */
   public void attack(Pokemon pokemon)
   {
-    String filePath = "src/UI/attack.wav"; // The path to the audio file
-    // Create a new thread to play the music in the background
-    Thread musicThread = new Thread(() -> {
-      try {
-        // Open the audio file
-        File audioFile = new File(filePath);
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-
-        // Get the clip for playing the audio
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-
-        // Start playing the audio
-        clip.start();
-        // Wait for the clip to finish playing
-        Thread.sleep(Long.MAX_VALUE);
-      } 
-      catch ( Exception e) //UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException |
-      {        
-        //e.printStackTrace();
-      }
-    });
-
-    // Start the music thread
-    musicThread.start();
     int damages = m_attack;
-
-
     //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
-    if(m_affinity.getStrength() == pokemon.m_affinity.getElement())
-    {
-      damages += 10;
-    }
-
+    if(m_affinity.getStrength() == pokemon.m_affinity.getElement()) damages += 10;
     //si l'élément du pokémon a une faiblesse sur celui du pokémon qui est attaqué alors les dégâts sont diminués de 10
-    if(m_affinity.getWeakness() == pokemon.m_affinity.getElement())
-    {
-      damages -= 10;
-    }
-
-
-    if((damages - m_defense) > pokemon.m_hp)
-    {
-      pokemon.m_hp = 0;
-    }
-    else
-    {
-      pokemon.m_hp -= (damages - m_defense);
-    }
+    if(m_affinity.getWeakness() == pokemon.m_affinity.getElement()) damages -= 10;
+    if((damages - m_defense) > pokemon.m_hp) pokemon.m_hp = 0;
+    else pokemon.m_hp -= (damages - m_defense);
   }
   public boolean isStrongTo(Affinity affinity)
   {
@@ -134,7 +92,6 @@ public class Pokemon
   {
     return m_hp;
   }
-
   /**
    * Retourne la vie maximale du pokémon
    * @return vie maximale pokémon
