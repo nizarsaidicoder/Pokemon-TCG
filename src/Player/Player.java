@@ -4,13 +4,11 @@ import Collection.Deck;
 import Collection.Field;
 import Collection.Graveyard;
 import Collection.Hand;
-import Pokemon.Affinity.*;
 import Pokemon.Effects.*;
 import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;
 import Utils.UIFunctions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
