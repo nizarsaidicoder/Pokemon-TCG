@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class Empoisonnement extends Effect
 {
-    public Empoisonnement(Power power, TargetType target)
+    public Empoisonnement()
     {
-        super(power, target);
+        super(Power.EMPOISONNEMENT, TargetType.ENNEMY);
     }
 
     public void activate(Pokemon p) 

@@ -30,7 +30,7 @@ public class PokemonWithPower extends Pokemon
      */
     public String toString()
     {
-      return super.toString() + String.format(", Pouvoir : %s", m_effect.getPower());
+      return super.toString() + String.format(", Power : %s", m_effect.getPower());
     }
     
 }

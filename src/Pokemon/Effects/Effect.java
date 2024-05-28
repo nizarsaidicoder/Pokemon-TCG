@@ -1,5 +1,4 @@
 package Pokemon.Effects;
-import java.lang.annotation.Target;
 
 import Pokemon.Pokemon;
 
@@ -15,7 +14,7 @@ public abstract class Effect
         m_power = power;
         m_targetType = target;
     }
-    
+
     public Power getPower()
     {
         return m_power;

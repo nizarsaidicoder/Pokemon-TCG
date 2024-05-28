@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class Resistance extends Effect
 {
-    public Resistance(Power power, TargetType target)
+    public Resistance()
     {
-        super(power, target);
+        super(Power.RESISTANCE, TargetType.ALLY);
     }
     
     //augmente la défense du pokémon de 10

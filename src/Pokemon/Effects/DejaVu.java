@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class DejaVu extends Effect
 {
-    public DejaVu(Power power, TargetType target)
+    public DejaVu()
     {
-        super(power, target);
+        super(Power.DEJA_VU, TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 

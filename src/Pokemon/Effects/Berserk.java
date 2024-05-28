@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class Berserk extends Effect
 {
-    public Berserk(Power power, TargetType target)
+    public Berserk()
     {
-        super(power, target);
+        super(Power.BERSERK, TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 

@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class Kamikaze extends Effect
 {
-    public Kamikaze(Power power, TargetType target)
+    public Kamikaze()
     {
-        super(power, target);
+        super(Power.KAMIKAZE, TargetType.BOTH);
     }
     
     public void activate(Pokemon p) 

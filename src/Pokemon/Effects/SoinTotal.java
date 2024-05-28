@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class SoinTotal extends Effect
 {
-    public SoinTotal(Power power, TargetType target)
+    public SoinTotal()
     {
-        super(power, target);
+        super(Power.SOIN_TOTAL, TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 

@@ -4,9 +4,9 @@ import Pokemon.Pokemon;
 
 public class Regeneration extends Effect
 {
-    public Regeneration(Power power, TargetType target)
+    public Regeneration()
     {
-        super(power, target);
+        super(Power.REGENERATION, TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 
