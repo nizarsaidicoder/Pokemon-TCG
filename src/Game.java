@@ -148,14 +148,14 @@ public class Game
      */
     public void endPhase()
     {
-        // Deactivate all effects which have 0 trigger count
-        for(Effect effect : m_effects)
-        {
-            if(effect.getTriggerCount() == 0)
-            {
-                effect.deactivate();
-            }
-        }
+        // // Deactivate all effects which have 0 trigger count
+        // for(Effect effect : m_effects)
+        // {
+        //     if(effect.getTriggerCount() == 0)
+        //     {
+        //         effect.deactivate();
+        //     }
+        // }
         // Passez au joueur suivant et incrémentez le tour
         if(m_currentPlayer == m_player)
         {
@@ -235,8 +235,6 @@ public class Game
             }
             //création du pokémons à partir des attributs aléatoires
             Pokemon p = new Pokemon(pokemon, hp, attack, affinity);
-            Warrior warrior = new Warrior(p);
-            p.setEffect(warrior);
             //on ajoute le pokémon à la liste
             pokemons.add(p);
         }

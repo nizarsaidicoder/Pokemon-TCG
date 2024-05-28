@@ -1,7 +1,6 @@
 package Pokemon;
 
 import Pokemon.Affinity.*;
-import Pokemon.Effects.*;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -16,7 +15,6 @@ public class Pokemon
   private int m_hpMax;
   private int m_attack;
   private int m_defense = 0;
-  private Effect m_effect;
   private Affinity m_affinity;
   private boolean m_isPlayable;
 
@@ -113,10 +111,6 @@ public class Pokemon
 
   
   //accesseurs
-  public Effect getEffect()
-  {
-      return m_effect;
-  }
   public String getName()
   {
     return m_name;
