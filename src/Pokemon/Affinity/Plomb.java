@@ -1,22 +1,21 @@
 package Pokemon.Affinity;
 
-public class Ether extends Affinity {
-    public Ether()
+public class Plomb extends Affinity{
+    public Plomb()
     {
-        super(Element.ETHER);
+        super(Element.PLOMB);
     }
 
     public Element getWeakness()
     {
-        return Element.NONE;
+        return Element.ALL;
     }
     public Element getStrength()
     {
-        return Element.ALL;
+        return Element.NONE;
     }
     public Element getElement()
     {
-        return Element.ETHER;
+        return Element.PLOMB;
     }
-
 }
