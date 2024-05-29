@@ -14,7 +14,9 @@ public class Kamikaze extends Effect
     
     public void activate(Pokemon p) 
     {
-        // TODO Auto-generated method stub
-        
+        //le pokémon adverse et lui même sont éliminés
+        m_owner.setHP(0);
+        p.setHP(0);
+        m_used = true;
     }
 }

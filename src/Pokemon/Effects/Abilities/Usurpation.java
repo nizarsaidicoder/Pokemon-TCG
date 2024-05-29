@@ -3,7 +3,7 @@ package Pokemon.Effects.Abilities;
 import Pokemon.Effects.Effect;
 import Pokemon.Effects.Power;
 import Pokemon.Effects.TargetType;
-import Pokemon.Pokemon;
+import Pokemon.PokemonWithPower;
 
 public class Usurpation extends Effect
 {
@@ -12,9 +12,8 @@ public class Usurpation extends Effect
         super(Power.USURPATION, "" , TargetType.BOTH);
     }
     
-    public void activate(Pokemon p) 
+    public void activate(PokemonWithPower p) 
     {
-        // TODO Auto-generated method stub
-        
+        //
     }    
 }

@@ -14,8 +14,8 @@ public class SoinTotal extends Effect
 
     public void activate(Pokemon p) 
     {
-        // TODO Auto-generated method stub
-        
+        //récupère toute sa vie
+        p.setHP(p.getHPMax());    
     }
     
 }

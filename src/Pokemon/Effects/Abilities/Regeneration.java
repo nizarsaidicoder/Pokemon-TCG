@@ -3,7 +3,7 @@ package Pokemon.Effects.Abilities;
 import Pokemon.Effects.Effect;
 import Pokemon.Effects.Power;
 import Pokemon.Effects.TargetType;
-import Pokemon.Pokemon;
+import Pokemon.PokemonWithPower;
 
 public class Regeneration extends Effect
 {
@@ -12,9 +12,14 @@ public class Regeneration extends Effect
         super(Power.REGENERATION, "", TargetType.ALLY);
     }
 
-    public void activate(Pokemon p) 
+    public void activate(PokemonWithPower p) 
     {
-        // TODO Auto-generated method stub
-        
+        //régénère le pouvoir du pokémon
+        if(p.getEffect().isUsed())
+        {
+            p.getEffect().useAgain();
+        }
+
+        m_used = true;
     }    
 }

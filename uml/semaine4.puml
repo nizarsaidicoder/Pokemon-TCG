@@ -191,10 +191,10 @@ package Pokemon
         {
             - m_used : Boolean
 
+            + <<Create>> Effect(power : Power, description : String, target : TargetType)
             + getPower() : Power
             + getTargetType() : TargetType
             + isUsed() : Boolean
-            + activate(p : Pokemon)
         }
 
         enum Power
@@ -217,42 +217,50 @@ package Pokemon
         }
         class Resistance
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> Resistance()
+            + activate(p : Pokemon)
         }
 
         class Berserk
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> Berserk()
+            + activate(p : Pokemon) 
         }
 
         class SoinTotal
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> SoinTotal()
+            + activate(p : Pokemon) 
         }
 
         class Kamikaze
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> Kamikaze()
+            + activate(p : Pokemon) 
         }
 
         class Usurpation
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> Usurpation()
+            + activate(p : Pokemon) 
         }
 
         class Regeneration
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> Regeneration()
+            + activate(p : Pokemon) 
         }
 
         class Empoisonnement
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> Empoisonnement()
+            + activate(p : Pokemon) 
         }
 
         class DejaVu
         {
-            + activate(p : Pokemon) {redefine}
+            + <<Create>> DejaVu()
+            + activate(p : Pokemon) 
         }
 
         Effect "- m_power\n 1" *-> Power
@@ -270,6 +278,7 @@ package Pokemon
 Affinity.Element "- m_element\n 1"  <--* Affinity.Affinity
 Affinity.Affinity "- m_affinity\n 1" <--* Pokemon.Pokemon
 PokemonWithPower "- m_effect\n 0..1" *--> Effects.Effect
+PokemonWithPower "- m_owner\n 0..1" <--* Effects.Effect
 Affinity.Affinity <|-- Affinity.Water
 Affinity.Affinity <|-- Affinity.Earth
 Affinity.Affinity <|-- Affinity.Fire

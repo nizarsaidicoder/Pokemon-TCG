@@ -14,7 +14,8 @@ public class Berserk extends Effect
 
     public void activate(Pokemon p) 
     {
-        // TODO Auto-generated method stub
-        
+        //double l'attaque du pokémon
+        p.setAttack(p.getAttack() * 2);
+        m_used = true;
     }
 }
