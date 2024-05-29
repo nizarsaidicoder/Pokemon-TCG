@@ -21,6 +21,8 @@ public class Usurpation extends Effect
 
         //retire le pouvoir à l'autre pokémon
         Pokemon pokemon = new Pokemon(p.getName(), p.getHP(), p.getAttack(), p.getAffinity());
+
+        m_used = true;
         return pokemon;
     }    
 }

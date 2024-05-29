@@ -16,6 +16,7 @@ public class SoinTotal extends Effect
     {
         //récupère toute sa vie
         p.setHP(p.getHPMax());    
+        m_used = true;
     }
     
 }
