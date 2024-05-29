@@ -5,5 +5,9 @@ public enum Element
     FIRE,
     EARTH,
     AIR,
-    WATER;
+    WATER,
+    ETHER,
+    PLOMB,
+    ALL,
+    NONE;
 }

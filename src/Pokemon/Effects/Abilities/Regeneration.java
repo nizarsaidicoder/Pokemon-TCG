@@ -19,7 +19,6 @@ public class Regeneration extends Effect
         {
             p.getEffect().useAgain();
         }
-
         m_used = true;
     }    
 }
