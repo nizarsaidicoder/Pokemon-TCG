@@ -15,7 +15,7 @@ public class PokemonGenerator {
             ));
     public static ArrayList<Effect> m_effects = new ArrayList<>(
             Arrays.asList(
-                    new Resistance(), new Berserk(), new DejaVu(), new Empoisonnement(), new Kamikaze(), new Regeneration(), new SoinTotal(), new Usurpation()
+                    new Resistance(), new Berserk(), new DejaVu(), new A_Ether(), new Kamikaze(), new Regeneration(), new SoinTotal(), new A_Plomb()
             )
     );
     public static ArrayList<Affinity> m_affinities = new ArrayList<>(Arrays.asList(new Fire(), new Water(), new Earth(), new Air()));

@@ -5,16 +5,16 @@ import Pokemon.Effects.Power;
 import Pokemon.Effects.TargetType;
 import Pokemon.Pokemon;
 
-public class Empoisonnement extends Effect
+public class A_Ether extends Effect
 {
-    public Empoisonnement()
+    public A_Ether()
     {
-        super(Power.EMPOISONNEMENT, "", TargetType.ENEMY);
+        super(Power.ETHER, "", TargetType.ENEMY);
     }
 
     public void activate(Pokemon p) 
     {
-        p.setPoisoned(true);
+        p.setAffinity(new Ether());
         m_used = true; 
     }
 }

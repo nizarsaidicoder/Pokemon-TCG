@@ -133,9 +133,9 @@ public class Pokemon
       m_isPlayable = isPlayable;
   }
 
-  public void setPoisoned(boolean isPoisoned)
+  public void setAffinity(Affinity affinity)
   {
-      m_isPoisoned = isPoisoned;
+    m_affinity = affinity;
   }
 
   @Override

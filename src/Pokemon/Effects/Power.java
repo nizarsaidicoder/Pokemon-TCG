@@ -6,8 +6,8 @@ public enum Power
     BERSERK,
     SOIN_TOTAL,
     KAMIKAZE,
-    USURPATION,
+    ETHER,
     REGENERATION,
-    EMPOISONNEMENT,
+    PLOMB,
     DEJA_VU;
 }
