@@ -15,7 +15,7 @@ public class DejaVu extends Effect
     public void activate(Pokemon p) 
     {
         //le pokémon peut rejouer
-        p.setPlayable(true);
+        p.setSkillPoints(p.getSkillPoints() + 1);
         m_used = true; 
     }    
 }

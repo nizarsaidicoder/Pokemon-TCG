@@ -1,6 +1,6 @@
 package Pokemon.Effects.Abilities;
 
-import Pokemon.Affinity.Ether;
+import Pokemon.Affinity.*;
 import Pokemon.Effects.Effect;
 import Pokemon.Effects.Power;
 import Pokemon.Effects.TargetType;

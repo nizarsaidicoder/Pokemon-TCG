@@ -110,13 +110,13 @@ public class UIFunctions
             case KAMIKAZE:
                 out = RED_TEXT;
                 break;
-            case USURPATION:
+            case ETHER:
                 out = YELLOW_TEXT;
                 break;
             case REGENERATION:
                 out = GREEN_TEXT;
                 break;
-            case EMPOISONNEMENT:
+            case PLOMB:
                 out = RED_TEXT;
                 break;
             case DEJA_VU:
