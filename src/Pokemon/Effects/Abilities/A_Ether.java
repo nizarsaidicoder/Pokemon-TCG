@@ -1,5 +1,6 @@
 package Pokemon.Effects.Abilities;
 
+import Pokemon.Affinity.Ether;
 import Pokemon.Effects.Effect;
 import Pokemon.Effects.Power;
 import Pokemon.Effects.TargetType;
@@ -9,7 +10,7 @@ public class A_Ether extends Effect
 {
     public A_Ether()
     {
-        super(Power.ETHER, "", TargetType.ENEMY);
+        super(Power.ETHER, "", TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 

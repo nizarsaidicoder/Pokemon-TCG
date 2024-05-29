@@ -33,7 +33,7 @@ public class AI extends Player
         int pokemonIndex = -1;
         for(int i = 0; i < m_field.getPokemons().size(); i++)
         {
-            if(m_field.getPokemon(i).isPlayable())
+            if(m_field.getPokemon(i).getSkillPoints() > 0)
             {
                 pokemonIndex = i;
                 break;
@@ -43,10 +43,10 @@ public class AI extends Player
         // get the pokemon that is weak to the current pokemon
         Pokemon enemyPokemon = getOpponentPokemon(pokemon, opponent.getField().getPokemons());
         
-        if(pokemon.isPlayable())
+        if(pokemon.getSkillPoints() > 0)
         {
             pokemon.attack(enemyPokemon);
-            pokemon.setPlayable(false);
+            pokemon.setSkillPoints(pokemon.getSkillPoints()-1);
             if(!enemyPokemon.isAlive())
             {
                 // Ajoute le pokemon adverse au cimetière

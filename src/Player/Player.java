@@ -172,7 +172,7 @@ public class Player
         Pokemon enemyPokemon = promptEnemyPokemon(opponent);
         // Attaque le pokemon
         pokemon.attack(enemyPokemon);
-        pokemon.setPlayable(false);
+        pokemon.setSkillPoints(pokemon.getSkillPoints() -1);
         if(!enemyPokemon.isAlive()) {
             // Ajoute le pokemon adverse au cimetière
             opponent.getGraveyard().addPokemon(enemyPokemon);
@@ -187,7 +187,7 @@ public class Player
         // Parcourt la main et met à jour les pokemons jouables
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            pokemon.setPlayable(true);
+            pokemon.setSkillPoints(pokemon.getSkillPoints() + 1);
         }
     }
     /**
@@ -198,7 +198,7 @@ public class Player
     {
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            if(pokemon.isPlayable())
+            if(pokemon.getSkillPoints() > 0)
             {
                 return true;
             }
@@ -214,7 +214,7 @@ public class Player
         ArrayList<Pokemon> playablePokemons = new ArrayList<>();
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            if(pokemon.isPlayable())
+            if(pokemon.getSkillPoints() > 0)
             {
                 playablePokemons.add(pokemon);
             }
@@ -240,7 +240,7 @@ public class Player
         StringBuilder message = new StringBuilder("Choose a pokemon to attack with : ( ");
         for(int i= 0; i < m_field.getPokemons().size(); i++)
         {
-            if(m_field.getPokemon(i).isPlayable()) message.append(m_field.getPokemon(i).getName()).append("(").append(i + 1).append(") ");
+            if(m_field.getPokemon(i).getSkillPoints()>0) message.append(m_field.getPokemon(i).getName()).append("(").append(i + 1).append(") ");
         }
         message.append(" ) : ");
         System.out.print(message);
@@ -251,7 +251,7 @@ public class Player
             try
             {
                 index = Integer.parseInt(m_scanner.nextLine()) -1;
-                if(index < 0 || index >= m_field.getPokemons().size() || !m_field.getPokemon(index).isPlayable())
+                if(index < 0 || index >= m_field.getPokemons().size() || m_field.getPokemon(index).getSkillPoints() < 1)
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
                     System.out.print(message);
