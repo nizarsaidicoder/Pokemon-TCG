@@ -1,6 +1,7 @@
 package Pokemon.Effects;
 
 import Pokemon.Pokemon;
+import Pokemon.PokemonWithPower;
 
 public abstract class Effect 
 {
@@ -8,7 +9,7 @@ public abstract class Effect
     private Power m_power;
     private String m_description;
     private TargetType m_targetType;
-    protected Pokemon m_owner;
+    protected PokemonWithPower m_owner;
     protected Boolean m_used = false;
     public Effect(Power power, String description, TargetType targetType)
     {
@@ -35,7 +36,7 @@ public abstract class Effect
         return m_description;
     }
     
-    public void setOwner(Pokemon p)
+    public void setOwner(PokemonWithPower p)
     {
         m_owner = p;
     }
@@ -44,7 +45,7 @@ public abstract class Effect
     {
         m_used = false;
     }
-    
+
     public Pokemon getPokemon()
     {
         return m_owner;

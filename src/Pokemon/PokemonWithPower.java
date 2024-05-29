@@ -18,6 +18,11 @@ public class PokemonWithPower extends Pokemon
         return true;
     }
 
+    public void setEffect(Effect effect)
+    {
+        m_effect = effect;
+    }
+    
     public Effect getEffect()
     {
         return m_effect;
