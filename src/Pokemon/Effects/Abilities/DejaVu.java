@@ -14,7 +14,8 @@ public class DejaVu extends Effect
 
     public void activate(Pokemon p) 
     {
-        // TODO Auto-generated method stub
-        
+        //le pokémon peut rejouer
+        p.setPlayable(true);
+        m_used = true; 
     }    
 }

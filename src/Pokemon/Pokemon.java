@@ -14,6 +14,8 @@ public class Pokemon
   private Affinity m_affinity;
   private boolean m_isPlayable;
 
+  private boolean m_isPoisoned = false;
+
   //constructeur
   public Pokemon(String name, int hp, int attack, Affinity affinity)
   {
@@ -56,6 +58,11 @@ public class Pokemon
   public boolean isPlayable()
   {
     return m_isPlayable;
+  }
+
+  public boolean isPoisoned()
+  {
+    return m_isPoisoned;
   }
 
   public boolean hasEffect()
@@ -121,6 +128,12 @@ public class Pokemon
   {
       m_isPlayable = isPlayable;
   }
+
+  public void setPoisoned(boolean isPoisoned)
+  {
+      m_isPoisoned = isPoisoned;
+  }
+
   @Override
   /**
    * Affichage pokémon

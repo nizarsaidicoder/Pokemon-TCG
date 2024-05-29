@@ -14,7 +14,7 @@ public class Empoisonnement extends Effect
 
     public void activate(Pokemon p) 
     {
-        // TODO Auto-generated method stub
-        
+        p.setPoisoned(true);
+        m_used = true; 
     }
 }
