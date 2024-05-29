@@ -34,9 +34,9 @@ public class Pokemon
   {
     int damages = m_attack;
     //si l'élément du pokémon a un avantage sur celui du pokémon qui est attaqué alors les dégâts sont augmentés de 10
-    if(m_affinity.getStrength() == pokemon.m_affinity.getElement() || m_affinity.getElement() == Element.PLOMB) damages += 10;
+    if(m_affinity.getStrength() == pokemon.m_affinity.getElement() || m_affinity.getElement() == Element.ETHER) damages += 10;
     //si l'élément du pokémon a une faiblesse sur celui du pokémon qui est attaqué alors les dégâts sont diminués de 10
-    if(m_affinity.getWeakness() == pokemon.m_affinity.getElement() || m_affinity.getElement() == Element.ETHER) damages -= 10;
+    if(m_affinity.getWeakness() == pokemon.m_affinity.getElement() || m_affinity.getElement() == Element.PLOMB) damages -= 10;
     if((damages - m_defense) > pokemon.m_hp) pokemon.m_hp = 0;
     else pokemon.m_hp -= (damages - m_defense);
   }

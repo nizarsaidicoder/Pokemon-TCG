@@ -1,19 +1,19 @@
 package Pokemon.Effects.Abilities;
 
+import Pokemon.Affinity.*;
 import Pokemon.Effects.Effect;
 import Pokemon.Effects.Power;
 import Pokemon.Effects.TargetType;
 import Pokemon.Pokemon;
-import Pokemon.PokemonWithPower;
 
 public class A_Plomb extends Effect
 {
     public A_Plomb()
     {
-        super(Power.PLOMB, "" , TargetType.BOTH);
+        super(Power.PLOMB, "" , TargetType.ENEMY);
     }
     
-    public void activate(PokemonWithPower p) 
+    public void activate(Pokemon p) 
     {
        p.setAffinity(new Plomb());
        m_used = true;
