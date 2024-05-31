@@ -92,8 +92,15 @@ public class Player
             if(choice.equals("y") || choice.equals("yes"))
             {
                 useEffects(opponent);
-                System.out.print("Do you want to use another pokemon effect? (Y/N) or (S)ee the effects preview : ");
-                choice = m_scanner.nextLine().toLowerCase();
+                if(hasEffects())
+                {
+                    System.out.print("Do you want to use another pokemon effect? (Y/N) or (S)ee the effects preview : ");
+                    choice = m_scanner.nextLine().toLowerCase();
+                }
+                else
+                {
+                    continueEffectPhase = false;
+                }
             }
             else if (choice.equals("n") || choice.equals("no"))
             {
@@ -157,7 +164,7 @@ public class Player
 
     public void useEffects(Player opponent)
     {
-        PokemonWithPower pokemonWithPower = promptPokemonWithPower();
+        PokemonWithPower pokemonWithPower = promptPokemonWithPower(opponent);
         Pokemon targetPokemon = getTargetPokemon(pokemonWithPower,opponent);
         pokemonWithPower.getEffect().activate(targetPokemon);
     }
@@ -172,7 +179,7 @@ public class Player
         Pokemon enemyPokemon = promptEnemyPokemon(opponent);
         // Attaque le pokemon
         pokemon.attack(enemyPokemon);
-        pokemon.setPlayable(false);
+        pokemon.setSkillPoints(pokemon.getSkillPoints() -1);
         if(!enemyPokemon.isAlive()) {
             // Ajoute le pokemon adverse au cimetière
             opponent.getGraveyard().addPokemon(enemyPokemon);
@@ -187,7 +194,7 @@ public class Player
         // Parcourt la main et met à jour les pokemons jouables
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            pokemon.setPlayable(true);
+            pokemon.setSkillPoints(pokemon.getSkillPoints() + 1);
         }
     }
     /**
@@ -198,7 +205,7 @@ public class Player
     {
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            if(pokemon.isPlayable())
+            if(pokemon.getSkillPoints() > 0)
             {
                 return true;
             }
@@ -214,7 +221,7 @@ public class Player
         ArrayList<Pokemon> playablePokemons = new ArrayList<>();
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            if(pokemon.isPlayable())
+            if(pokemon.getSkillPoints() > 0)
             {
                 playablePokemons.add(pokemon);
             }
@@ -240,7 +247,7 @@ public class Player
         StringBuilder message = new StringBuilder("Choose a pokemon to attack with : ( ");
         for(int i= 0; i < m_field.getPokemons().size(); i++)
         {
-            if(m_field.getPokemon(i).isPlayable()) message.append(m_field.getPokemon(i).getName()).append("(").append(i + 1).append(") ");
+            if(m_field.getPokemon(i).getSkillPoints()>0) message.append(m_field.getPokemon(i).getName()).append("(").append(i + 1).append(") ");
         }
         message.append(" ) : ");
         System.out.print(message);
@@ -251,7 +258,7 @@ public class Player
             try
             {
                 index = Integer.parseInt(m_scanner.nextLine()) -1;
-                if(index < 0 || index >= m_field.getPokemons().size() || !m_field.getPokemon(index).isPlayable())
+                if(index < 0 || index >= m_field.getPokemons().size() || m_field.getPokemon(index).getSkillPoints() < 1)
                 {
                     System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
                     System.out.print(message);
@@ -266,14 +273,14 @@ public class Player
         }
         return m_field.getPokemons().get(index);
     }
-    public PokemonWithPower promptPokemonWithPower()
+    public PokemonWithPower promptPokemonWithPower(Player opponent)
     {
         // Prompt the player to choose a pokemon to attack with
         ArrayList<PokemonWithPower> pokemonsWithPower = m_field.getPokemonsWithPower();
         StringBuilder message = new StringBuilder("Choose a pokemon to use its effect : ( ");
         for(int i=0; i< pokemonsWithPower.size(); i++)
         {
-            if(!pokemonsWithPower.get(i).getEffect().isUsed())  message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
+            if(!pokemonsWithPower.get(i).getEffect().isUsed() || pokemonsWithPower.get(i).getEffect().getTargetType() == TargetType.ENEMY && !opponent.getField().isEmpty())  message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
         }
         message.append(" ) : ");
         System.out.print(message);

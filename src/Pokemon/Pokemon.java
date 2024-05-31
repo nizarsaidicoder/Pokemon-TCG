@@ -12,7 +12,7 @@ public class Pokemon
   private int m_attack;
   private int m_defense = 0;
   private Affinity m_affinity;
-  private boolean m_isPlayable;
+  private int m_skillPoints;
 
   private boolean m_isPoisoned = false;
 
@@ -24,7 +24,6 @@ public class Pokemon
     m_hpMax = hp;
     m_attack = attack;
     m_affinity = affinity;
-
   }
   /**
    * Attaque un autre pokémon avec gestion de l'affinité
@@ -55,9 +54,9 @@ public class Pokemon
   /*
     * Méthode pour vérifier si le pokemon est jouable
    */
-  public boolean isPlayable()
+  public int getSkillPoints()
   {
-    return m_isPlayable;
+    return m_skillPoints;
   }
 
   public boolean isPoisoned()
@@ -124,9 +123,9 @@ public class Pokemon
     return m_affinity;
   }
 
-  public void setPlayable(boolean isPlayable)
+  public void setSkillPoints(int skillPoints)
   {
-      m_isPlayable = isPlayable;
+      m_skillPoints = skillPoints;
   }
 
   public void setAffinity(Affinity affinity)

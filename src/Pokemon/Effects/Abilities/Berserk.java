@@ -9,7 +9,7 @@ public class Berserk extends Effect
 {
     public Berserk()
     {
-        super(Power.BERSERK, "", TargetType.ALLY);
+        super(Power.BERSERK, "Upon use, the Pokémon with this current effect can select an ally (including itself). For the current turn, that Pokémon's attack is doubled.", TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 

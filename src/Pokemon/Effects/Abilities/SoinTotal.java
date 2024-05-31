@@ -9,7 +9,7 @@ public class SoinTotal extends Effect
 {
     public SoinTotal()
     {
-        super(Power.SOIN_TOTAL,"" , TargetType.ALLY);
+        super(Power.SOIN_TOTAL,"Upon use, the Pokémon with this current effect can select an ally (including itself). The chosen Pokémon fully recovers all its health." , TargetType.ALLY);
     }
 
     public void activate(Pokemon p) 

@@ -51,7 +51,7 @@ public abstract class Effect
         return m_owner;
     }
 
-    //public abstract void activate(Pokemon p);
+    public abstract void activate(Pokemon p);
 
     
 }
