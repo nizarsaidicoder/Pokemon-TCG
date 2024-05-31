@@ -19,7 +19,8 @@ package Collection
         + addPokemon(pokemon : Pokemon)
         + removePokemon(pokemon : Pokemon)
         + pickPokemon(index : Integer) : Pokemon
-        + getPokemons() : Pokemon[*]
+        + getPokemons() : Pokemon[]
+        + getPokemonsWithPower() : PokemonWithPower[]
         + getPokemon(index : Integer) : Pokemon
         + getSize() : Integer
     }
@@ -61,25 +62,29 @@ package Player
     {
         - m_playerNumber : Integer
         - m_name : String
-        ' - m_specialEffects : SpecialEffect[*]
-        + <<Create>> Player(Pokemons : Pokemon[], playerNumber : Integer, name : String)
+
+        + <<Create>> Player(pokemons : Pokemon[], playerNumber : Integer, name : String)
         + draw()
-        + triggerEffects()
+        + playEffects(opponent : Player) : Boolean
         + spawn()
+        + hasEffects() : Boolean
+        + useEffects(opponent : Player)
         + attack(opponent : Player)
         + setPlayablePokemons()
         + hasPlayablePokemons() : Boolean
         + getPlayablePokemons() : Pokemon[]
         + isDefeated() : Boolean
         + promptPokemon() : Pokemon
+        + promptPokemonWithPower(opponent : Player) : PokemonWithPower
+        + getTargetPokemon(pokemonWithPower : PokemonWithPower, opponent : Player)
         + promptEnemyPokemon() : Pokemon
-        + display()
         + getPlayerNumber() : Integer
         + getName() : String
         + getField() : Field
         + getDeck() : Deck
         + getHand() : Hand
         + getGraveyard() : Graveyard
+        + getActiveEffects() : Effect[]
     }
 
     class AI
@@ -109,32 +114,34 @@ package Pokemon
        - m_hpMax : Integer
        - m_attack : Integer
        - m_defense : Integer
-       - m_isPlayable : Boolean
+       - m_skillPoints : int
        
        + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
        + attack(pokemon : Pokemon)
-       + hasPower() : Boolean
        + isStrongTo(affinity : Affinity) : Boolean
        + isAlive() : Boolean
-       + isPlayable() : Boolean
+       + getSkillPoints() : int
+       + hasEffect() : Boolean
        + getName() : String
-       + getHP() : Integer
-       + setHP()
-       + getHPMax() : Integer
-       + getAttack() : Integer
-       + setAttack()
        + getDefense() : Integer
        + setDefense()
+       + getHP() : Integer
+       + getHPMax() : Integer
+       + setHP()
+       + setAttack()
+       + getAttack() : Integer
        + getAffinity() : Affinity
-       + setPlayable(isPlayable : Boolean)
+       + setSkillPoints(skillPoints : int)
+       + setAffinity(affinity : Affinity)
        + toString() : String {redefines}
     }
 
     class PokemonWithPower
     {
-        + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity)
-        + hasPower() : Boolean {redefine}
+        + <<Create>> Pokemon(name : String, hp : Integer, attack : Integer, affinity : Affinity, effect : Effect)
+        + hasEffect() : Boolean {redefine}
         + getEffect() : Effect
+        + setEffect() : Effect
         + toString() : String {redefine}
     }
 
@@ -147,6 +154,9 @@ package Pokemon
             EARTH
             FIRE
             AIR
+            ETHER
+            ALL 
+            NONE
         }
         abstract class Affinity
         {
@@ -183,6 +193,20 @@ package Pokemon
             + getStrength() : Element
             + getElement() : Element
         }
+        class Ether
+        {
+            + <<Create>> Ether()
+            + getWeakness() : Element
+            + getStrength() : Element
+            + getElement() : Element
+        }
+        class Plomb
+        {
+            + <<Create>> Plomb()
+            + getWeakness() : Element
+            + getStrength() : Element
+            + getElement() : Element
+        }
     }
 
     package Effects
@@ -190,11 +214,13 @@ package Pokemon
         abstract class Effect
         {
             - m_used : Boolean
+            - m_description : String
 
             + <<Create>> Effect(power : Power, description : String, target : TargetType)
             + getPower() : Power
             + getTargetType() : TargetType
             + isUsed() : Boolean
+            +{abstract}activate(p : Pokemon)
         }
 
         enum Power
@@ -203,9 +229,9 @@ package Pokemon
             BERSERK
             SOIN_TOTAL
             KAMIKAZE
-            USURPATION
+            A_ETHER
             REGENERATION
-            EMPOISONNEMENT
+            A_PLOMB
             DEJA_VU
         }
 
@@ -239,9 +265,9 @@ package Pokemon
             + activate(p : Pokemon) 
         }
 
-        class Usurpation
+        class A_Ether
         {
-            + <<Create>> Usurpation()
+            + <<Create>> A_Ether()
             + activate(p : Pokemon) 
         }
 
@@ -251,9 +277,9 @@ package Pokemon
             + activate(p : Pokemon) 
         }
 
-        class Empoisonnement
+        class A_Plomb
         {
-            + <<Create>> Empoisonnement()
+            + <<Create>> A_Plomb()
             + activate(p : Pokemon) 
         }
 
@@ -268,9 +294,9 @@ package Pokemon
         Effect <|-- Berserk
         Effect <|-- SoinTotal
         Effect <|-- Kamikaze
-        Effect <|-- Usurpation
+        Effect <|-- A_Ether
         Effect <|-- Regeneration
-        Effect <|-- Empoisonnement
+        Effect <|-- A_Plomb
         Effect <|-- DejaVu
         Effect "- m_targetType\n 1" *--> TargetType
     }
@@ -283,6 +309,8 @@ Affinity.Affinity <|-- Affinity.Water
 Affinity.Affinity <|-- Affinity.Earth
 Affinity.Affinity <|-- Affinity.Fire
 Affinity.Affinity <|-- Affinity.Air
+Affinity.Affinity <|-- Affinity.Ether
+Affinity.Affinity <|-- Affinity.Plomb
 Pokemon <|-- PokemonWithPower
 
 }
@@ -297,11 +325,13 @@ package Utils
         +{static}padLeft(s : String, n : Integer) : String
         +{static}center(s : String, n : Integer) : String
         +{static}getCorrespondingColor(affinity : Element) : String
+        +{static}getCorrespondingColor(power : Power) : String
         +{static}getColorCode(color : String) : String
         +{static}clearTerminal()
         +{static}colorize(text : String, color : String) : String
         +{static}colorize(text : String, foreColor : String, backColor : String) : String
         +{static}colorizeAndCenter(text : String, color : String, n : Integer) : String
+        +{static}splitString(input : String, maxChunkSize : Integer) : String[]
     }
 }
 
@@ -322,31 +352,45 @@ class Display
     +{static} printAi(ai : Player)
     +{static} printPlayer(player : Player)
     +{static} printPokemon(pokemon : Pokemon)
+    +{static} printEffects(effects : Effect[])
+    +{static} printEffect(effect : Effect[])
     +{static} battlePhase()
+    +[static] effectPhase()
 }
 
 class Game
 {
     - m_turn : Integer
     - m_winner : String
-    - m_pokemonNames : String[]
     + <<Create>> Game()
     + start()
     + play()
     + drawPhase()
     + spawnPhase()
-    + specialEffectPhase()
+    + EffectPhase()
     + battlePhase()
     + endPhase()
     + initializePlayers()
-    + createPokemons()
-    + isFirstPlayer() : Boolean
+    + decideFirstPlayer() : Boolean
     + promptUserName() : String
     + isGameOver() : Boolean
-    + {static} getRandom(min : Integer, max : Integer) : Integer
+}
+
+class PokemonGenerator
+{
+    +{static} M_POKEMONNAMES : String[]
+    +{static} m_effects : Effect[]
+    +{static} m_affinities : Affinity[]
+
+    +{static} createPokemons() : Pokemon[]
+    +{static} getRandomAffinity() : Affinity
+    +{static} getRandomEffect() : Effect
+    +{static} shuffle()
+    +{static} getRandom(min : Integer, max : Integer) : Integer
 }
 
 Game .> "Uses" Display
+Game .> "Uses" PokemonGenerator
 Display .> "Uses" Utils.UIFunctions
 Game *--> "-m_player\n 1,1" Player.Player
 Game *--> "-m_ai\n 1,1" Player.AI

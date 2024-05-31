@@ -2,7 +2,6 @@ package tests;
 
 import Pokemon.Affinity.Fire;
 import Pokemon.Effects.Abilities.A_Plomb;
-import Pokemon.Effects.Abilities.Berserk;
 import Pokemon.Affinity.Element;
 import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;

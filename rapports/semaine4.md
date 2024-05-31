@@ -39,8 +39,12 @@ Binôme : Haggui Nesrine | Saidi Nizar
 
 ## Les pouvoirs des pokémons
 
-    - Un pokémon possède un effet, et chaque effet possède un 'owner', un propriétaire. Ainsi la classe 'Effect' est abstraite et d'elle découle tous les autres pouvoirs.
+    - Un pokémon possède un effet, et chaque effet possède un 'owner', un propriétaire. Ainsi la classe 'Effect' est abstraite et d'elle découle tous les autres pouvoirs. Cependant, cela provoque un cycle et c'est donc à optimiser.
     - Un pouvoir s'active grâce à la méthode abstraite 'activate()' pour qu'on puisse activer un pouvoir de la même façon pour tous.
+
+## Les énumérations
+
+    - Les énumérations servent principalement pour l'affichage.
 
 # Difficultés rencontrées
 
