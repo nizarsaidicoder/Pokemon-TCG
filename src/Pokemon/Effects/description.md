@@ -16,7 +16,7 @@ Kamikaze: Upon use, the Pokémon with this current effect can select an opposing
 
 Ether Affinity: Upon use, the Pokémon with this current effect can select an ally (including itself). The chosen Pokémon changes its affinity to Ether. Ether is a new element that has an advantage over all other elements.
 
-Lead Affinity: Upon use, the Pokémon with this current effect can select an opposing Pokémon. The chosen Pokémon changes its affinity to Lead. Lead is a new element that all other elements have an advantage over.
+Lead Affinity: Upon use, the Pokémon with this current effect can select an opposing Pokémon. The chosen Pokémon changes its affinity to Plomb. Lead is a new element that all other elements have an advantage over.
 
 Usurpation: Upon use, the Pokémon with this current effect can select any Pokémon (in its own camp or the opponent's camp). The user gains the ability of the chosen Pokémon, and the chosen Pokémon loses its ability (works even for single-use abilities that have already been used).
 

@@ -35,7 +35,10 @@ public class PokemonGenerator {
             Affinity affinity = getRandomAffinity();
             if(getRandom(0,1) == 1 && powerCount < 8)
             {
-                pokemons.add(new PokemonWithPower(pokemon, hp, attack, affinity, getRandomEffect()));
+                Effect effect = getRandomEffect();
+                PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effect);
+                pokemons.add(p);
+                effect.setOwner(p);
                 powerCount++;
             }
             else pokemons.add(new Pokemon(pokemon, hp, attack, affinity));

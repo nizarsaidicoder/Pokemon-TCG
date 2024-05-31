@@ -92,8 +92,15 @@ public class Player
             if(choice.equals("y") || choice.equals("yes"))
             {
                 useEffects(opponent);
-                System.out.print("Do you want to use another pokemon effect? (Y/N) or (S)ee the effects preview : ");
-                choice = m_scanner.nextLine().toLowerCase();
+                if(hasEffects())
+                {
+                    System.out.print("Do you want to use another pokemon effect? (Y/N) or (S)ee the effects preview : ");
+                    choice = m_scanner.nextLine().toLowerCase();
+                }
+                else
+                {
+                    continueEffectPhase = false;
+                }
             }
             else if (choice.equals("n") || choice.equals("no"))
             {
@@ -157,7 +164,7 @@ public class Player
 
     public void useEffects(Player opponent)
     {
-        PokemonWithPower pokemonWithPower = promptPokemonWithPower();
+        PokemonWithPower pokemonWithPower = promptPokemonWithPower(opponent);
         Pokemon targetPokemon = getTargetPokemon(pokemonWithPower,opponent);
         pokemonWithPower.getEffect().activate(targetPokemon);
     }
@@ -266,14 +273,14 @@ public class Player
         }
         return m_field.getPokemons().get(index);
     }
-    public PokemonWithPower promptPokemonWithPower()
+    public PokemonWithPower promptPokemonWithPower(Player opponent)
     {
         // Prompt the player to choose a pokemon to attack with
         ArrayList<PokemonWithPower> pokemonsWithPower = m_field.getPokemonsWithPower();
         StringBuilder message = new StringBuilder("Choose a pokemon to use its effect : ( ");
         for(int i=0; i< pokemonsWithPower.size(); i++)
         {
-            if(!pokemonsWithPower.get(i).getEffect().isUsed())  message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
+            if(!pokemonsWithPower.get(i).getEffect().isUsed() || pokemonsWithPower.get(i).getEffect().getTargetType() == TargetType.ENEMY && !opponent.getField().isEmpty())  message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
         }
         message.append(" ) : ");
         System.out.print(message);
