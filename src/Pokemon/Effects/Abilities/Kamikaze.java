@@ -9,7 +9,7 @@ public class Kamikaze extends Effect
 {
     public Kamikaze()
     {
-        super(Power.KAMIKAZE, "Upon use, the Pokémon with this current effect can select an opposing Pokémon. Both the chosen Pokémon and the user's Pokémon are eliminated.", TargetType.BOTH);
+        super(Power.KAMIKAZE, "Upon use, the Pokémon with this current effect can select an opposing Pokémon. Both the chosen Pokémon and the user's Pokémon are eliminated.", TargetType.ENEMY);
     }
     
     public void activate(Pokemon p) 

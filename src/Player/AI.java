@@ -1,6 +1,11 @@
 package Player;
 
-import Pokemon.Pokemon;
+import Pokemon.Effects.Effect;
+import Pokemon.*;
+import Pokemon.Effects.TargetType;
+import UI.Display;
+import UI.UIFunctions;
+
 import java.util.ArrayList;
 
 
@@ -22,6 +27,42 @@ public class AI extends Player
         try{Thread.sleep(1000);}
         catch(InterruptedException e){Thread.currentThread().interrupt();}
         m_field.addPokemon(m_hand.pickPokemon(0));
+    }
+    @Override
+    public boolean playEffects(Player opponent)
+    {
+        // Prompt the player to choose a pokemon to attack
+
+        useEffects(opponent);
+
+        return true;
+    }
+    @Override
+    public void useEffects(Player opponent)
+    {
+        for(PokemonWithPower p : getField().getPokemonsWithPower())
+        {
+            if(!p.getEffect().isUsed())
+            {
+                if(p.getEffect().getTargetType() == TargetType.ENEMY)
+                {
+                    Pokemon enemyPokemon = getOpponentPokemon(p, opponent.getField().getPokemons());
+                    p.getEffect().activate(enemyPokemon);
+                }
+                else if(p.getEffect().getTargetType() == TargetType.ALLY)
+                {
+                    Pokemon allyPokemon = getField().getPokemons().get(0);
+                    p.getEffect().activate(allyPokemon);
+                }
+                else if (p.getEffect().getTargetType() == TargetType.BOTH)
+                {
+                    Pokemon enemyPokemon = getOpponentPokemon(p, opponent.getField().getPokemons());
+                    p.getEffect().activate(enemyPokemon);
+                    Pokemon allyPokemon = getField().getPokemons().get(0);
+                    p.getEffect().activate(allyPokemon);
+                }
+            }
+        }
     }
     @Override
     public void attack(Player opponent)

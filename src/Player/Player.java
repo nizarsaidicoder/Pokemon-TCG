@@ -80,73 +80,77 @@ public class Player
         // Ajoute un pokemon du terrain
         m_field.addPokemon(m_hand.pickPokemon(index));
     }
-    public boolean playEffects(Player opponent)
-    {
-        // Prompt the player to choose a pokemon to attack
-        System.out.print("Do you want to use a pokemon effect? (Y/N) or (S)ee the effects preview : ");
-        String choice = m_scanner.nextLine();
-        System.out.println();
+    public boolean playEffects(Player opponent) {
         boolean continueEffectPhase = true;
-        while(continueEffectPhase)
-        {
-            if(choice.equals("y") || choice.equals("yes"))
-            {
-                useEffects(opponent);
-                if(hasEffects())
-                {
-                    System.out.print("Do you want to use another pokemon effect? (Y/N) or (S)ee the effects preview : ");
-                    choice = m_scanner.nextLine().toLowerCase();
-                }
-                else
-                {
+        while (continueEffectPhase) {
+            String choice = getUserChoice();
+            switch (choice) {
+                case "y":
+                case "yes":
+                    continueEffectPhase = handleYesChoice(opponent);
+                    break;
+                case "n":
+                case "no":
                     continueEffectPhase = false;
-                }
-            }
-            else if (choice.equals("n") || choice.equals("no"))
-            {
-                continueEffectPhase = false;
-            }
-            else if (choice.equals("s"))
-            {
-                ArrayList<Effect> activeEffects = new ArrayList<>();
-                activeEffects.addAll(getActiveEffects());
-                activeEffects.addAll(opponent.getActiveEffects());
-                Display.printEffects(activeEffects);
-                StringBuilder message = new StringBuilder("Which Effect you want to see its description : ");
-                int i =1;
-                for(Effect effect : activeEffects)
-                {
-                    message.append(effect.getPower()).append(" (").append(i).append(") ");
-                    i++;
-                }
-                message.append(" OR (0) to exit :");
-                System.out.print(message);
-                int index = -1;
-                while (index == -1)
-                {
-                    try
-                    {
-                        index = Integer.parseInt(m_scanner.nextLine());
-                        if(index < 0 || index > activeEffects.size())
-                        {
-                            System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red"));
-                            System.out.print(message);
-                            index = -1;
-                        }
-                        else if (index != 0) Display.printEffect(activeEffects.get(index-1));
-                    }
-                    catch (Exception e) {System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index","red")); System.out.print(message);}
-                }
-                System.out.print("Do you want to use a pokemon effect? (Y/N) or (S)ee the effects preview : ");
-                choice = m_scanner.nextLine().toLowerCase();
-            }
-            else
-            {
-                System.out.print(UIFunctions.colorize("Invalid choice, please enter (Y)es or (N)o or (S)ee the effects preview :","red"));
-                choice = m_scanner.nextLine().toLowerCase();
+                    break;
+                case "s":
+                    handleSeeChoice(opponent);
+                    break;
+                default:
+                    System.out.print(UIFunctions.colorize("Invalid choice, please enter (Y)es, (N)o, or (S)ee the effects preview: ", "red"));
             }
         }
         return false;
+    }
+    
+    private String getUserChoice() {
+        System.out.print("Do you want to use a pokemon effect? (Y/N) or (S)ee the effects preview: ");
+        return m_scanner.nextLine().toLowerCase();
+    }
+    
+    private boolean handleYesChoice(Player opponent) {
+        useEffects(opponent);
+        if (hasEffects()) {
+            return true;
+        }
+        return false;
+    }
+    
+    private void handleSeeChoice(Player opponent) {
+        ArrayList<Effect> activeEffects = new ArrayList<>();
+        activeEffects.addAll(getActiveEffects());
+        activeEffects.addAll(opponent.getActiveEffects());
+        Display.printEffects(activeEffects);
+        
+        StringBuilder message = new StringBuilder("Which Effect you want to see its description: ");
+        for (int i = 0; i < activeEffects.size(); i++) {
+            message.append(activeEffects.get(i).getPower()).append(" (").append(i + 1).append(") ");
+        }
+        message.append(" OR (0) to exit: ");
+        System.out.print(message.toString());
+        
+        int index = getUserEffectChoice(activeEffects.size(), message.toString());
+        if (index != 0) {
+            Display.printEffect(activeEffects.get(index - 1));
+        }
+    }
+    
+    private int getUserEffectChoice(int effectCount, String message) {
+        int index = -1;
+        while (index == -1) {
+            try {
+                index = Integer.parseInt(m_scanner.nextLine());
+                if (index < 0 || index > effectCount) {
+                    System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                    System.out.print(message);
+                    index = -1;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(UIFunctions.colorize("Invalid index, please enter a valid index", "red"));
+                System.out.print(message);
+            }
+        }
+        return index;
     }
 
 

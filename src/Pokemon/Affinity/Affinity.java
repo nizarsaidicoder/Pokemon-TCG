@@ -1,6 +1,6 @@
 package Pokemon.Affinity;
 
-public abstract class Affinity 
+public abstract class   Affinity
 {
     /**
      * Attributs

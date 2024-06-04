@@ -10,11 +10,9 @@ public class Pokemon
   private int m_hp;
   private int m_hpMax;
   private int m_attack;
-  private int m_defense = 0;
+  private int m_defense;
   private Affinity m_affinity;
-  private int m_skillPoints;
-
-  private boolean m_isPoisoned = false;
+  private int m_attackPoints;
 
   //constructeur
   public Pokemon(String name, int hp, int attack, Affinity affinity)
@@ -23,6 +21,7 @@ public class Pokemon
     m_hp = hp;
     m_hpMax = hp;
     m_attack = attack;
+    m_defense = 0;
     m_affinity = affinity;
   }
   /**
@@ -36,6 +35,7 @@ public class Pokemon
     if(m_affinity.getStrength() == pokemon.m_affinity.getElement() || m_affinity.getElement() == Element.ETHER) damages += 10;
     //si l'élément du pokémon a une faiblesse sur celui du pokémon qui est attaqué alors les dégâts sont diminués de 10
     if(m_affinity.getWeakness() == pokemon.m_affinity.getElement() || m_affinity.getElement() == Element.PLOMB) damages -= 10;
+    //si les dégâts sont négatifs alors ils sont mis à 0
     if((damages - m_defense) > pokemon.m_hp) pokemon.m_hp = 0;
     else pokemon.m_hp -= (damages - m_defense);
   }
@@ -51,23 +51,23 @@ public class Pokemon
   {
     return m_hp > 0;
   }
-  /*
-    * Méthode pour vérifier si le pokemon est jouable
+  /**
+   * Méthode pour vérifier si le pokémon a un effet
+   * @return
    */
-  public int getSkillPoints()
-  {
-    return m_skillPoints;
-  }
-
-  public boolean isPoisoned()
-  {
-    return m_isPoisoned;
-  }
-
   public boolean hasEffect()
   {
     return false;
   }
+  /**
+    * Getter pour vérifier si le pokemon a des points d'attaque disponibles
+    * @return points d'attaque
+   */
+  public int getSkillPoints()
+  {
+    return m_attackPoints;
+  }
+
 
   
   //accesseurs
@@ -81,10 +81,6 @@ public class Pokemon
     return m_defense;
   }
 
-  public void setDefense(int defense)
-  {
-      m_defense = defense;
-  }
 
   /**
    * Retourne la vie actuelle du pokémon
@@ -102,14 +98,6 @@ public class Pokemon
   {
     return m_hpMax;
   }
-  public void setHP(int hp)
-  {
-      m_hp = Math.min(hp, m_hpMax);
-  }
-  public void setAttack(int attack)
-  {
-    m_attack = attack;
-  }
   /**
    * Retourne l'attaque du pokémon
    * @return attaque pokémon
@@ -122,17 +110,30 @@ public class Pokemon
   {
     return m_affinity;
   }
+  // mutateurs
+  public void setDefense(int defense)
+  {
+    m_defense = defense;
+  }
+
+  public void setHP(int hp)
+  {
+      m_hp = Math.min(hp, m_hpMax);
+  }
+  public void setAttack(int attack)
+  {
+    m_attack = attack;
+  }
 
   public void setSkillPoints(int skillPoints)
   {
-      m_skillPoints = skillPoints;
+      m_attackPoints = skillPoints;
   }
 
   public void setAffinity(Affinity affinity)
   {
     m_affinity = affinity;
   }
-
   @Override
   /**
    * Affichage pokémon
@@ -142,5 +143,4 @@ public class Pokemon
   {
     return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity.getElement(), m_hp, m_attack);
   }
-
 }

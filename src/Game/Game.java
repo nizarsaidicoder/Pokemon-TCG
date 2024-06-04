@@ -81,6 +81,10 @@ public class Game
         m_currentPlayer.setPlayablePokemons();
     }
 
+    /**
+     * La phase d'effet où le joueur actuel utilise les effets de ses pokémons
+     */
+
     public void EffectPhase()
     {
         // Tant que le joueur a des pokemons qui ont des effets pas encore utilisés
@@ -90,6 +94,24 @@ public class Game
             Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
             Display.effectPhase();
             continueEffectPhase =  m_currentPlayer.playEffects(m_opponent);
+            // Vérifiez si un ou plusieurs pokémons sont morts par l'effet dans les deux terrains
+            // Exemple : KAMIKAZE qui tue le pokémon qui a utilisé l'effet et la cible
+            for(Pokemon pokemon : m_currentPlayer.getField().getPokemons())
+            {
+                if(!pokemon.isAlive())
+                {
+                    m_currentPlayer.getGraveyard().addPokemon(pokemon);
+                    m_currentPlayer.getField().removePokemon(pokemon);
+                }
+            }
+            for (Pokemon pokemon : m_opponent.getField().getPokemons())
+            {
+                if(!pokemon.isAlive())
+                {
+                    m_opponent.getGraveyard().addPokemon(pokemon);
+                    m_opponent.getField().removePokemon(pokemon);
+                }
+            }
         }
     }
     /**

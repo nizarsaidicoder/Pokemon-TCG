@@ -94,6 +94,19 @@ public abstract class CardCollection
     {
         return m_pokemons;
     }
+
+    public ArrayList<PokemonWithPower> getPokemonsWithPower()
+    {
+        ArrayList<PokemonWithPower> pokemonsWithPower = new ArrayList<>();
+        for(Pokemon pokemon : m_pokemons)
+        {
+            if(pokemon.hasEffect())
+            {
+                pokemonsWithPower.add((PokemonWithPower)pokemon);
+            }
+        }
+        return pokemonsWithPower;
+    }
     public int getSize()
     {
         return m_size;
