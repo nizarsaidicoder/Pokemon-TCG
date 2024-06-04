@@ -83,7 +83,7 @@ public class Player
     public boolean playEffects(Player opponent) {
         boolean continueEffectPhase = true;
         while (continueEffectPhase) {
-            String choice = getUserChoice();
+            String choice = getUserChoice(opponent);
             switch (choice) {
                 case "y":
                 case "yes":
@@ -91,31 +91,59 @@ public class Player
                     break;
                 case "n":
                 case "no":
-                    continueEffectPhase = false;
-                    break;
+                    return false;
                 case "s":
                     handleSeeChoice(opponent);
                     break;
+                case "q":
+                case "quit":
+                    return false;
                 default:
                     System.out.print(UIFunctions.colorize("Invalid choice, please enter (Y)es, (N)o, or (S)ee the effects preview: ", "red"));
             }
         }
         return false;
     }
-    
-    private String getUserChoice() {
-        System.out.print("Do you want to use a pokemon effect? (Y/N) or (S)ee the effects preview: ");
+
+    /**
+     * Methode pour demander au joueur de choisir une action
+     * @return choix du joueur
+     */
+    private String getUserChoice(Player opponent)
+    {
+        ArrayList<PokemonWithPower> pokemonsWithPower = m_field.getPokemonsWithPower();
+        boolean canPlayEffect = false;
+        for(PokemonWithPower pokemon : pokemonsWithPower)
+        {
+            Display.printPokemon(pokemon);
+            canPlayEffect = pokemon.getEffect().getTargetType() != TargetType.ENEMY || !opponent.getField().isEmpty();
+            if(canPlayEffect) break;
+        }
+        if(canPlayEffect)
+        {
+            System.out.print("Do you want to play a pokemon effect : (Y)es, (N)o, (S)ee the effects preview : ");
+        }
+        else
+        {
+            System.out.print("(Q)uit or (S)ee the effects preview : ");
+        }
         return m_scanner.nextLine().toLowerCase();
     }
-    
+
+    /**
+     * Methode qui permet au joueur de jouer un effet
+     * @param opponent joueur adverse
+     * @return true si le joueur à toujours des effets à jouer, false sinon
+     */
     private boolean handleYesChoice(Player opponent) {
         useEffects(opponent);
-        if (hasEffects()) {
-            return true;
-        }
-        return false;
+        return hasEffects();
     }
-    
+
+    /**
+     * Methode pour afficher les effets
+     * @param opponent joueur adverse
+     */
     private void handleSeeChoice(Player opponent) {
         ArrayList<Effect> activeEffects = new ArrayList<>();
         activeEffects.addAll(getActiveEffects());
@@ -134,7 +162,13 @@ public class Player
             Display.printEffect(activeEffects.get(index - 1));
         }
     }
-    
+
+    /**
+     * Methode pour demander au joueur de choisir un effet
+     * @param effectCount nombre d'effets
+     * @param message message à afficher
+     * @return index de l'effet choisi
+     */
     private int getUserEffectChoice(int effectCount, String message) {
         int index = -1;
         while (index == -1) {
@@ -153,7 +187,10 @@ public class Player
         return index;
     }
 
-
+    /**
+     * Methode pour savoir si le joueur a des effets à jouer
+     * @return true si le joueur a des effets à jouer, false sinon
+     */
     public boolean hasEffects()
     {
         for(PokemonWithPower pokemon : m_field.getPokemonsWithPower())
@@ -166,11 +203,54 @@ public class Player
         return false;
     }
 
-    public void useEffects(Player opponent)
+    /**
+     * Methode pour jouer les effets
+     * @param opponent joueur adverse
+     */
+    public boolean useEffects(Player opponent)
     {
         PokemonWithPower pokemonWithPower = promptPokemonWithPower(opponent);
+        if(pokemonWithPower == null) return false;
         Pokemon targetPokemon = getTargetPokemon(pokemonWithPower,opponent);
-        pokemonWithPower.getEffect().activate(targetPokemon);
+        pokemonWithPower.activateEffect(targetPokemon);
+        killDeadPokemons(opponent);
+        return true;
+    }
+    public void killDeadPokemons(Player opponent)
+    {
+        ArrayList<Pokemon> pokemosToKill = new ArrayList<>();
+        try
+        {
+            for(int i = 0; i < m_field.getPokemons().size(); i++)
+            {
+                if(!m_field.getPokemon(i).isAlive())
+                {
+                    pokemosToKill.add(m_field.getPokemon(i));
+                }
+            }
+            for(Pokemon pokemon : pokemosToKill)
+            {
+                m_graveyard.addPokemon(pokemon);
+                m_field.removePokemon(pokemon);
+            }
+            pokemosToKill.clear();
+            for(int i = 0; i < opponent.getField().getPokemons().size(); i++)
+            {
+                if(!opponent.getField().getPokemon(i).isAlive())
+                {
+                    pokemosToKill.add(opponent.getField().getPokemon(i));
+                }
+            }
+            for(Pokemon pokemon : pokemosToKill)
+            {
+                opponent.getGraveyard().addPokemon(pokemon);
+                opponent.getField().removePokemon(pokemon);
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
     /**
      * Methode pour attaquer un joueur
@@ -281,10 +361,17 @@ public class Player
     {
         // Prompt the player to choose a pokemon to attack with
         ArrayList<PokemonWithPower> pokemonsWithPower = m_field.getPokemonsWithPower();
+        for(PokemonWithPower pokemon : pokemonsWithPower)
+        {
+           if( pokemon.getEffect().getTargetType() == TargetType.ENEMY && opponent.getField().isEmpty())
+               pokemonsWithPower.remove(pokemon);
+        }
+        if(pokemonsWithPower.isEmpty()) return null;
         StringBuilder message = new StringBuilder("Choose a pokemon to use its effect : ( ");
         for(int i=0; i< pokemonsWithPower.size(); i++)
         {
-            if(!pokemonsWithPower.get(i).getEffect().isUsed() || pokemonsWithPower.get(i).getEffect().getTargetType() == TargetType.ENEMY && !opponent.getField().isEmpty())  message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
+            if(!pokemonsWithPower.get(i).getEffect().isUsed())
+                message.append(pokemonsWithPower.get(i).getName()).append("(").append(i + 1).append(") ");
         }
         message.append(" ) : ");
         System.out.print(message);
@@ -311,6 +398,12 @@ public class Player
         return pokemonsWithPower.get(index);
     }
 
+    /**
+     * Methode pour demander au joueur de choisir un pokemon adverse
+     * @param pokemonWithPower pokemon avec pouvoir
+     * @param opponent joueur adverse
+     * @return pokemon adverse choisi
+     */
     public Pokemon getTargetPokemon(PokemonWithPower pokemonWithPower, Player opponent)
     {
         // Prompt the player to choose a pokemon to attack
@@ -439,6 +532,11 @@ public class Player
     {
         return m_graveyard;
     }
+
+    /**
+     * Methode pour recuperer les effets actifs
+     * @return liste des effets actifs
+     */
     public ArrayList<Effect> getActiveEffects()
     {
         ArrayList<Effect> activeEffects = new ArrayList<>();

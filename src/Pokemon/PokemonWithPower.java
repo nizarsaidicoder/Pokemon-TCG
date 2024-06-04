@@ -23,16 +23,31 @@ public class PokemonWithPower extends Pokemon
         effect.setOwner(this);
     }
 
+    /**
+     * Active l'effet du pouvoir
+     * @param target cible de l'effet
+     */
+    public void activateEffect(Pokemon target)
+    {
+        m_effect.activate(target);
+    }
     @Override
     public boolean hasEffect() {
         return true;
     }
+    /**
+     * Setter de l'effet
+     * @param effect
+     */
     // Getters et Setters
     public void setEffect(Effect effect)
     {
         m_effect = effect;
     }
-    
+    /**
+     * Getter de l'effet
+     * @return
+     */
     public Effect getEffect()
     {
         return m_effect;

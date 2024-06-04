@@ -13,10 +13,4 @@ public class Deck extends CardCollection
         m_pokemons = pokemons;
         m_size = pokemons.size();
     }
-
-    @Override 
-    public String toString()
-    {
-        return String.format("pioche : %d pokémons", m_pokemons.size());
-    }
 }

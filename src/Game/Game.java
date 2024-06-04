@@ -95,22 +95,8 @@ public class Game
             continueEffectPhase =  m_currentPlayer.playEffects(m_opponent);
             // Vérifiez si un ou plusieurs pokémons sont morts par l'effet dans les deux terrains
             // Exemple : KAMIKAZE qui tue le pokémon qui a utilisé l'effet et la cible
-            for(Pokemon pokemon : m_currentPlayer.getField().getPokemons())
-            {
-                if(!pokemon.isAlive())
-                {
-                    m_currentPlayer.getGraveyard().addPokemon(pokemon);
-                    m_currentPlayer.getField().removePokemon(pokemon);
-                }
-            }
-            for (Pokemon pokemon : m_opponent.getField().getPokemons())
-            {
-                if(!pokemon.isAlive())
-                {
-                    m_opponent.getGraveyard().addPokemon(pokemon);
-                    m_opponent.getField().removePokemon(pokemon);
-                }
-            }
+
+
         }
     }
     /**

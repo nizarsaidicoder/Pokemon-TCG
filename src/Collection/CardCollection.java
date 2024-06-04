@@ -95,6 +95,10 @@ public abstract class CardCollection
         return m_pokemons;
     }
 
+    /**
+     * Methode pour recuperer la liste des pokemons de la collection avec pouvoir
+     * @return la liste des pokemons avec pouvoir
+     */
     public ArrayList<PokemonWithPower> getPokemonsWithPower()
     {
         ArrayList<PokemonWithPower> pokemonsWithPower = new ArrayList<>();

@@ -12,9 +12,4 @@ public class Hand extends CardCollection {
         super(maxSize);
     }
 
-    @Override
-    public String toString()
-    {
-        return String.format("Main : %d pokémons", m_pokemons.size());
-    }
 }

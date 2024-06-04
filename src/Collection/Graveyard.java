@@ -14,10 +14,4 @@ public class Graveyard  extends CardCollection
         super(maxSize);
     }
 
-
-    @Override 
-    public String toString()
-    {
-        return String.format("défausse : %d pokémons", m_pokemons.size());
-    }
 }
