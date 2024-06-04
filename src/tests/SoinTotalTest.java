@@ -1,7 +1,6 @@
 package tests;
 
 import Pokemon.Affinity.Fire;
-import Pokemon.Effects.Abilities.Resistance;
 import Pokemon.Effects.Abilities.SoinTotal;
 import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;

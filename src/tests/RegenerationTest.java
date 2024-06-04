@@ -3,7 +3,6 @@ package tests;
 import Pokemon.Affinity.Fire;
 import Pokemon.Effects.Abilities.Regeneration;
 import Pokemon.Effects.Abilities.SoinTotal;
-import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;
 import org.junit.jupiter.api.Test;
 

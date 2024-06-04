@@ -1,6 +1,5 @@
 package Game;
 
-import Pokemon.Effects.*;
 import Pokemon.*;
 import Player.Player;
 import Player.AI;

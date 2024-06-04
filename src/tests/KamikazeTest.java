@@ -2,8 +2,6 @@ package tests;
 
 import Pokemon.Affinity.Fire;
 import Pokemon.Effects.Abilities.Kamikaze;
-import Pokemon.Effects.Abilities.Regeneration;
-import Pokemon.Effects.Abilities.SoinTotal;
 import Pokemon.*;
 import org.junit.jupiter.api.Test;
 

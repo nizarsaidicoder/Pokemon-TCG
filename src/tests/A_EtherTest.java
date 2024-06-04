@@ -3,7 +3,6 @@ package tests;
 import Pokemon.Affinity.Element;
 import Pokemon.Affinity.Fire;
 import Pokemon.Effects.Abilities.A_Ether;
-import Pokemon.Effects.Abilities.A_Plomb;
 import Pokemon.Pokemon;
 import Pokemon.PokemonWithPower;
 import org.junit.jupiter.api.Test;
