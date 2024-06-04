@@ -132,13 +132,4 @@ public class Pokemon
   {
     m_affinity = affinity;
   }
-  @Override
-  /**
-   * Affichage pokémon
-   * @return "<nom>, <affinité>, HP : <hp>, Attack : <attaque>"
-   */
-  public String toString()
-  {
-    return String.format("%s, %s, HP : %d, Attack : %d", m_name, m_affinity.getElement(), m_hp, m_attack);
-  }
 }

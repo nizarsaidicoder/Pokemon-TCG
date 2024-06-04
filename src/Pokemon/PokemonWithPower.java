@@ -37,15 +37,5 @@ public class PokemonWithPower extends Pokemon
     {
         return m_effect;
     }
-
-    @Override
-    /**
-     * Affichage pokémon
-     * @return "<nom>, <affinité>, HP : <hp>, Attack : <attaque>"
-     */
-    public String toString()
-    {
-      return super.toString() + String.format(", Power : %s", m_effect.getPower());
-    }
     
 }

@@ -174,6 +174,10 @@ public class Display {
         System.out.println(UIFunctions.colorizeAndCenter("Spawn phase 🐣", "blue", screenSize));
     }
 
+    /**
+     * Affiche la nombre de pokemons dans la pioche
+     * @param size
+     */
     public static void printDeck(int size)
     {
         String out = " _________________________ " + "\n" +
@@ -183,6 +187,10 @@ public class Display {
         System.out.println(out);
     }
 
+    /**
+     * Affiche la terrain d'un joueur
+     * @param pokemons les pokemons du joueur
+     */
     public static void printField(ArrayList<Pokemon> pokemons)
     {
         String RESET = "\033[0m";  // Text Color Reset
@@ -295,7 +303,14 @@ public class Display {
                 if(pokemons.get(i).hasEffect())
                 {
                     PokemonWithPower pokemonWithPower = (PokemonWithPower) pokemons.get(i);
-                    System.out.print(UIFunctions.padRight("| Ability : " + foreColor + pokemonWithPower.getEffect().getPower(), 30) + RESET + "|");
+                    if(!pokemonWithPower.getEffect().isUsed())
+                    {
+                        System.out.print(UIFunctions.padRight("| Effect : " + foreColor + pokemonWithPower.getEffect().getPower(), 30) + RESET + "|");
+                    }
+                    else
+                    {
+                        System.out.print(UIFunctions.padRight("| Effect : "  + pokemonWithPower.getEffect().getPower(), 30)  + "|");
+                    }
                 }
                 else
                 {
@@ -323,16 +338,24 @@ public class Display {
         }
         System.out.println();
     }
-    //Resistance: Upon use, the Pokémon with this current effect can select an ally (including itself). Until the end of the battle or the death of the chosen Pokémon, that Pokémon takes 10 less damage from each attack.
-    public static void printGraveyard(int size)
+
+    /**
+     * Affiche le cimetière
+     * @param nbPokemons le nombre de pokemons dans le cimetière
+     */
+    public static void printGraveyard(int nbPokemons)
     {
         String out = " _________________________ " + "\n" +
-                "|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(size),2,'0') + "      |" + "\n" +
+                "|      GRAVEYARD: " + UIFunctions.padLeft(Integer.toString(nbPokemons),2,'0') + "      |" + "\n" +
                 "|_________________________|";
         out = UIFunctions.colorize(out, "red");
         System.out.println(out);
     }
 
+    /**
+     * Affiche la main
+     * @param pokemons la liste des pokemons dans la main
+     */
     public static void printHand(ArrayList<Pokemon> pokemons)
     {
         System.out.println();
@@ -345,6 +368,10 @@ public class Display {
         }
     }
 
+    /**
+     * Affiche l'IA
+     * @param ai
+     */
     public static void printAI(Player ai)
     {
         // Affiche le joueur
@@ -357,6 +384,10 @@ public class Display {
         printField(ai.getField().getPokemons());
     }
 
+    /**
+     * Affiche le joueur
+     * @param player le joueur
+     */
     public static void printPlayer(Player player)
     {
         System.out.println(UIFunctions.colorizeAndCenter(player.getName(), "blue", screenSize));
@@ -371,6 +402,10 @@ public class Display {
         System.out.println();
     }
 
+    /**
+     * Affiche un pokemon
+     * @param pokemon le pokemon
+     */
     public static void printPokemon(Pokemon pokemon)
     {
         String out = UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight(pokemon.getName(),20) + UIFunctions.getColorCode("reset") +  " | " + UIFunctions.padRight(Integer.toString(pokemon.getHP()) ,20) + " | " + UIFunctions.getCorrespondingColor(pokemon.getAffinity().getElement()) + UIFunctions.padRight( pokemon.getAffinity().getElement().toString(), 20 )+ UIFunctions.getColorCode("reset") + " | " + pokemon.getAttack();
@@ -381,6 +416,11 @@ public class Display {
         }
         System.out.println(out);
     }
+
+    /**
+     * Affiche les effets
+     * @param effects les effets
+     */
     public static void printEffects(ArrayList<Effect> effects)
     {
         System.out.println(UIFunctions.colorizeAndCenter("Effects", "purple", screenSize));
@@ -393,6 +433,11 @@ public class Display {
             i++;
         }
     }
+
+    /**
+     * Affiche les details d'un effet
+     * @param effect l'effet à afficher
+     */
     public static void printEffect(Effect effect)
     {
         List<String> split = UIFunctions.splitString(effect.getDescription(), 27);
@@ -400,7 +445,6 @@ public class Display {
         System.out.println("|                               |");
         System.out.println("|" + UIFunctions.colorizeAndCenter(effect.getPower().toString(), UIFunctions.getCorrespondingColor(effect.getPower()),30) + " |");
         System.out.println("|_______________________________|");
-        System.out.println("| Type      : Buff              |");
         System.out.println("| Duration  : Unique            |");
         System.out.println("|                               |");
         for(String s : split)
@@ -417,6 +461,10 @@ public class Display {
     {
         System.out.println(UIFunctions.colorizeAndCenter("Battle phase ⚔️", "blue", screenSize));
     }
+
+    /**
+     * Affiche la phase d'effet
+     */
     public static void effectPhase()
     {
         System.out.println(UIFunctions.colorizeAndCenter("Effect phase 🌀", "blue", screenSize));

@@ -55,7 +55,12 @@ public class UIFunctions
         return output.toString();
     }
 
-
+    /**
+     * Centrer une chaîne de caractères
+     * @param s chaîne de caractères à centrer
+     * @param n nombre d'espaces nécessaire
+     * @return la chaîne de caractère modifiée
+     */
      public static String center(String s, int n)
     {
         StringBuilder out = new StringBuilder();
@@ -64,6 +69,11 @@ public class UIFunctions
         return pad % 2 == 0 ? out.toString() : out.append(" ").toString();
     }
 
+    /**
+     * La couleur correspondant à l'affinité
+     * @param affinity affinité
+     * @return la couleur correspondante
+     */
     public static String getCorrespondingColor(Element affinity) {
         String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
@@ -90,6 +100,12 @@ public class UIFunctions
         }
         return out;
     }
+
+    /**
+     * La couleur correspondant à la puissance
+     * @param power puissance
+     * @return la couleur correspondante
+     */
     public static String  getCorrespondingColor(Power power) {
         String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
@@ -128,6 +144,12 @@ public class UIFunctions
         }
         return out;
     }
+
+    /**
+     * La couleur correspondant à la couleur envoyée en argument
+     * @param color couleur
+     * @return la couleur correspondante
+     */
     public static String getColorCode(String color) {
         String out = "";
         switch (color.toUpperCase()) {
@@ -183,6 +205,10 @@ public class UIFunctions
         }
         return out;
     }
+
+    /**
+     * Efface le terminal
+     */
     public static void clearTerminal() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -198,6 +224,14 @@ public class UIFunctions
     {
         return getColorCode(color + "_text") + text + getColorCode("RESET");
     }
+
+    /**
+     * Colorise le texte en fonction de la couleur envoyée en argument et le centre
+     * @param text texte à coloriser
+     * @param color couleur
+     * @param n nombre d'espaces nécessaire
+     * @return texte colorisé
+     */
     public static String colorizeAndCenter(String text, String color, int n) 
     {
         return colorize(center(text,n),"",color);
@@ -213,6 +247,12 @@ public class UIFunctions
         return getColorCode(foreColor + "_text") + getColorCode(backColor + "_background") + text + getColorCode("RESET");
     }
 
+    /**
+     * Divise une chaîne de caractères en morceaux de taille maximale
+     * @param input chaîne de caractères à diviser
+     * @param maxChunkSize taille maximale
+     * @return liste de morceaux
+     */
     public static List<String> splitString(String input, int maxChunkSize) {
         List<String> chunks = new ArrayList<>();
 

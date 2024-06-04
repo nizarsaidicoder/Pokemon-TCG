@@ -17,7 +17,22 @@ public abstract class Effect
         m_description = description;
         m_targetType = targetType;
     }
-
+    /**
+     * Active l'effet sur le pokémon
+     * @param p pokémon sur lequel activer l'effet
+     */
+    public abstract void activate(Pokemon p);
+    /**
+     * Methode pour réactiver l'effet
+     */
+    public void useAgain()
+    {
+        m_used = false;
+    }
+    /**
+     * Methode pour obtenir la puissance de l'effet
+     * @return la nom du pouvoir de l'effet
+     */
     public Power getPower()
     {
         return m_power;
@@ -37,35 +52,33 @@ public abstract class Effect
     {
         return m_used;
     }
+
+    /**
+     * Methode pour obtenir la description de l'effet
+     * @return la description de l'effet
+     */
     public String getDescription()
     {
         return m_description;
     }
     /**
      * Methode pour définir le propriétaire de l'effet
-     * @param p
+     * @param p propriétaire de l'effet
      */
     public void setOwner(PokemonWithPower p)
     {
         m_owner = p;
     }
-    /**
-     * Methode pour réactiver l'effet
-     */
-    public void useAgain()
-    {
-        m_used = false;
-    }
 
+    /**
+     * Methode pour obtenir le propriétaire de l'effet
+     * @return le propriétaire de l'effet
+     */
     public Pokemon getPokemon()
     {
         return m_owner;
     }
-    /**
-     * Active l'effet sur le pokémon
-     * @param p pokémon sur lequel activer l'effet
-     */
-    public abstract void activate(Pokemon p);
+
 
     
 }
