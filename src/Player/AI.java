@@ -1,10 +1,7 @@
 package Player;
 
-import Pokemon.Effects.Effect;
 import Pokemon.*;
 import Pokemon.Effects.TargetType;
-import UI.Display;
-import UI.UIFunctions;
 
 import java.util.ArrayList;
 
@@ -74,7 +71,7 @@ public class AI extends Player
         int pokemonIndex = -1;
         for(int i = 0; i < m_field.getPokemons().size(); i++)
         {
-            if(m_field.getPokemon(i).getSkillPoints() > 0)
+            if(m_field.getPokemon(i).getAttackPoints() > 0)
             {
                 pokemonIndex = i;
                 break;
@@ -84,10 +81,10 @@ public class AI extends Player
         // get the pokemon that is weak to the current pokemon
         Pokemon enemyPokemon = getOpponentPokemon(pokemon, opponent.getField().getPokemons());
         
-        if(pokemon.getSkillPoints() > 0)
+        if(pokemon.getAttackPoints() > 0)
         {
             pokemon.attack(enemyPokemon);
-            pokemon.setSkillPoints(pokemon.getSkillPoints()-1);
+            pokemon.setSkillPoints(pokemon.getAttackPoints()-1);
             if(!enemyPokemon.isAlive())
             {
                 // Ajoute le pokemon adverse au cimetière

@@ -63,12 +63,10 @@ public class Pokemon
     * Getter pour vérifier si le pokemon a des points d'attaque disponibles
     * @return points d'attaque
    */
-  public int getSkillPoints()
+  public int getAttackPoints()
   {
     return m_attackPoints;
   }
-
-
   
   //accesseurs
   public String getName()

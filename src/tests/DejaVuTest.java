@@ -17,7 +17,7 @@ class DejaVuTest {
         dejaVu.setOwner(p);
         p2.setSkillPoints(1);
         p.getEffect().activate(p2);
-        assertEquals(2,p2.getSkillPoints());
+        assertEquals(2,p2.getAttackPoints());
     }
 
 }

@@ -18,7 +18,7 @@ public class PokemonGenerator {
                     new Resistance(), new Berserk(), new DejaVu(), new A_Ether(), new Kamikaze(), new Regeneration(), new SoinTotal(), new A_Plomb()
             )
     );
-    public static ArrayList<Affinity> m_affinities = new ArrayList<>(Arrays.asList(new Fire(), new Water(), new Earth(), new Air()));
+    public static final ArrayList<Affinity> m_affinities = new ArrayList<>(Arrays.asList(new Fire(), new Water(), new Earth(), new Air()));
 
     /**
      * Méthode pour créer les pokémons
@@ -38,7 +38,6 @@ public class PokemonGenerator {
                 Effect effect = getRandomEffect();
                 PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effect);
                 pokemons.add(p);
-                effect.setOwner(p);
                 powerCount++;
             }
             else pokemons.add(new Pokemon(pokemon, hp, attack, affinity));
@@ -46,18 +45,29 @@ public class PokemonGenerator {
         shuffle(pokemons);
         return pokemons;
     }
+    /**
+     * Méthode pour obtenir une affinité aléatoire
+     * @return une affinité aléatoire
+     */
     public static Affinity getRandomAffinity()
     {
         int index = getRandom(0, m_affinities.size() - 1);
         return m_affinities.get(index);
     }
-
+    /**
+     * Méthode pour obtenir un effet aléatoire
+     * @return un effet aléatoire
+     */
     public static Effect getRandomEffect()
     {
         int index = getRandom(0, m_effects.size() - 1);
         if(m_effects.isEmpty()) return null;
         return m_effects.remove(index);
     }
+    /**
+     * Méthode pour mélanger une liste de pokémons
+     * @param pokemons liste de pokémons à mélanger
+     */
     public static void shuffle(ArrayList<Pokemon> pokemons)
     {
         Random rnd = new Random();
@@ -75,7 +85,6 @@ public class PokemonGenerator {
      * @param max le nombre maximum
      * @return un nombre aléatoire entre min et max
      */
-
     public static int getRandom(int min, int max) {
 
         int range = (max - min) + 1;

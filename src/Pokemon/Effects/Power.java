@@ -1,5 +1,7 @@
 package Pokemon.Effects;
-
+/**
+ * Enumération des pouvoirs possibles
+ */
 public enum Power 
 {
     RESISTANCE,

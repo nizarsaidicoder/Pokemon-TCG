@@ -22,11 +22,17 @@ public abstract class Effect
     {
         return m_power;
     }
-
+    /**
+     * Methode pour obtenir le type de cible de l'effet
+     * @return le type de cible de l'effet
+     */
     public TargetType getTargetType()
     {
         return m_targetType;
     }
+    /** 
+     * Methode pour savoir si l'effet a déjà été utilisé
+     */
     public Boolean isUsed()
     {
         return m_used;
@@ -35,12 +41,17 @@ public abstract class Effect
     {
         return m_description;
     }
-    
+    /**
+     * Methode pour définir le propriétaire de l'effet
+     * @param p
+     */
     public void setOwner(PokemonWithPower p)
     {
         m_owner = p;
     }
-
+    /**
+     * Methode pour réactiver l'effet
+     */
     public void useAgain()
     {
         m_used = false;
@@ -50,7 +61,10 @@ public abstract class Effect
     {
         return m_owner;
     }
-
+    /**
+     * Active l'effet sur le pokémon
+     * @param p pokémon sur lequel activer l'effet
+     */
     public abstract void activate(Pokemon p);
 
     
