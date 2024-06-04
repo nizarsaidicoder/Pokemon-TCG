@@ -216,6 +216,11 @@ public class Player
         killDeadPokemons(opponent);
         return true;
     }
+
+    /**
+     * Methode pour tuer les pokemons qui n'ont plus de points de vie
+     * @param opponent joueur adverse
+     */
     public void killDeadPokemons(Player opponent)
     {
         ArrayList<Pokemon> pokemosToKill = new ArrayList<>();
@@ -263,7 +268,6 @@ public class Player
         Pokemon enemyPokemon = promptEnemyPokemon(opponent);
         // Attaque le pokemon
         pokemon.attack(enemyPokemon);
-        pokemon.setSkillPoints(pokemon.getAttackPoints() -1);
         if(!enemyPokemon.isAlive()) {
             // Ajoute le pokemon adverse au cimetière
             opponent.getGraveyard().addPokemon(enemyPokemon);
@@ -278,7 +282,7 @@ public class Player
         // Parcourt la main et met à jour les pokemons jouables
         for(Pokemon pokemon : m_field.getPokemons())
         {
-            pokemon.setSkillPoints(pokemon.getAttackPoints() + 1);
+            pokemon.setAttackPoints(pokemon.getAttackPoints() + 1);
         }
     }
     /**

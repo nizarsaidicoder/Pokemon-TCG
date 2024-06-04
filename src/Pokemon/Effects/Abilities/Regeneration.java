@@ -15,11 +15,14 @@ public class Regeneration extends Effect
 
     public void activate(Pokemon p) 
     {
-        PokemonWithPower pwp = (PokemonWithPower)p;
-        //régénère le pouvoir du pokémon
-        if(pwp.getEffect().isUsed())
+        if(p.hasEffect())
         {
-            pwp.getEffect().useAgain();
+            PokemonWithPower pwp = (PokemonWithPower)p;
+            //régénère le pouvoir du pokémon
+            if(pwp.getEffect().isUsed())
+            {
+                pwp.getEffect().useAgain();
+            }
         }
         m_used = true;
     }    

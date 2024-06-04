@@ -33,17 +33,14 @@ public class PokemonGenerator {
             int hp = getRandom(10, 20) * 10;
             int attack = getRandom(1, 4) * 10;
             Affinity affinity = getRandomAffinity();
-//            if(getRandom(0,1) == 1 && powerCount < 8)
-//            {
-//                Effect effect = getRandomEffect();
-//                PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effect);
-//                pokemons.add(p);
-//                powerCount++;
-//            }
-//            else pokemons.add(new Pokemon(pokemon, hp, attack, affinity));
-            Kamikaze kamikaze = new Kamikaze();
-            PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, kamikaze);
-            pokemons.add(p);
+            if(getRandom(0,1) == 1 && powerCount < 8)
+            {
+                Effect effect = getRandomEffect();
+                PokemonWithPower p = new PokemonWithPower(pokemon, hp, attack, affinity, effect);
+                pokemons.add(p);
+                powerCount++;
+            }
+            else pokemons.add(new Pokemon(pokemon, hp, attack, affinity));
         }
         shuffle(pokemons);
         return pokemons;

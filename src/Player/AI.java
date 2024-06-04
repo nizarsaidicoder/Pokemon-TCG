@@ -84,7 +84,6 @@ public class AI extends Player
         if(pokemon.getAttackPoints() > 0)
         {
             pokemon.attack(enemyPokemon);
-            pokemon.setSkillPoints(pokemon.getAttackPoints()-1);
             if(!enemyPokemon.isAlive())
             {
                 // Ajoute le pokemon adverse au cimetière

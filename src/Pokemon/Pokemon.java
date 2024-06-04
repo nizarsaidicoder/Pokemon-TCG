@@ -23,6 +23,7 @@ public class Pokemon
     m_attack = attack;
     m_defense = 0;
     m_affinity = affinity;
+    m_attackPoints = 0;
   }
   /**
    * Attaque un autre pokémon avec gestion de l'affinité
@@ -38,6 +39,7 @@ public class Pokemon
     //si les dégâts sont négatifs alors ils sont mis à 0
     if((damages - m_defense) > pokemon.m_hp) pokemon.m_hp = 0;
     else pokemon.m_hp -= (damages - m_defense);
+    m_attackPoints--;
   }
   public boolean isStrongTo(Affinity affinity)
   {
@@ -123,7 +125,7 @@ public class Pokemon
     m_attack = attack;
   }
 
-  public void setSkillPoints(int skillPoints)
+  public void setAttackPoints(int skillPoints)
   {
       m_attackPoints = skillPoints;
   }

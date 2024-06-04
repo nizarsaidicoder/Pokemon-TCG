@@ -76,8 +76,6 @@ public class Game
             Display.spawnPhase();
             m_currentPlayer.spawn();
         }
-        // Mettez à jour les pokémons jouables du joueur actuel
-        m_currentPlayer.setPlayablePokemons();
     }
 
     /**
@@ -93,10 +91,6 @@ public class Game
             Display.gameStatus(m_turn, m_currentPlayer, m_player, m_ai);
             Display.effectPhase();
             continueEffectPhase =  m_currentPlayer.playEffects(m_opponent);
-            // Vérifiez si un ou plusieurs pokémons sont morts par l'effet dans les deux terrains
-            // Exemple : KAMIKAZE qui tue le pokémon qui a utilisé l'effet et la cible
-
-
         }
     }
     /**
@@ -104,7 +98,8 @@ public class Game
      */
     public void battlePhase()
     {
-        
+        // Mettez à jour les pokémons jouables du joueur actuel
+        m_currentPlayer.setPlayablePokemons();
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
         while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
         {
