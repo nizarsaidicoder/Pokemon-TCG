@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class PokemonGenerator {
-    public static final ArrayList<String> m_pokemonNames =new ArrayList<>(
+    public static  ArrayList<String> m_pokemonNames =new ArrayList<>(
             Arrays.asList(
                     "Pikachu","Pedro","Salamèche", "Carapuce", "Bulbizarre", "Evoli", "Mentali", "Herbizarre", "Florizarre", "Reptincel", "Dracaufeu", "Carabaffe", "Tortank", "Chenipan", "Chrisacier", "Papilusion", "Rattata", "Rattatac", "Raichu", "Goupix", "Feunard", "Rondoudou", "Grodoudou", "Taupiqueur", "Triopikeur", "Miaouss", "Psykokwak", "Akwakwak", "Caninos", "Arcanin", "Ponyta", "Galopa", "Canarticho", "Otaria", "Lamantine", "Kokyas", "Fantominus", "Poissirène", "Magicarpe", "Léviator", "Aquali", "Voltali", "Pyroli"
             ));
@@ -18,7 +18,7 @@ public class PokemonGenerator {
                     new Resistance(), new Berserk(), new DejaVu(), new A_Ether(), new Kamikaze(), new Regeneration(), new SoinTotal(), new A_Plomb()
             )
     );
-    public static final ArrayList<Affinity> m_affinities = new ArrayList<>(Arrays.asList(new Fire(), new Water(), new Earth(), new Air()));
+    public static  ArrayList<Affinity> m_affinities = new ArrayList<>(Arrays.asList(new Fire(), new Water(), new Earth(), new Air()));
 
     /**
      * Méthode pour créer les pokémons

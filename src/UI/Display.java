@@ -297,32 +297,38 @@ public class Display {
         System.out.println();
         for(int i = 0; i < 3; i++)
         {
-            if(pokemons.size() > i)
+            if(pokemons.size()>i)
             {
-                String foreColor = UIFunctions.getCorrespondingColor(pokemons.get(i).getAffinity().getStrength());
                 if(pokemons.get(i).hasEffect())
                 {
                     PokemonWithPower pokemonWithPower = (PokemonWithPower) pokemons.get(i);
+                    String foreColor = UIFunctions.getCorrespondingColor(pokemonWithPower.getEffect().getPower());
+    
                     if(!pokemonWithPower.getEffect().isUsed())
                     {
                         System.out.print(UIFunctions.padRight("| Effect : " + foreColor + pokemonWithPower.getEffect().getPower(), 30) + RESET + "|");
                     }
                     else
                     {
-                        System.out.print(UIFunctions.padRight("| Effect : "  + pokemonWithPower.getEffect().getPower(), 30)  + "|");
+                        System.out.print(UIFunctions.padRight("| Effect : "  + pokemonWithPower.getEffect().getPower(), 25) + "|");
                     }
+                    System.out.print("\t\t");
+
                 }
                 else
                 {
                     System.out.print("|                        |");
+                    System.out.print("\t\t");
+
                 }
-                System.out.print("\t\t");
             }
             else
             {
                 System.out.print("|                        |");
                 System.out.print("\t\t");
+
             }
+        
         }
         System.out.println();
         for(int i = 0; i < 3; i++)

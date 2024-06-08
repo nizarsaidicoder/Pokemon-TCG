@@ -105,7 +105,7 @@ public class AI extends Player
         }
         if(strongPokemons.size() == 1)
         {
-            return strongPokemons.getFirst();
+            return strongPokemons.get(0);
         }
         else if(strongPokemons.size() > 1)
         {

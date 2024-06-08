@@ -99,7 +99,7 @@ public class Game
     public void battlePhase()
     {
         // Mettez à jour les pokémons jouables du joueur actuel
-        m_currentPlayer.setPlayablePokemons();
+        if(!m_opponent.getField().isEmpty()) m_currentPlayer.setPlayablePokemons();
         // tant que le joueur actuel a des pokemons jouables sur le terrain et que l'adversaire a des pokemons sur le terrain
         while(m_currentPlayer.hasPlayablePokemons() && !m_opponent.getField().isEmpty())
         {

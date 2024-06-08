@@ -546,10 +546,11 @@ public class Player
         ArrayList<Effect> activeEffects = new ArrayList<>();
         for(PokemonWithPower pokemon : m_field.getPokemonsWithPower())
         {
-            if(!pokemon.getEffect().isUsed())
-            {
+            activeEffects.add(pokemon.getEffect());
+        }
+        for(PokemonWithPower pokemon : m_hand.getPokemonsWithPower())
+        {
                 activeEffects.add(pokemon.getEffect());
-            }
         }
         return activeEffects;
     }
